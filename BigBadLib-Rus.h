@@ -13,8 +13,8 @@ DEFINES - If you have a program that needs certain specific functions that are u
 example: for a tictactoe program make sure to have #define TicTacToe
 */
 //Include gaurd - If this pseudolibrary is already defined, dont add it again
-#if !defined RUS_BIGBADLIB
-	#define RUS_BIGBADLIB
+#if !defined BIGBADLIB_RUS
+	#define BIGBADLIB_RUS
 
 	/*
 		//function determines...

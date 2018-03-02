@@ -2,29 +2,40 @@
 *                                                *
 *  EasyBMP Cross-Platform Windows Bitmap Library * 
 *                                                *
-*  Authors: Paul Macklin                         *
-*           Michael Nistler                      *
+*  Author: Paul Macklin                          *
 *   email: pmacklin@math.uci.edu                 *
-*          <no_email_given>                      *
 *                                                *
-*    file: EasyBMP_win32.h                       *
-*    date: 8-22-2005                             *
+*    file: EasyBMP_SimpleArray.h                 *
+*    date: 2-17-2005                             *
 * version: 1.05.00                               *
 *                                                *
 *   License: BSD (revised)                       *
 * Copyright: 2005-2006 by the EasyBMP Project    * 
 *                                                *
-* description: EasyBMP add-on to interface with  *
-*              win32 / GDI                       *
+* description: Easy matrix class for data import *
 *                                                *
 *************************************************/
 
-#include <windows.h>
-#include "EasyBMP.h"
+#ifndef _EasyBMP_SimpleArray_h_
+#define _EasyBMP_SimpleArray_h_
 
-bool HBITMAPtoBMP(HDC hDC,HBITMAP hBitmap,BMP& OutputImage);
-HBITMAP BMPtoHBITMAP(HDC hDC,BMP& Input);
-bool CaptureScreen( BMP& OutputImage );
-bool CaptureWindow( HWND hWND , BMP& OutputImage );
-bool CaptureForegroundWindow( BMP& OutputImage );
+class SimpleArray{
+public:
+ int Rows;
+ int Cols;
+ char Delimiter;
+ double** Data;
 
+ SimpleArray();
+ SimpleArray(int nR, int nC); 
+ bool ReadFromFile( char* FileName );
+ void WriteToFile( char* FileName );
+ void SetSize(int nR, int nC);
+ 
+ double* operator()(int i, int j);
+ double* operator()(int i );
+ 
+ ~SimpleArray();
+};
+
+#endif

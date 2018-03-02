@@ -1,0 +1,11 @@
+Fractals Change Log 
+
+Date: 9-9-2005
+Version 0.66:
+   Added mandelbrot.cpp, which was generously contributed by 
+   Adrian Neumann. (Paul Macklin) 
+ 
+   Added buddhabrot.cpp, which was contributed by Adrian 
+   Neumann. (Paul Macklin)
+
+

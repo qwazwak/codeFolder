@@ -4,7 +4,7 @@ Function FILE- This is actually making functions and should never be shared. onl
 INFO: SEE rus-BigBadLib.h
 
 */
-#include "rus_BigBadLib.h"
+#include "BigBadLib-Rus.h"
 
 
 
@@ -15,15 +15,107 @@ INFO: SEE rus-BigBadLib.h
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
 
-#include <time.h>
+
+
+//#include "EasyBMP.h"
+//#include "EasyBMP_Font.h"
+//#include "EasyBMP_Geometry.h"
+//#include "EasyBMP_SimpleArray.h"
+#include <random>
 /*
-	Has more, all I use is:
-	VARIABLE = time(NULL);
+	random_device rd;
+	rd.min() << std::endl;
+	cout << "maximum: " << rd.max() << std::endl;
+	cout << "entropy: " << rd.entropy() << std::endl;
+	cout << "a random number: " << rd() << std::endl;
+		
+*/
+#include <cstdint>
+/*
+What it adds:
+	Signed maximum width integer type
+		intmax_t
+	Maximum width unsigned integer type 
+		uintmax_t
+	
+	
+	
+	
+	
+	Signed integer with width of exactly 8, 16, 32 and 64 bits respectively with no padding bits and using 2's complement for negative values
+	(provided only if the implementation directly supports the type) 
+		int8_t
+		int16_t
+		int32_t
+		int64_t
+	
+	Unsigned integer type with width of exactly 8, 16, 32 and 64 bits respectively
+	(provided only if the implementation directly supports the type)
+		uint8_t
+		uint16_t
+		uint32_t
+		uint64_t
+	
+	
+	
+	
+	
+	fastest signed integer type with width of at least 8, 16, 32 and 64 bits respectively 
+		int_fast8_t
+		int_fast16_t
+		int_fast32_t
+		int_fast64_t
+	
+	fastest unsigned integer type with width of at least 8, 16, 32 and 64 bits respectively 
+		uint_fast8_t
+		uint_fast16_t
+		uint_fast32_t
+		uint_fast64_t
+	
+	
+	
+	
+	
+	smallest signed integer type with width of at least 8, 16, 32 and 64 bits respectively 
+		int_least8_t
+		int_least16_t
+		int_least32_t
+		int_least64_t
+	
+	unsigned integer type with width of at least 8, 16, 32 and 64 bits respectively
+		uint_least8_t
+		uint_least16_t
+		uint_least32_t
+		uint_least64_t
+	
+	
+	
+
+Constants: (max value)
+	INTMAX_MAX
+	INT8_MAX
+	INT16_MAX
+	INT32_MAX
+	INT64_MAX
+	INT_FAST8_MAX
+	INT_FAST16_MAX
+	INT_FAST32_MAX
+	INT_FAST64_MAX
+	INT_LEAST8_MAX
+	INT_LEAST16_MAX
+	INT_LEAST32_MAX
+	INT_LEAST64_MAX
 */
 #include <cstdlib>
 /*
 	
 	exit(EXIT_FAILURE);
+*/
+#include <chrono>
+#include <time.h>
+/*
+	Has more, all I use is:
+	VARIABLE = time(NULL);
 */
 #include <stdlib.h>
 /*
@@ -72,7 +164,9 @@ srand(seed)
 		foo_recognizablename << "Thing happened" << endl;
 		
 		
-		
+	if(!IDENFIFIERWHATEVERYOUWANT){
+		happens if it didnt open correctly
+	}
 */
 #include <string>
 /*
@@ -103,7 +197,6 @@ srand(seed)
 	nearbyint(number to round to nearest int)
 	copysign(magnitude, sign)
 */
-/* Uncomment to add delay support
 #if defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)
 	#include <windows.h>
 	inline void delay(unsigned long long ms){
@@ -114,74 +207,27 @@ srand(seed)
 	inline void delay(unsigned long long ms){
 		usleep( ms * 1000 );
 	}
-#endif
-*/
-/* Uncomment to add beepingn or noise support
+#endif Uncomment to add beeping or noise support
 #if (defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && !defined(LINUX)
 	#include <Windows.h>
-	inline void dynBeep(int freq, long double timeOfBeep){
+	inline void dynBeep(int freq, long intmax_t timeOfBeep){
 		Beep(freq, timeOfBeep);
 	}
 #elif !(defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && defined(LINUX)
 	#include <stdio.h>
-	void dynBeep(int freq, long double timeOfBeep){
+	void dynBeep(int freq, long intmax_t timeOfBeep){
 		system("echo -e "\007" >/dev/tty10");
 	}
 #else
 	#include <stdio.h>
-	void dynBeep(int freq, long double timeOfBeep){
+	void dynBeep(int freq, long intmax_t timeOfBeep){
 		std::cout << "\a" << std::flush;
 	}
 #endif
-*/
-/*
-Code gud check input
-	Variable Type Check
-	Length Check (over/underflow attack)
-	Range Check (month should be 1 to 12)
-	Reasonable Check (birthyear is reasonable)
-	Divide by Zero (and indirect devisions)
-	Format Check (MM/DD/YYY vs YYYY/MM/DD)
-
-Useful bits of code:		
-	Variables:
-		const VARTYPE VARNAME - makes it not change
-		int - float - double - long double - increasing size	
-	static means it doesnt die
-	
-	
-	
-	//for loop
-	for(int i = 0; i < limit; i = i + 1){
-		stuff
-	}
-
-	//real loop
-	while(bool){
-		stuff;
-	}
-	
-	//do while template
-	do{
-		
-	}while(bool);
-	
-	
-	//switch template
-	switch(VARIABLE){
-		case ():
-			
-		break;
-		case ():
-			
-		break;
-		default:
-			
-		break;
-	}
-*/
 
 using namespace std;
+
+
 
 void clearScreen(int long lines){
 	if((lines % 11) == 0){

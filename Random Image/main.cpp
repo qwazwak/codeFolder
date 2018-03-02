@@ -6,8 +6,10 @@
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
 
-#include "EasyBMP.h"
-#include <chrono>
+//#include "EasyBMP.h"
+//#include "EasyBMP_Font.h"
+//#include "EasyBMP_Geometry.h"
+//#include "EasyBMP_SimpleArray.h"
 #include <random>
 /*
 	random_device rd;
@@ -18,11 +20,75 @@
 		
 */
 #include <cstdint>
+/*
+What it adds:
+	Signed maximum width integer type
+		intmax_t
+	Maximum width unsigned integer type 
+		uintmax_t
+	
+	
+	
+	
+	
+	Integer with width of exactly 8, 16, 32 and 64 bits respectively with no padding bits and using 2's complement for negative values
+	(provided only if the implementation directly supports the type) 
+		Signed:
+			int8_t
+			int16_t
+			int32_t
+			int64_t
+		Unsigned:
+			uint8_t
+			uint16_t
+			uint32_t
+			uint64_t
+	
+	Fastest integer type with width of at least 8, 16, 32 and 64 bits respectively 
+		Signed:
+			int_fast8_t
+			int_fast16_t
+			int_fast32_t
+			int_fast64_t
+		Unsigned:
+			uint_fast8_t
+			uint_fast16_t
+			uint_fast32_t
+			uint_fast64_t
+	
+	Smallest integer type with width of at least 8, 16, 32 and 64 bits respectively 
+		Signed:
+			int_least8_t
+			int_least16_t
+			int_least32_t
+			int_least64_t
+		Unsigned:
+			uint_least8_t
+			uint_least16_t
+			uint_least32_t
+			uint_least64_t
+	
+Constants: (max value)
+	INTMAX_MAX
+	INT8_MAX
+	INT16_MAX
+	INT32_MAX
+	INT64_MAX
+	INT_FAST8_MAX
+	INT_FAST16_MAX
+	INT_FAST32_MAX
+	INT_FAST64_MAX
+	INT_LEAST8_MAX
+	INT_LEAST16_MAX
+	INT_LEAST32_MAX
+	INT_LEAST64_MAX
+*/
 #include <cstdlib>
 /*
 	
 	exit(EXIT_FAILURE);
 */
+#include <chrono>
 #include <time.h>
 /*
 	Has more, all I use is:
@@ -51,6 +117,11 @@ srand(seed)
 */
 #include <fstream>
 /* i/ofstream info
+	(i or o)fstream FILEIDENT;
+	FILEIDENT.open("FILENAME.txt");
+	FILEIDENT << VARIABLE << endl;
+	FILEIDENT.close();
+	
 	General:
 		foobar_recognizablename.open(stringVariableName.c_str());
 		
@@ -108,7 +179,6 @@ srand(seed)
 	nearbyint(number to round to nearest int)
 	copysign(magnitude, sign)
 */
-/* Uncomment to add delay support
 #if defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)
 	#include <windows.h>
 	inline void delay(unsigned long long ms){
@@ -119,9 +189,7 @@ srand(seed)
 	inline void delay(unsigned long long ms){
 		usleep( ms * 1000 );
 	}
-#endif
-*/
-/* Uncomment to add beeping or noise support
+#endif Uncomment to add beeping or noise support
 #if (defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && !defined(LINUX)
 	#include <Windows.h>
 	inline void dynBeep(int freq, long intmax_t timeOfBeep){
@@ -138,7 +206,7 @@ srand(seed)
 		std::cout << "\a" << std::flush;
 	}
 #endif
-*/
+
 /*
 Code gud check input
 	Variable Type Check
@@ -185,70 +253,16 @@ Useful bits of code:
 			
 		break;
 	}
+	
+	(i or o)fstream FILEIDENT;
+	FILEIDENT.open("FILENAME.txt");
+	FILEIDENT << VARIABLE << endl;
+	FILEIDENT.close();
 */
 
 using namespace std;
 
-
-
-
-
-
-
-
-
-
-BMP Text;
-Text.ReadFromFile("EasyBMPtext.bmp");
-
-BMP Background;
-Background.ReadFromFile("EasyBMPbackground.bmp");
-
-BMP Output;
-Output.SetSize( Background.TellWidth() , Background.TellHeight() );
-Output.SetBitDepth( 24 );
-
-
-
-Output.SetBitDepth( 32 );
-cout << "writing 32bpp ... " << endl;					
-Output.WriteToFile( "EasyBMPoutput32bpp.bmp" );
-
-Output.SetBitDepth( 24 );
-cout << "writing 24bpp ... " << endl;			
-Output.WriteToFile( "EasyBMPoutput24bpp.bmp" );
-
-Output.SetBitDepth( 24 );
-Rescale( Output, 'p' , 50 );
-cout << "writing 24bpp scaled image ..." << endl;
-Output.WriteToFile( "EasyBMPoutput24bpp_rescaled.bmp" );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 int main (){
-	ofstream randFileOutput;
-	ofstream fibFileOutputB;
 	srand(time(NULL));
 	uint64_t lines;
 	random_device rd;
@@ -288,6 +302,37 @@ int main (){
 	}
 	randFileOutput.close();
 	*/
+	BMP Text;
+Text.ReadFromFile("EasyBMPtext.bmp");
+
+BMP Background;
+Background.ReadFromFile("EasyBMPbackground.bmp");
+
+BMP Output;
+Output.SetSize( Background.TellWidth() , Background.TellHeight() );
+Output.SetBitDepth( 24 );
+
+
+
+Output.SetBitDepth( 32 );
+cout << "writing 32bpp ... " << endl;					
+Output.WriteToFile( "EasyBMPoutput32bpp.bmp" );
+
+Output.SetBitDepth( 24 );
+cout << "writing 24bpp ... " << endl;			
+Output.WriteToFile( "EasyBMPoutput24bpp.bmp" );
+
+Output.SetBitDepth( 24 );
+Rescale( Output, 'p' , 50 );
+cout << "writing 24bpp scaled image ..." << endl;
+Output.WriteToFile( "EasyBMPoutput24bpp_rescaled.bmp" );
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	system("pause");
