@@ -1,0 +1,5 @@
+﻿So we got one long double variable called inputKilometers.
+
+Take in the value for kilometers into the variable inputKilometers.
+
+Output inputKilometers diveded by .621
