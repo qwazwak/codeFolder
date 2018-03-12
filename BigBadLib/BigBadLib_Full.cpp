@@ -1,13 +1,19 @@
 /*
-	By Rus Hoffman
+Function FILE- This is actually making functions and should never be shared. only the compiled (rus_BigBadLib.o) should be shared. If this is found please delete.
+
+INFO: SEE BigBadLib_Full.h
+
 */
+
+#include "BigBadLib_Full.h"
+
+
+
+
 #define _WIN64 1 //(also WIN64, __WIN64, and __WIN64__)
 #define __MINGW64__ 1
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
-
-//#include "BigBadLib_Full.h"
-
 
 //#include "EasyBMP.h"
 //#include "EasyBMP_Font.h"
@@ -516,36 +522,52 @@ Useful bits of code:
 
 using namespace std;
 
-int main (){
-	/*
-	random_device rd; //call random numbers with rd()
-	int seed = rd() * clock()
-	mt19937 generator(seed);  // mt19937 is a standard mersenne_twister_engine
-	srand(seed);
-	Call randoms with generator() or rand()
-	
-	cout << "Seed: " << seed << endl;
-	cout << "Minimum: " << rd.min() << endl;
-	cout << "Maximum: " << rd.max() << endl;
-	cout << "Entropy: " << rd.entropy() << endl;
-	cout << "setup done" << endl;
-	*/
-	
-	
-	
-	do{
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|      ";
-		cin >> USERINPUT;
-		cin.clear();
-		cin.ignore();
-	}while(cin.fail() || USERINPUT < minimum || USERINPUT > maximum);
-	
-	
-	system("pause");
-	return 0;
+
+void clearScreen(int long lines){
+	if((lines % 11) == 0){
+		for(int i = 0; i < lines; i = i + 11){
+			cout << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl;
+		}
+	}
+	else if((lines % 7) == 0){
+		for(int i = 0; i < lines; i = i + 7){
+			cout << endl << endl << endl << endl << endl << endl << endl;
+		}
+	}
+	else if((lines % 5) == 0){
+		for(int i = 0; i < lines; i = i + 5){
+			cout << endl << endl << endl << endl << endl;
+		}
+	}
+	else if((lines % 3) == 0){
+		for(int i = 0; i < lines; i = i + 3){
+			cout << endl << endl << endl;
+		}
+	}
+	else if((lines % 2) == 0){
+		for(int i = 0; i < lines; i = i + 2){
+			cout << endl << endl;
+		}
+	}
+	else{
+		for(int i = 0; i < lines; i = i + 1){
+			cout << endl;
+		}
+	}
+}
+bool isEven(int input){
+	if (input % 2 == 0){
+		return true ;
+	}
+	else{
+		return false;
+	}
+}
+bool isOdd(int input){
+	if (input % 2 == 1){
+		return true ;
+	}
+	else{
+		return false;
+	}
 }
