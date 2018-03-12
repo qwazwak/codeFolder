@@ -21,6 +21,14 @@ INFO: SEE rus-BigBadLib.h
 //#include "EasyBMP_Font.h"
 //#include "EasyBMP_Geometry.h"
 //#include "EasyBMP_SimpleArray.h"
+#include <ctime>
+/*
+ unsigned int start = clock();
+cout << "waiting for keyhit";
+cin.ignore();    
+cout << "Time taken in millisecs: " << clock()-start;
+
+*/
 #include <random>
 /*
 	random_device rd;

@@ -1,5 +1,5 @@
 /*
-	Makes a file with random numbers in it
+	By Rus Hoffman
 */
 #define _WIN64 1 //(also WIN64, __WIN64, and __WIN64__)
 #define __MINGW64__ 1
@@ -10,6 +10,18 @@
 //#include "EasyBMP_Font.h"
 //#include "EasyBMP_Geometry.h"
 //#include "EasyBMP_SimpleArray.h"
+#include <windows.h>
+/*
+Lots more, but for now just CreateDirectory("output", NULL);
+*/
+#include <ctime>
+/*
+ unsigned int start = clock();
+cout << "waiting for keyhit";
+cin.ignore();    
+cout << "Time taken in millisecs: " << clock()-start;
+
+*/
 #include <random>
 /*
 	random_device rd;
@@ -154,6 +166,8 @@ srand(seed)
 /*
 	real strings
 	cstringvariable = stringVariableName.c_str();
+	
+	StringVariableFooBarWhatever = to_string(IntOrFloatOrWhateverBaZZ);
 */
 #include <string.h>
 /*
@@ -189,20 +203,20 @@ srand(seed)
 	inline void delay(unsigned long long ms){
 		usleep( ms * 1000 );
 	}
-#endif Uncomment to add beeping or noise support
+#endif
 #if (defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && !defined(LINUX)
 	#include <Windows.h>
-	inline void dynBeep(int freq, long intmax_t timeOfBeep){
+	inline void dynBeep(int freq, intmax_t timeOfBeep){
 		Beep(freq, timeOfBeep);
 	}
 #elif !(defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && defined(LINUX)
 	#include <stdio.h>
-	void dynBeep(int freq, long intmax_t timeOfBeep){
+	void dynBeep(int freq, intmax_t timeOfBeep){
 		system("echo -e "\007" >/dev/tty10");
 	}
 #else
 	#include <stdio.h>
-	void dynBeep(int freq, long intmax_t timeOfBeep){
+	void dynBeep(int freq, intmax_t timeOfBeep){
 		std::cout << "\a" << std::flush;
 	}
 #endif
@@ -263,18 +277,34 @@ Useful bits of code:
 using namespace std;
 
 int main (){
+	mt19937 generator(clock() * chrono::system_clock::now().time_since_epoch().count());  // mt19937 is a standard mersenne_twister_engine
+	int_least64_t seed = generator();
+	srand(seed);
+	random_device rd; //call random numbers with rd()
 	
 	
 	
 	
+	cout << "Seed: " << seed << endl;
+	cout << "Minimum: " << rd.min() << endl;
+	cout << "Maximum: " << rd.max() << endl;
+	cout << "Entropy: " << rd.entropy() << endl;
+	cout << "setup done" << endl;
 	
 	
 	
 	
-	
-	
-	
-	
+	do{
+		cout << "|    Random Files Generator    |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|                              |" << endl;
+		cout << "| Enter the number of          |" << endl;
+		cout << "|   files to make:             |" << endl;
+		cout << "|      ";
+		cin >> numOfFiles;
+		cin.clear();
+		cin.ignore();
+	}while(cin.fail() || numOfFiles < 1);
 	
 	
 	system("pause");
