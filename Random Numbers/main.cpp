@@ -154,6 +154,8 @@ srand(seed)
 /*
 	real strings
 	cstringvariable = stringVariableName.c_str();
+	
+	StringVariableFooBarWhatever = to_string(IntOrFloatOrWhateverBaZZ);
 */
 #include <string.h>
 /*
@@ -189,20 +191,20 @@ srand(seed)
 	inline void delay(unsigned long long ms){
 		usleep( ms * 1000 );
 	}
-#endif Uncomment to add beeping or noise support
+#endif
 #if (defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && !defined(LINUX)
 	#include <Windows.h>
-	inline void dynBeep(int freq, long intmax_t timeOfBeep){
+	inline void dynBeep(int freq, intmax_t timeOfBeep){
 		Beep(freq, timeOfBeep);
 	}
 #elif !(defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && defined(LINUX)
 	#include <stdio.h>
-	void dynBeep(int freq, long intmax_t timeOfBeep){
+	void dynBeep(int freq, intmax_t timeOfBeep){
 		system("echo -e "\007" >/dev/tty10");
 	}
 #else
 	#include <stdio.h>
-	void dynBeep(int freq, long intmax_t timeOfBeep){
+	void dynBeep(int freq, intmax_t timeOfBeep){
 		std::cout << "\a" << std::flush;
 	}
 #endif
@@ -264,68 +266,142 @@ using namespace std;
 
 int main (){
 	srand(time(NULL));
-	uint64_t lines;
 	random_device rd;
 	uint64_t seed = rand() * chrono::system_clock::now().time_since_epoch().count();
-	mt19937 generator (seed);  // mt19937 is a standard mersenne_twister_engine
-	int gen;
-	BMP AnImage;
-	const int XSIZE = 128;
-	const int YSIZE = 128;
-	RGBApixel Temp;
+	mt19937 generator(seed);  // mt19937 is a standard mersenne_twister_engine
+	int_least64_t numOfFiles;
+	int_least64_t numOfCol;
+	int_least64_t numOfLines;
+	int_least64_t rowsTillUpdate;
+	ofstream randomFilesOutput;
+	
 	
 	cout << "Minimum: " << rd.min() << endl;
 	cout << "Maximum: " << rd.max() << endl;
 	cout << "Entropy: " << rd.entropy() << endl;
+	cout << "setup done" << endl;
 	
 	
-	AnImage.SetBitDepth(24);
-	AnImage.SetSize(XSIZE,YSIZE);
-	//randFileOutput.open("randomNumberA.txt");
-	for(int x = 0; x <= XSIZE; x = x + 1){
-		for(int y = 0; y <= YSIZE - 1; y = y + 1){
-			//randFileOutput << generator() << generator() << generator() << generator() << generator() << generator() << generator() << generator() << endl;
-			Temp.Red = x % 255;
-			Temp.Green = y % 255;
-			Temp.Blue = (x + y) % 255;
-			Temp.Alpha = 0;
-			AnImage.SetPixel(x, y, Temp);
+	
+	cout << "|    Random Files Generator    |" << endl;
+	cout << "|                              |" << endl;
+	cout << "|                              |" << endl;
+	cout << "|    Enter the number of       |" << endl;
+	cout << "|       files to make:         |" << endl;
+	cout << "|       ";
+	cin >> numOfFiles;
+	cin.clear();
+	cin.ignore();
+	while(cin.fail() || numOfFiles < 1){
+		cout << "|    Random Files Generator    |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|   Invalid input, Try again   |" << endl;
+		cout << "|    Enter the number of       |" << endl;
+		cout << "|       files to make:         |" << endl;
+		cout << "|       ";
+		cin >> numOfFiles;
+		cin.clear();
+		cin.ignore();
+	}
+	
+	cout << "|    Random Files Generator    |" << endl;
+	cout << "|                              |" << endl;
+	cout << "|                              |" << endl;
+	cout << "|    Enter the number of       |" << endl;
+	cout << "|       coloumns per row:      |" << endl;
+	cout << "|       ";
+	cin >> numOfCol;
+	cin.clear();
+	cin.ignore();
+	while(cin.fail() || numOfCol < 1){
+		cout << "|    Random Files Generator    |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|   Invalid input, Try again   |" << endl;
+		cout << "|    Enter the number of       |" << endl;
+		cout << "|       coloumns per row:      |" << endl;
+		cout << "|       ";
+		cin >> numOfCol;
+		cin.clear();
+		cin.ignore();
+	}
+	
+	
+	cout << "|    Random Files Generator    |" << endl;
+	cout << "|                              |" << endl;
+	cout << "|                              |" << endl;
+	cout << "|    Enter the number of       |" << endl;
+	cout << "|       Rows per file:         |" << endl;
+	cout << "|       ";
+	cin >> numOfLines;
+	cin.clear();
+	cin.ignore();
+	while(cin.fail() || numOfLines < 1){
+		cout << "|    Random Files Generator    |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|   Invalid input, Try again   |" << endl;
+		cout << "|    Enter the number of       |" << endl;
+		cout << "|       Rows per file:         |" << endl;
+		cout << "|       " << endl;
+		cin >> numOfLines;
+		cin.clear();
+		cin.ignore();
+	}
+	
+	cout << "|    Random Files Generator    |" << endl;
+	cout << "|                              |" << endl;
+	cout << "|                              |" << endl;
+	cout << "|   After how many rows should |" << endl;
+	cout << "|    progress be displayed?    |" << endl;
+	cout << "|       ";
+	cin >> rowsTillUpdate;
+	cin.clear();
+	cin.ignore();
+	while(cin.fail() || rowsTillUpdate < 1 || rowsTillUpdate > numOfLines){
+		cout << "|    Random Files Generator    |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|   Invalid input, Try again   |" << endl;
+		cout << "|   After how many rows should |" << endl;
+		cout << "|    progress be displayed?    |" << endl;
+		cout << "|       ";
+		cin >> rowsTillUpdate;
+		cin.clear();
+		cin.ignore();
+	}
+	
+	uint_least64_t [numOfLines][numOfCol];
+	
+	
+	
+	
+	
+	
+	for(int_least64_t currentFileNumber = 1; currentFileNumber <= numOfFiles; currentFileNumber = currentFileNumber + 1){
+		randomFilesOutput.open("RandomFiles-Part" + to_string(currentFileNumber) + "of" + to_string(numOfFiles) + ".txt");
+		for(int_least64_t currentLine = 1; currentLine <= numOfLines; currentLine = currentLine + 1){
+			randomFilesOutput << "L" << currentLine << ". " << endl;									
+			
+			for(int_least64_t currentCol = 1; currentCol <= numOfCol; currentCol = currentCol + 1){
+				currentRow = currentRow + to_string(generator()) + ", ";
+				//randomFilesOutput << generator() << ", ";
+			}
+			randomFilesOutput << currentRow << endl;
+			
+			if(currentLine % rowsTillUpdate == 0){
+				cout << endl << endl << endl << endl << endl << endl;
+				cout << "|    Random Files Generator    |" << endl;
+				cout << "|                              |" << endl;
+				cout << "| File Progress           - " << setprecision (4) << fixed << 100.0 * (static_cast<long double>(currentFileNumber) / static_cast<long double>(numOfFiles)) << endl << scientific;
+				cout << "|" << endl;;
+				cout << "| Row Progress           - " << setprecision (4) << fixed << 100.0 * (static_cast<long double>(currentLine) / static_cast<long double>(numOfLines)) << endl << scientific;
+				cout << "|                              |" << endl;
+			}
+			
+			
 		}
+		
+		
+		randomFilesOutput.close();
 	}
-	AnImage.WriteToFile("random.bmp");
-	
-	//randFileOutput.close();	
-	/*
-	randFileOutput.open("randomNumberA.txt");
-	for(intmax_t j = 0; j <= lines - 1; j = j + 1){
-		randFileOutput << arrayOfRandomA[j] << endl;
-	}
-	randFileOutput.close();
-	*/
-	BMP Text;
-Text.ReadFromFile("EasyBMPtext.bmp");
-
-BMP Background;
-Background.ReadFromFile("EasyBMPbackground.bmp");
-
-BMP Output;
-Output.SetSize( Background.TellWidth() , Background.TellHeight() );
-Output.SetBitDepth( 24 );
-
-
-
-Output.SetBitDepth( 32 );
-cout << "writing 32bpp ... " << endl;					
-Output.WriteToFile( "EasyBMPoutput32bpp.bmp" );
-
-Output.SetBitDepth( 24 );
-cout << "writing 24bpp ... " << endl;			
-Output.WriteToFile( "EasyBMPoutput24bpp.bmp" );
-
-Output.SetBitDepth( 24 );
-Rescale( Output, 'p' , 50 );
-cout << "writing 24bpp scaled image ..." << endl;
-Output.WriteToFile( "EasyBMPoutput24bpp_rescaled.bmp" );
 	
 	
 	
@@ -333,6 +409,24 @@ Output.WriteToFile( "EasyBMPoutput24bpp_rescaled.bmp" );
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	cout << endl << endl << endl << endl << endl << endl;
+	cout << endl << endl << endl << endl << endl << endl;
+	cout << "|    Random Files Generator    |" << endl;
+	cout << "|                              |" << endl;
+	cout << "| Number of files    - " << numOfFiles << endl;
+	cout << "| Number of rows     - " << numOfLines << endl;
+	cout << "| Number of coloumns - " << numOfCol << endl;
 	
 	
 	system("pause");

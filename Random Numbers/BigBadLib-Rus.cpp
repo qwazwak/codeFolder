@@ -172,6 +172,8 @@ srand(seed)
 /*
 	real strings
 	cstringvariable = stringVariableName.c_str();
+	
+	StringVariableFooBarWhatever = to_string(IntOrFloatOrWhateverBaZZ);
 */
 #include <string.h>
 /*
@@ -207,20 +209,20 @@ srand(seed)
 	inline void delay(unsigned long long ms){
 		usleep( ms * 1000 );
 	}
-#endif Uncomment to add beeping or noise support
+#endif 
 #if (defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && !defined(LINUX)
 	#include <Windows.h>
-	inline void dynBeep(int freq, long intmax_t timeOfBeep){
+	inline void dynBeep(int freq, intmax_t timeOfBeep){
 		Beep(freq, timeOfBeep);
 	}
 #elif !(defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && defined(LINUX)
 	#include <stdio.h>
-	void dynBeep(int freq, long intmax_t timeOfBeep){
+	void dynBeep(int freq, intmax_t timeOfBeep){
 		system("echo -e "\007" >/dev/tty10");
 	}
 #else
 	#include <stdio.h>
-	void dynBeep(int freq, long intmax_t timeOfBeep){
+	void dynBeep(int freq, intmax_t timeOfBeep){
 		std::cout << "\a" << std::flush;
 	}
 #endif
