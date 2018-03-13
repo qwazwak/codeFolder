@@ -13,8 +13,8 @@ DEFINES - If you have a program that needs certain specific functions that are u
 example: for a tictactoe program make sure to have #define TicTacToe
 */
 //Include gaurd - If this pseudolibrary is already defined, dont add it again
-#if !defined BIGBADCSCLIB_RUS
-	#define BIGBADCSCLIB_RUS
+#if !defined BIGBADLIB_CSC
+	#define BIGBADLIB_CSC
 
 	/*
 		//function determines...
@@ -29,7 +29,7 @@ example: for a tictactoe program make sure to have #define TicTacToe
 		// It finds and returns the average of the numbers in the array
 		// precondition : array of floating point numbers
 		// postcondition : average of the numbers in the array
-	float findAverage(const int[], long int); // finds average of all grades
+	float findAverage(const int[], int); // finds average of all grades
 	
 	
 	// findHighest
@@ -37,7 +37,7 @@ example: for a tictactoe program make sure to have #define TicTacToe
 		// It finds and returns the highest value of the numbers in the array
 		// precondition : array of floating point numbers
 		// postcondition : highest value of the numbers in the array
-	long int findHighest(const long int[], long int); // finds highest of all grades
+	int findHighest(const int[], int); // finds highest of all grades
 	
 	
 	//findLowest
@@ -45,5 +45,5 @@ example: for a tictactoe program make sure to have #define TicTacToe
 		//It finds and returns the lowest value of the numbers in the array
 		//precondition : array of floating point numbers
 		//postcondition : lowest value of the numbers in the array
-	long int findLowest(const long int[], long int); // finds lowest of all grades
+	int findLowest(const int[], int); // finds lowest of all grades
 #endif

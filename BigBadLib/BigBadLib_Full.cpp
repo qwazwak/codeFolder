@@ -24,7 +24,9 @@ INFO: SEE BigBadLib_Full.h
 
 //#include <windows.h>
 /*
-Lots more, but for now just CreateDirectory("output", NULL);
+	Lots more, but for now just
+	CreateDirectory("output", NULL);
+	system("pause");
 */
 
 

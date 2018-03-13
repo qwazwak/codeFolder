@@ -1,18 +1,18 @@
 /*
-Function FILE- This is actually making functions and should never be shared. only the compiled (rus_BigBadLib.o) should be shared. If this is found please delete.
-
-INFO: SEE BigBadCSCLib-Rus.h
-
+	This program will:
+		read in a group of test scores (positive integers from 1 to 100) from the keyboard
+		then calculate and output the average score as well as the highest and lowest score
+		There will be a maximum of 100 scores.
+	By Rus Hoffman
 */
-#include "BigBadLib_CSC.h"
-
-
-
-
 #define _WIN64 1 //(also WIN64, __WIN64, and __WIN64__)
 #define __MINGW64__ 1
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
+
+//#include "BigBadLib_Full.h"
+//#include "BigBadLib_CSC.h"
+
 
 //#include "EasyBMP.h"
 //#include "EasyBMP_Font.h"
@@ -21,7 +21,7 @@ INFO: SEE BigBadCSCLib-Rus.h
 
 
 
-//#include <windows.h>
+#include <windows.h>
 /*
 	Lots more, but for now just
 	CreateDirectory("output", NULL);
@@ -230,7 +230,7 @@ INFO: SEE BigBadCSCLib-Rus.h
 
 
 
-//#include <iostream>
+#include <iostream>
 /*
 	system("pause")
 		Enter any key to continue..
@@ -248,7 +248,7 @@ INFO: SEE BigBadCSCLib-Rus.h
 
 
 
-//#include <iomanip>
+#include <iomanip>
 /*
 	Manipulates input and output
 	cout << setprecision(2) << fixed << showpoint;
@@ -259,7 +259,7 @@ INFO: SEE BigBadCSCLib-Rus.h
 
 
 
-//#include <fstream>
+#include <fstream>
 /* i/ofstream info
 	(i or o)fstream FILEIDENT;
 	FILEIDENT.open("FILENAME.txt");
@@ -525,25 +525,16 @@ using namespace std;
 
 
 
-// findAverage
-// task: This function receives an array of integers and its size.
-// It finds and returns the average of the numbers in the array
-// precondition : array of floating point numbers
-// postcondition : average of the numbers in the array
-float findAverage(const int array[], int size){
+
+float findAverage(int *array, int size){
 	float sum = 0; // holds the sum of all the numbers 
 	for (int pos = 0; pos < size; pos++)
 		sum = sum + array[pos];
 	return (sum / size); //returns the average
 }
 
-// findHighest
-// task: This function receives an array of integers and its size.
-// It finds and returns the highest value of the numbers in the array
-// precondition : array of floating point numbers
-// postcondition : highest value of the numbers in the array
 
-int findHighest(const int array[], int size){
+int findHighest(int *array, int size){
 	int currentMax = array[0];
 	for(int i = 0; i < size; i = i + 1){
 		if(array[i] > currentMax){
@@ -553,13 +544,7 @@ int findHighest(const int array[], int size){
 	return currentMax;
 }
 
-
-//findLowest
-//task: This function receives an array of integers and its size.
-//It finds and returns the lowest value of the numbers in the array
-//precondition : array of floating point numbers
-//postcondition : lowest value of the numbers in the array
-int findLowest (const int array[], int size){
+int findLowest (int *array, int size){
 	int currentMin = array[0];
 	for(int i = 0; i + 1 <= size; i = i + 1){
 		if(array[i] < currentMin){
@@ -567,4 +552,59 @@ int findLowest (const int array[], int size){
 		}
 	}
 	return currentMin;
+}
+
+
+
+int main (){
+	ifstream dataInputFile;
+	
+	
+	//Temporary holding area for user input
+	int fileInputtemp;
+	
+	//the array holding the grades.
+	int grades[100]; 
+	
+	//the number of grades read.
+	int numberOfGrades = 0;
+	
+	//contains the average of the grades
+	float avgOfGrades;
+	
+	//contains the highest grade
+	int highestGrade;
+	
+	// contains the lowest grade
+	int lowestGrade;
+	
+	bool keepInput = true;
+	
+	
+	
+	// Read in the values into the array pos = 0;
+	cout << "Starting loading" << endl;
+	// Fill in the code to read the grades
+	
+	dataInputFile.open("Lab8.txt");
+	for(long int i = 0; i < 100; i = i + 1){
+		dataInputFile >> fileInputtemp;
+		if(fileInputtemp == -99){
+			break;
+		}
+		grades[i] = fileInputtemp;
+		numberOfGrades = numberOfGrades + 1;
+	}
+	dataInputFile.close();
+	
+	
+	
+	//avgOfGrades = findAverage(grades, numberOfGrades);
+	//highestGrade = findHighest(grades, numberOfGrades);
+	//lowestGrade = findLowest(grades, numberOfGrades);
+	cout << "The average of all the grades is " << findAverage(grades, numberOfGrades) << endl;
+	cout << "The highest grade is " << findHighest(grades, numberOfGrades) << endl;
+	cout << "The lowest grade is " << findLowest(grades, numberOfGrades) << endl;
+	system("pause");
+	return 0;
 }

@@ -1,13 +1,18 @@
 /*
-	By Rus Hoffman
+Function FILE- This is actually making functions and should never be shared. only the compiled (rus_BigBadLib.o) should be shared. If this is found please delete.
+
+INFO: SEE BigBadCSCLib-Rus.h
+
 */
+#include "BigBadLib_CSC.h"
+
+
+
+
 #define _WIN64 1 //(also WIN64, __WIN64, and __WIN64__)
 #define __MINGW64__ 1
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
-
-//#include "BigBadLib_Full.h"
-
 
 //#include "EasyBMP.h"
 //#include "EasyBMP_Font.h"
@@ -18,7 +23,9 @@
 
 //#include <windows.h>
 /*
-Lots more, but for now just CreateDirectory("output", NULL);
+	Lots more, but for now just
+	CreateDirectory("output", NULL);
+	system("pause");
 */
 
 
@@ -516,36 +523,48 @@ Useful bits of code:
 
 using namespace std;
 
-int main (){
-	/*
-	random_device rd; //call random numbers with rd()
-	int seed = rd() * clock()
-	mt19937 generator(seed);  // mt19937 is a standard mersenne_twister_engine
-	srand(seed);
-	Call randoms with generator() or rand()
-	
-	cout << "Seed: " << seed << endl;
-	cout << "Minimum: " << rd.min() << endl;
-	cout << "Maximum: " << rd.max() << endl;
-	cout << "Entropy: " << rd.entropy() << endl;
-	cout << "setup done" << endl;
-	*/
-	
-	
-	
-	do{
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|      ";
-		cin >> USERINPUT;
-		cin.clear();
-		cin.ignore();
-	}while(cin.fail() || USERINPUT < minimum || USERINPUT > maximum);
-	
-	
-	system("pause");
-	return 0;
+
+
+// findAverage
+// task: This function receives an array of integers and its size.
+// It finds and returns the average of the numbers in the array
+// precondition : array of floating point numbers
+// postcondition : average of the numbers in the array
+float findAverage(const int array[], int size){
+	float sum = 0; // holds the sum of all the numbers 
+	for (int pos = 0; pos < size; pos++)
+		sum = sum + array[pos];
+	return (sum / size); //returns the average
+}
+
+// findHighest
+// task: This function receives an array of integers and its size.
+// It finds and returns the highest value of the numbers in the array
+// precondition : array of floating point numbers
+// postcondition : highest value of the numbers in the array
+
+int findHighest(const int array[], int size){
+	int currentMax = array[0];
+	for(int i = 0; i < size; i = i + 1){
+		if(array[i] > currentMax){
+			currentMax = array[i];
+		}
+	}
+	return currentMax;
+}
+
+
+//findLowest
+//task: This function receives an array of integers and its size.
+//It finds and returns the lowest value of the numbers in the array
+//precondition : array of floating point numbers
+//postcondition : lowest value of the numbers in the array
+int findLowest (const int array[], int size){
+	int currentMin = array[0];
+	for(int i = 0; i + 1 <= size; i = i + 1){
+		if(array[i] < currentMin){
+			currentMin = array[i];
+		}
+	}
+	return currentMin;
 }

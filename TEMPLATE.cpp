@@ -7,6 +7,7 @@
 #define __amd64 1 //(also __amd64__)
 
 //#include "BigBadLib_Full.h"
+//#include "BigBadLib_CSC.h"
 
 
 //#include "EasyBMP.h"
@@ -18,7 +19,9 @@
 
 //#include <windows.h>
 /*
-Lots more, but for now just CreateDirectory("output", NULL);
+	Lots more, but for now just
+	CreateDirectory("output", NULL);
+	system("pause");
 */
 
 
@@ -477,6 +480,14 @@ Useful bits of code:
 	static means it doesnt die
 	
 	cin >> variable;
+	
+	
+	cin problems can be found by cin.fail()
+	fixes cin problems:
+		cin.clear();
+		cin.ignore();
+	
+	
 	cout << "text" << endl;
 	
 	//for loop
