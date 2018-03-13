@@ -1,6 +1,6 @@
 /*
 	This program will:
-		read in a group of test scores (positive integers from 1 to 100) from a file
+		read in a group of test scores (positive integers from 1 to 100) from the keyboard
 		then calculate and output the average score as well as the highest and lowest score
 		There will be a maximum of 100 scores.
 	By Rus Hoffman
@@ -524,87 +524,126 @@ Useful bits of code:
 using namespace std;
 
 
+const long int MAXROWS = 10;
+const long int MAXCOLS = 10;
 
+typedef double PriceType [MAXROWS][MAXCOLS]; 
 
-float findAverage(int *array, int size){
-	float sum = 0; // holds the sum of all the numbers 
-	for (int pos = 0; pos < size; pos++)
-		sum = sum + array[pos];
-	return (sum / size); //returns the average
+//void getPrices(double [][MAXCOLS], int&, int&); // gets the prices into the array 
+//void printPrices(const double [][MAXCOLS], int, int); // prints data as a table
+
+/*
+float findAverage2D(float *array, int sizeWide, int sizeTall){
+	int sum = 0; // holds the sum of all the numbers 
+	for (int y = 0; y < sizeTall; y++){
+		for (int x = 0; x < sizeWide; x++){
+			sum = sum + array[y][x];
+		}
+	}
+	return (sum / (sizeTall * sizeTall)); //returns the average
 }
 
 
-int findHighest(int *array, int size){
-	int currentMax = array[0];
-	for(int i = 0; i < size; i = i + 1){
-		if(array[i] > currentMax){
-			currentMax = array[i];
+int findHighest2D(int *array, int sizeWide, int sizeTall){
+	int currentMax = array[0][0];
+	for(int y = 0; y < sizeTall; y = y + 1){
+		for(int x = 0; x < sizeWide; x = x + 1){
+			if(array[y][x] > currentMax){
+				currentMax = array[y][x];
+			}
 		}
 	}
 	return currentMax;
 }
-
-int findLowest (int *array, int size){
-	int currentMin = array[0];
-	for(int i = 0; i + 1 <= size; i = i + 1){
-		if(array[i] < currentMin){
-			currentMin = array[i];
+*/
+double findLowest2D(double *array[MAXCOLS][MAXROWS], int sizeWide, int sizeTall){
+	double currentMin = array[0][0];
+	for(int y = 0; y < sizeTall; y = y + 1){
+		for(int x = 0; x < sizeWide; x = x + 1){
+			if(array[y][x] < currentMin){
+				currentMin = array[y][x];
+			}
 		}
 	}
 	return currentMin;
 }
 
-
-
-int main (){
-	ifstream dataInputFile;
-	
-	
-	//Temporary holding area for user input
-	int fileInputtemp;
-	
-	//the array holding the grades.
-	int grades[100]; 
-	
-	//the number of grades read.
-	int numberOfGrades = 0;
-	
-	//contains the average of the grades
-	float avgOfGrades;
-	
-	//contains the highest grade
-	int highestGrade;
-	
-	// contains the lowest grade
-	int lowestGrade;
-	
-	bool keepInput = true;
-	
-	
-	
-	// Read in the values into the array pos = 0;
-	cout << "Starting loading" << endl;
-	// Fill in the code to read the grades
-	
-	dataInputFile.open("Lab8.txt");
-	for(long int i = 0; i < 100; i = i + 1){
-		dataInputFile >> fileInputtemp;
-		if(fileInputtemp == -99){
-			break;
+// getPrices
+	// task: This procedure asks the user to input the number of rows and
+	// columns. It then asks the user to input (rows * columns) number of
+	// prices. The data is placed in the array.
+	// Precondition : none
+	// Postcondition : an array filled with numbers and the number of rows
+	// and columns used.
+void getPrices(double table[MAXROWS][MAXCOLS], int& numOfRows, int& numOfCols){
+	double tempnum;
+	do{
+		cout << "Please enter the number of rows. This can be an integer from 1 to " << MAXROWS << endl;
+		cin >> numOfRows;
+		if(cin.fail() || numOfRows < 1 || numOfRows > MAXROWS){
+			cin.clear();
+			cin.ignore();
+			cout << "Invalid entry" << endl;
 		}
-		grades[i] = fileInputtemp;
-		numberOfGrades = numberOfGrades + 1;
+	}while(cin.fail() || numOfRows < 1 || numOfRows > MAXROWS);
+	
+	do{
+		cout << "Please enter the number of columns. This can be an integer from 1 to " << MAXCOLS << endl;
+		cin >> numOfCols;
+		if(cin.fail() || numOfCols < 1 || numOfCols > MAXCOLS){
+			cin.clear();
+			cin.ignore();
+			cout << "Invalid entry" << endl;
+		}
+	}while(cin.fail() || numOfCols < 1 || numOfCols > MAXCOLS);
+	
+	
+	for (unsigned int y = 0; y < numOfRows; y = y + 1){
+		for (unsigned int x = 0; x < numOfCols; x = x + 1){
+			cout << "Please enter the value for:" << endl;
+			cout << "Row " << y + 1 << ", column " << x + 1 << ": ";
+			cin >> tempnum;
+			while(cin.fail()){
+				cin.clear();
+				cin.ignore();
+				cout << "Invalid entry, enter a number" << endl;
+				cout << "Please enter the value for:" << endl;
+				cout << "Row " << y + 1 << ", column " << x + 1 << ": ";
+				cin >> tempnum;
+			}
+			table[y][x] = tempnum;
+		}
 	}
-	dataInputFile.close();
+}
+
+
+// printPrices
+	// task: This procedure prints the table of prices
+	// Precondition : an array of floating point numbers and the number of rows
+	// and columns used.
+	// Postcondition : none
+void printPrices(const double table[MAXROWS] [MAXCOLS], int numOfRows, int numOfCols){
+	cout << fixed << showpoint << setprecision(2);
+	for (int row = 0; row < numOfRows; row++){
+		for (int col = 0; col < numOfCols; col++){
+			
+		cout << table[row][col] << "      " ;
+		}
+		cout << endl;
+	}
+}
+
+
+int main(){
+	int rowsUsed; // holds the number of rows used
+	int colsUsed; // holds the number of columns used
+	PriceType priceTable; // a 2D array holding the prices
+	getPrices(priceTable, rowsUsed, colsUsed); // calls getPrices to fill the array 
+	printPrices(priceTable, rowsUsed, colsUsed);// calls printPrices to display array
+	//cout << "The average value is: " << findAverage2D(priceTable, colsUsed, rowsUsed) << endl;
+	cout << "The maximum value is: " << findHighest2D(priceTable, colsUsed, rowsUsed) << endl;
+	cout << "The minimum value is: " << findLowest2D(priceTable, colsUsed, rowsUsed) << endl;
 	
-	
-	
-	//avgOfGrades = findAverage(grades, numberOfGrades);
-	//highestGrade = findHighest(grades, numberOfGrades);
-	//lowestGrade = findLowest(grades, numberOfGrades);
-	cout << "The average of all the grades is " << findAverage(grades, numberOfGrades) << endl;
-	cout << "The highest grade is " << findHighest(grades, numberOfGrades) << endl;
-	cout << "The lowest grade is " << findLowest(grades, numberOfGrades) << endl;
 	system("pause");
 	return 0;
 }
