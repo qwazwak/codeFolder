@@ -35,7 +35,7 @@ double findAverage2D(double array[MAXCOLS][MAXROWS], int sizeWide, int sizeTall)
 			sum = sum + array[y][x];
 		}
 	}
-	return (sum / (sizeTall * sizeWide));
+	return (sum / (sizeTall * sizeTall)); //returns the average
 }
 
 

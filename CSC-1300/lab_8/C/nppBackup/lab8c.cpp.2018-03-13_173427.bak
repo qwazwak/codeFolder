@@ -35,7 +35,7 @@ double findAverage2D(double array[MAXCOLS][MAXROWS], int sizeWide, int sizeTall)
 			sum = sum + array[y][x];
 		}
 	}
-	return (sum / (sizeTall * sizeWide));
+	return (sum / (sizeTall * sizeTall)); //returns the average
 }
 
 
@@ -121,7 +121,8 @@ void printPrices(const double table[MAXROWS] [MAXCOLS], int numOfRows, int numOf
 	cout << fixed << showpoint << setprecision(2);
 	for (int row = 0; row < numOfRows; row++){
 		for (int col = 0; col < numOfCols; col++){
-			cout << table[row][col] << "      " ;
+			
+		cout << table[row][col] << "      " ;
 		}
 		cout << endl;
 	}

@@ -1,18 +1,18 @@
 /*
-Function FILE- This is actually making functions and should never be shared. only the compiled (rus_BigBadLib.o) should be shared. If this is found please delete.
-
-INFO: SEE BigBadCSCLib-Rus.h
-
+	This program will:
+		read in a group of test scores (positive integers from 1 to 100) from the keyboard
+		then calculate and output the average score as well as the highest and lowest score
+		There will be a maximum of 100 scores.
+	By Rus Hoffman
 */
-#include "BigBadLib_CSC.h"
-
-
-
-
 #define _WIN64 1 //(also WIN64, __WIN64, and __WIN64__)
 #define __MINGW64__ 1
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
+
+//#include "BigBadLib_Full.h"
+//#include "BigBadLib_CSC.h"
+
 
 //#include "EasyBMP.h"
 //#include "EasyBMP_Font.h"
@@ -21,7 +21,7 @@ INFO: SEE BigBadCSCLib-Rus.h
 
 
 
-//#include <windows.h>
+#include <windows.h>
 /*
 	Lots more, but for now just
 	CreateDirectory("output", NULL);
@@ -230,7 +230,7 @@ INFO: SEE BigBadCSCLib-Rus.h
 
 
 
-//#include <iostream>
+#include <iostream>
 /*
 	system("pause")
 		Enter any key to continue..
@@ -248,7 +248,7 @@ INFO: SEE BigBadCSCLib-Rus.h
 
 
 
-//#include <iomanip>
+#include <iomanip>
 /*
 	Manipulates input and output
 	cout << setprecision(2) << fixed << showpoint;
@@ -259,7 +259,7 @@ INFO: SEE BigBadCSCLib-Rus.h
 
 
 
-//#include <fstream>
+#include <fstream>
 /* i/ofstream info
 	(i or o)fstream FILEIDENT;
 	FILEIDENT.open("FILENAME.txt");
@@ -524,77 +524,49 @@ Useful bits of code:
 using namespace std;
 
 
-void mclearScreen(unsigned int long lines){
-	else if((lines % 5) == 0){
-		for(unsigned int long i = 0; i < lines; i = i + 5){
-			cout << endl << endl << endl << endl << endl;
+const long int MAXROWS = 10;
+const long int MAXCOLS = 10;
+
+typedef double PriceType [MAXROWS][MAXCOLS]; 
+
+//void getPrices(double [][MAXCOLS], int&, int&); // gets the prices into the array 
+//void printPrices(const double [][MAXCOLS], int, int); // prints data as a table
+
+/*
+float findAverage2D(float *array, int sizeWide, int sizeTall){
+	int sum = 0; // holds the sum of all the numbers 
+	for (int y = 0; y < sizeTall; y++){
+		for (int x = 0; x < sizeWide; x++){
+			sum = sum + array[y][x];
 		}
 	}
-	else if((lines % 3) == 0){
-		for(unsigned int long i = 0; i < lines; i = i + 3){
-			cout << endl << endl << endl;
-		}
-	}
-	else if((lines % 2) == 0){
-		for(unsigned int long i = 0; i < lines; i = i + 2){
-			cout << endl << endl;
-		}
-	}
-	else{
-		for(unsigned int long i = 0; i < lines; i = i + 1){
-			cout << endl;
-		}
-	}
+	return (sum / (sizeTall * sizeTall)); //returns the average
 }
 
 
-
-//End My handy code, this is now class code
-
-// findAverage
-// task: This function receives an array of integers and its size.
-// It finds and returns the average of the numbers in the array
-// precondition : array of floating point numbers
-// postcondition : average of the numbers in the array
-float findAverage(const int array[], int size){
-	float sum = 0; // holds the sum of all the numbers 
-	for (int pos = 0; pos < size; pos++)
-		sum = sum + array[pos];
-	return (sum / size); //returns the average
-}
-
-// findHighest
-// task: This function receives an array of integers and its size.
-// It finds and returns the highest value of the numbers in the array
-// precondition : array of floating point numbers
-// postcondition : highest value of the numbers in the array
-
-int findHighest(const int array[], int size){
-	int currentMax = array[0];
-	for(int i = 0; i < size; i = i + 1){
-		if(array[i] > currentMax){
-			currentMax = array[i];
+int findHighest2D(int *array, int sizeWide, int sizeTall){
+	int currentMax = array[0][0];
+	for(int y = 0; y < sizeTall; y = y + 1){
+		for(int x = 0; x < sizeWide; x = x + 1){
+			if(array[y][x] > currentMax){
+				currentMax = array[y][x];
+			}
 		}
 	}
 	return currentMax;
 }
-
-
-//findLowest
-	//task: This function receives an array of integers and its size.
-	//It finds and returns the lowest value of the numbers in the array
-	//precondition : array of floating point numbers
-	//postcondition : lowest value of the numbers in the array
-int findLowest (const int array[], int size){
-	int currentMin = array[0];
-	for(int i = 0; i + 1 <= size; i = i + 1){
-		if(array[i] < currentMin){
-			currentMin = array[i];
+*/
+double findLowest2D(double array[MAXCOLS][MAXROWS], int sizeWide, int sizeTall){
+	double currentMin = array[0][0];
+	for(int y = 0; y < sizeTall; y = y + 1){
+		for(int x = 0; x < sizeWide; x = x + 1){
+			if(array[y][x] < currentMin){
+				currentMin = array[y][x];
+			}
 		}
 	}
 	return currentMin;
 }
-
 
 // getPrices
 	// task: This procedure asks the user to input the number of rows and
@@ -603,7 +575,8 @@ int findLowest (const int array[], int size){
 	// Precondition : none
 	// Postcondition : an array filled with numbers and the number of rows
 	// and columns used.
-void getPrices(double table[int& MAXROWS][int& MAXCOLS], int& numOfRows, int& numOfCols){
+void getPrices(double table[MAXROWS][MAXCOLS], int& numOfRows, int& numOfCols){
+	double tempnum;
 	do{
 		cout << "Please enter the number of rows. This can be an integer from 1 to " << MAXROWS << endl;
 		cin >> numOfRows;
@@ -627,16 +600,18 @@ void getPrices(double table[int& MAXROWS][int& MAXCOLS], int& numOfRows, int& nu
 	
 	for (unsigned int y = 0; y < numOfRows; y = y + 1){
 		for (unsigned int x = 0; x < numOfCols; x = x + 1){
-			do{
+			cout << "Please enter the value for:" << endl;
+			cout << "Row " << y + 1 << ", column " << x + 1 << ": ";
+			cin >> tempnum;
+			while(cin.fail()){
+				cin.clear();
+				cin.ignore();
+				cout << "Invalid entry, enter a number" << endl;
 				cout << "Please enter the value for:" << endl;
 				cout << "Row " << y + 1 << ", column " << x + 1 << ": ";
-				cin >> table[y][x];
-				if(cin.fail()){
-					cin.clear();
-					cin.ignore();
-					cout << "Invalid entry, enter a number" << endl;
-				}
-			}while(cin.fail());
+				cin >> tempnum;
+			}
+			table[y][x] = tempnum;
 		}
 	}
 }
@@ -651,7 +626,24 @@ void printPrices(const double table[MAXROWS] [MAXCOLS], int numOfRows, int numOf
 	cout << fixed << showpoint << setprecision(2);
 	for (int row = 0; row < numOfRows; row++){
 		for (int col = 0; col < numOfCols; col++){
-			// Fill in the code to print the table
+			
+		cout << table[row][col] << "      " ;
 		}
+		cout << endl;
 	}
+}
+
+
+int main(){
+	int rowsUsed; // holds the number of rows used
+	int colsUsed; // holds the number of columns used
+	PriceType priceTable; // a 2D array holding the prices
+	getPrices(priceTable, rowsUsed, colsUsed); // calls getPrices to fill the array 
+	printPrices(priceTable, rowsUsed, colsUsed);// calls printPrices to display array
+	//cout << "The average value is: " << findAverage2D(priceTable, colsUsed, rowsUsed) << endl;
+	//cout << "The maximum value is: " << findHighest2D(priceTable, colsUsed, rowsUsed) << endl;
+	cout << "The minimum value is: " << findLowest2D(priceTable, colsUsed, rowsUsed) << endl;
+	
+	system("pause");
+	return 0;
 }
