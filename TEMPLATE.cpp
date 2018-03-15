@@ -16,7 +16,10 @@
 //#include "EasyBMP_SimpleArray.h"
 
 
-
+#include <boost\multiprecision\float128.hpp>
+/*
+boost::multiprecision::float128 variableName;
+*/
 
 
 

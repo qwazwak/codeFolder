@@ -16,7 +16,11 @@
 //#include "EasyBMP_SimpleArray.h"
 
 
-
+#include <boost\multiprecision\float128.hpp>
+/*
+boost::multiprecision::float128 variableName;
+128bit numbers
+*/
 
 
 #include <bitset>
@@ -325,7 +329,7 @@
 
 
 
-//#include <cmath>
+#include <cmath>
 //Some parts of this library have C++11 requirments
 /*
 	Functions:
@@ -517,19 +521,14 @@ uint_fast64_t combineNumbers(uint_fast64_t a, uint_fast64_t b){
 }
 
 
-uint_fast64_t getDataSizeFromUser(){
+boost::multiprecision::float128 getNumberOfGens(){
 	int userWantedUnits;
-	uint_fast64_t userEnteredValue;
-	long double userWantedSize;
-
+	boost::multiprecision::float128 userEnteredSizeValue;
+	boost::multiprecision::float128 numberOfGens;
 
 
 	cout << "|    Random Files Generator    |" << endl;
 	cout << "|                              |" << endl;
-	cout << "| Only enter a value less than |" << endl;
-	cout << "|  18,446,744,073,709,552,046  |" << endl;
-	cout << "|   Which is ~18 Quintillion   |" << endl;
-	cout << "|IE: keep it under 20 digits|" << endl;
 	cout << "|    Select units for amount   |" << endl;
 	cout << "|      of data to make:        |" << endl;
 	cout << "|        1- Bits               |" << endl;
@@ -542,12 +541,10 @@ uint_fast64_t getDataSizeFromUser(){
 	cin >> userWantedUnits;
 	system("CLS");
 	while(cin.fail() || userWantedUnits < 1 || userWantedUnits > 5){
+		cin.clear();
+		cin.ignore();
 		cout << "|    Random Files Generator    |" << endl;
 		cout << "|                              |" << endl;
-		cout << "| Only enter a value less than |" << endl;
-		cout << "|  18,446,744,073,709,552,046  |" << endl;
-		cout << "|   Which is ~18 Quintillion   |" << endl;
-		cout << "|IE: keep it under 20 digits|" << endl;
 		cout << "|        INVALID  INPUT        |" << endl;
 		if(cin.fail()){
 			cout << "|     Only enter a number      |" << endl;
@@ -567,12 +564,7 @@ uint_fast64_t getDataSizeFromUser(){
 		cout << "|   -";
 		cin >> userWantedUnits;
 		system("CLS");
-		cin.clear();
-		cin.ignore();
 	}
-
-
-
 
 
 
@@ -604,85 +596,85 @@ uint_fast64_t getDataSizeFromUser(){
 			      cout << " to generate |" << endl;
 	cout << "|                              |" << endl;
 	cout << "|   -";
-	cin >> userWantedSize;
+	cin >> userEnteredSizeValue;
 	system("CLS");
-	while(cin.fail() || userWantedSize < 1 || userWantedSize > 5){
+	while(cin.fail() || userEnteredSizeValue < 1 || (userWantedUnits == 1 && userEnteredSizeValue < 64) || (userWantedUnits == 2 && userEnteredSizeValue < 8)){
+		cin.clear();
+		cin.ignore();
 		cout << "|    Random Files Generator    |" << endl;
 		cout << "|                              |" << endl;
 		cout << "|        INVALID  INPUT        |" << endl;
 		if(cin.fail()){
 			cout << "|     Only enter a number      |" << endl;
 		}
-		else if(userWantedSize < 1){
+		else if(userEnteredSizeValue < 1){
 			cout << "| Only enter a positive number |" << endl;
 		}
 		cout << "|                              |" << endl;
-		cout << "|    Select units for amount   |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|        5- Gigabytes          |" << endl;
+		cout << "|  Enter the number            |" << endl;
+		cout << "|   of ";
+		switch(userWantedUnits){
+			case 1:
+			  cout << "Bits     ";
+			break;
+			case 2:
+			  cout << "Bytes    ";
+			break;
+			case 3:
+			  cout << "Kilobytes";
+			break;
+			case 4:
+			  cout << "Megabytes";
+			break;
+			case 5:
+			  cout << "Gigabytes";
+			break;
+			default:
+			  cout << "KilerEror";
+				return -1;
+			break;
+		}
+				      cout << " to generate |" << endl;
 		cout << "|                              |" << endl;
 		cout << "|   -";
-		cin >> userWantedSize;
+		cin >> userEnteredSizeValue;
 		system("CLS");
-		cin.clear();
-		cin.ignore();
 	}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	return choice;
+	//Convert data size to number o
+	switch(userWantedUnits){
+		case 1:
+			numberOfGens = static_cast<boost::multiprecision::float128>(
+				floor(
+					static_cast<long double>(userEnteredSizeValue) / 32.0
+				)
+			);
+		break;
+		case 2:
+			numberOfGens = static_cast<boost::multiprecision::float128>(
+				floor(
+					static_cast<long double>(userEnteredSizeValue) / 4.0
+				)
+			);
+		break;
+		case 3:
+			numberOfGens = userEnteredSizeValue * 4000.0;
+		break;
+		case 4:
+			numberOfGens = userEnteredSizeValue * 4000000.0;
+		break;
+		case 5:
+			numberOfGens = userEnteredSizeValue * 4000000000.0;
+		break;
+		default:
+			cout << "KilerEror";
+			return -1;
+		break;
+	}
+	return numberOfGens;
 }
-
-
-Planning:
-
-Things for ui:
-
-Total size vs size per files
-
-total: max size then #Files
-perfile: num files then
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -691,15 +683,15 @@ perfile: num files then
 
 int main(){
 	//Initialization
+		//File things
+			ofstream randomFilesOutput;
+			CreateDirectory("output", NULL);
 		//Random Things
 			random_device trueRandom;
 			uint_fast64_t seedTime = clock();
 			uint_fast64_t seedTrueRandom = trueRandom();
 			uint_fast64_t seedReal = combineNumbers(seedTime, seedTrueRandom);
 		//What the user wants:
-			int userWantedUnits;
-			long double userInputSize;
-			int_least64_t realSizePerFile;
 
 
 
@@ -732,20 +724,11 @@ int main(){
 	system("CLS");
 
 
-	int_least64_t gensTillUpdate;
 	uint_least64_t stopwatchStart;
 	uint_least64_t stopwatch;
 	long double timePerFileAverage;
-	ofstream randomFilesOutput;
 	uint_least64_t timePerFileTotal = 0;
 	long double globalStopwatchStart;
-	int_least64_t userOkayWithPercent;
-
-bitset<NUMBEROFBITSMEEP>(FOOBARVARIABLENAME)
-
-
-	int_least64_t userInputSize;
-	int_least64_t userRealSize;
 
 
 
@@ -786,14 +769,14 @@ bitset<NUMBEROFBITSMEEP>(FOOBARVARIABLENAME)
 
 
 	//Generate and output numbers and files
-	CreateDirectory("output", NULL);
+
 	for(uint_least64_t currentFileNumber = 1; currentFileNumber <= numOfFiles; currentFileNumber = currentFileNumber + 1){
 		stopwatchStart = clock();
 		randomFilesOutput.open(".\\output\\RandomNumbers___Seed-" + to_string(seed) + "___values-" + to_string(numOfValuesToGenerate) + "___Part" + to_string(currentFileNumber) + "of" + to_string(numOfFiles) + ".txt");
 
 
 		for(uint_least64_t currentNumGeneration = 1; currentNumGeneration <= numOfValuesToGenerate; currentNumGeneration = currentNumGeneration + 1){
-			randomFilesOutput << generate();
+			randomFilesOutput << bitset<64>(generate());
 
 
 		}
