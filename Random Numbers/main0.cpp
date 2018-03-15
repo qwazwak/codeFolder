@@ -521,6 +521,35 @@ uint_fast64_t combineNumbers(uint_fast64_t a, uint_fast64_t b){
 }
 
 
+
+boost::multiprecision::float128 getNumFiles(){
+	boost::multiprecision::float128 numOfFiles;
+
+	cout << "|    Random Files Generator    |" << endl;
+	cout << "|                              |" << endl;
+	cout << "|   Enter the number of        |" << endl;
+	cout << "|       files to make:         |" << endl;
+	cout << "|   -";
+	cin >> numOfFiles;
+	system("CLS");
+	while(cin.fail() || numOfFiles < 1){
+		cin.clear();
+		cin.ignore();
+		cout << "|    Random Files Generator    |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|        INVALID  INPUT        |" << endl;
+		cout << "|  Only enter a postive number |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|   Enter the number of        |" << endl;
+		cout << "|       files to make:         |" << endl;
+		cout << "|   -";
+		cin >> numOfFiles;
+		system("CLS");
+	}
+	return numOfFiles;
+}
+
+
 boost::multiprecision::float128 getNumberOfGens(){
 	int userWantedUnits;
 	boost::multiprecision::float128 userEnteredSizeValue;
@@ -683,6 +712,9 @@ boost::multiprecision::float128 getNumberOfGens(){
 
 int main(){
 	//Initialization
+		//User choices
+			int maxSizeOrPerfile;
+			int userOkayWithSettings;
 		//File things
 			ofstream randomFilesOutput;
 			CreateDirectory("output", NULL);
@@ -691,16 +723,10 @@ int main(){
 			uint_fast64_t seedTime = clock();
 			uint_fast64_t seedTrueRandom = trueRandom();
 			uint_fast64_t seedReal = combineNumbers(seedTime, seedTrueRandom);
-		//What the user wants:
-
-
-
-			int_least64_t numOfFiles;
-			int_least64_t numOfValuesToGenerate;
-			int_least64_t numIntOfValPerFile;
-		 	long double numFloatOfValPerFile;
-
-
+		//Things for the generation
+			boost::multiprecision::float128 numOfFiles;
+			boost::multiprecision::float128 numOfGensTotal;
+			boost::multiprecision::float128 numOfGensPerFile;
 
 
 
@@ -724,44 +750,100 @@ int main(){
 	system("CLS");
 
 
-	uint_least64_t stopwatchStart;
-	uint_least64_t stopwatch;
-	long double timePerFileAverage;
-	uint_least64_t timePerFileTotal = 0;
-	long double globalStopwatchStart;
+	//uint_least64_t stopwatchStart;
+	//uint_least64_t stopwatch;
+	//long double timePerFileAverage;
+	//uint_least64_t timePerFileTotal = 0;
+	//long double globalStopwatchStart;
 
 
 
 
+	//boost::multiprecision::float128 numOfGensTotal;
+	//boost::multiprecision::float128 numOfGensPerFile;
 
-
-
-
-	cout << "|    Random Files Generator    |" << endl;
-	cout << "|                              |" << endl;
-	cout << "|                              |" << endl;
-	cout << "| Enter the number of          |" << endl;
-	cout << "|   files to make:             |" << endl;
-	cout << "|      ";
-	cin >> numOfFiles;
-	system("CLS");
 	do{
-		cin.clear();
-		cin.ignore();
 		cout << "|    Random Files Generator    |" << endl;
 		cout << "|                              |" << endl;
-		cout << "|        Invalid  Entry        |" << endl;
-		cout << "| Enter the number of          |" << endl;
-		cout << "|   files to make:             |" << endl;
-		cout << "|      ";
-		cin >> numOfFiles;
+		cout << "|Enter the number of the option|" << endl;
+		cout << "|    you want                  |" << endl;
+		cout << "|  1. Enter size per file      |" << endl;
+		cout << "|  2. Enter total size to make |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|   -";
+		cin >> maxSizeOrPerfile;
 		system("CLS");
-	}while(cin.fail() || numOfFiles < 1);
+		while(cin.fail() || maxSizeOrPerfile < 1 || maxSizeOrPerfile > 2){
+			cin.clear();
+			cin.ignore();
+			cout << "|    Random Files Generator    |" << endl;
+			cout << "|                              |" << endl;
+			cout << "|        Invalid  Entry        |" << endl;
+			cout << "|     Only enter a 1 or 2      |" << endl;
+			cout << "|                              |" << endl;
+			cout << "|Enter the number of the option|" << endl;
+			cout << "|    you want                  |" << endl;
+			cout << "|  1. Enter total size to make |" << endl;
+			cout << "|  2. Enter size per file      |" << endl;
+			cout << "|                              |" << endl;
+			cout << "|   -";
+			cin >> maxSizeOrPerfile;
+			system("CLS");
+		}
+
+		if (maxSizeOrPerfile == 1) {
+			numOfGensTotal = getNumberOfGens();
+			numOfFiles = getNumFiles();
+		} else if (maxSizeOrPerfile == 2) {
+			numOfFiles = getNumFiles();
+			numOfGensTotal = getNumberOfGens();
+		}
+
+		cout << "|    Random Files Generator    |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|These are the current options |" << endl;
+		cout << "|   Number of files to make:   |" << endl;
+		cout << "|    " << numOfFiles << endl;
+		cout << "|" endl;
+		cout << "|   Total mount of data to make:" << endl;
+		cout << "|    ";
+		if(numOfGensTotal) {
+			/* code */
+		} else if (/* condition */) {
+			/* code */
+		}
+		else if
+		cout << "|" endl;
+		cout << "|   Size per file:" << endl;
+		cout << "|    " << numOfFiles << endl;
+		cout << "|" endl;
+		cout << "| If these are okay enter a '1'|" << endl;
+		cout << "|  Otherwise enter a '2'       |" << endl;
+		cout << "|   -";
+		cin >> maxSizeOrPerfile;
+		system("CLS");
+		while(cin.fail() || maxSizeOrPerfile < 1 || maxSizeOrPerfile > 2){
+			cin.clear();
+			cin.ignore();
+			cout << "|    Random Files Generator    |" << endl;
+			cout << "|                              |" << endl;
+			cout << "|These are the current options |" << endl;
+			cout << "|   Number of files to make:   |" << endl;
+			cout << "|    " <<  numOfFiles << endl
+			cout << "|   Amount of data to make:   |" << endl;
+			cout << "|    " << s << endl
+			cout << "|   Number of files to make:   |" << endl;
+			cout << "|    " <<  numOfFiles << endl;
+			cout << "| If these are okay enter a '1'|" << endl;
+			cout << "|  Otherwise enter a '2'       |" << endl;
+			cout << "|   -";
+			cin >> maxSizeOrPerfile;
+			system("CLS");
+		}
 
 
 
-
-
+	}while(userOkayWithSettings);
 
 
 
@@ -797,7 +879,7 @@ int main(){
 	}
 
 	//Display Stats
-	cout << endl << endl << endl << endl << endl << endl;
+	std::cout << endl << endl << endl << endl << endl << endl;
 	cout << endl << endl << endl << endl << endl << endl;
 	cout << "|    Random Files Generator    |" << endl;
 	cout << "|                              |" << endl;
