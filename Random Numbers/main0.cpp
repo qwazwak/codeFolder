@@ -17,18 +17,24 @@
 
 
 
-//#include <windows.h>
+
+
+#include <bitset>
 /*
-	Lots more, but for now just
-	CreateDirectory("output", NULL);
-	system("pause");
+	bitset<NUMBEROFBITSMEEP>(FOOBARVARIABLENAME)
+
 */
 
 
+#include <windows.h>
+/*
+	LPCWSTR FOOBARDIRECTERY = L"c:\testdir";
+	CreateDirectory(FOOBARDIRECTERY, NULL)
+	CreateDirectory("output", NULL);
+*/
 
 
-
-//#include <ctime>
+#include <ctime>
 /*
 	http://www.cplusplus.com/reference/ctime/
 
@@ -45,10 +51,7 @@
 */
 
 
-
-
-
-//#include <random>
+#include <random>
 //All of this library is c++11 and requires compiler support
 /*
 	C++11
@@ -61,10 +64,7 @@
 */
 
 
-
-
-
-//#include <cstdint>
+#include <cstdint>
 //All of this library is c++11 and requires compiler support
 /*
 	C++11
@@ -128,10 +128,7 @@
 */
 
 
-
-
-
-//#include <cstdlib>
+#include <cstdlib>
 /*
 	Quicksort:
 		qsort (SOURCEARRAY, NumberOfElements, SizeOfEachElementInBytes/sizeof(int), compareMyType);
@@ -213,9 +210,6 @@
 */
 
 
-
-
-
 //#include <time.h>
 /*
 	Has more, all I use is:
@@ -223,10 +217,7 @@
 */
 
 
-
-
-
-//#include <iostream>
+#include <iostream>
 /*
 	system("pause")
 		Enter any key to continue..
@@ -244,7 +235,7 @@
 
 
 
-//#include <iomanip>
+#include <iomanip>
 /*
 	Manipulates input and output
 	cout << setprecision(2) << fixed << showpoint;
@@ -252,10 +243,7 @@
 */
 
 
-
-
-
-//#include <fstream>
+#include <fstream>
 /* i/ofstream info
 	(i or o)fstream FILEIDENT;
 	FILEIDENT.open("FILENAME.txt");
@@ -292,9 +280,6 @@
 */
 
 
-
-
-
 //#include <string>
 /*
 	real strings
@@ -329,9 +314,6 @@
 			stold
 				Convert string to long double (function template )
 */
-
-
-
 
 
 //#include <cstring>
@@ -432,7 +414,6 @@
 
 
 
-
 /* Delay and dynamic noise making
 #if defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)
 	#include <windows.h>
@@ -527,28 +508,230 @@ Useful bits of code:
 
 using namespace std;
 
-	random_device rd; //call random numbers with rd()
-	int seed = rd() * clock()
-	mt19937 generator(seed);  // mt19937 is a standard mersenne_twister_engine
-	srand(seed);
-	Call randoms with generator() or rand()
+uint_fast64_t combineNumbers(uint_fast64_t a, uint_fast64_t b){
+	uint_fast64_t times = 1;
+	while(times <= b){
+		times = times * 10;
+	}
+	return (a * times ) + b;
+}
 
-	cout << "Seed: " << seed << endl;
-	cout << "Minimum: " << rd.min() << endl;
-	cout << "Maximum: " << rd.max() << endl;
-	cout << "Entropy: " << rd.entropy() << endl;
+
+uint_fast64_t getDataSizeFromUser(){
+	int userWantedUnits;
+	uint_fast64_t userEnteredValue;
+	long double userWantedSize;
+
+
+
+	cout << "|    Random Files Generator    |" << endl;
+	cout << "|                              |" << endl;
+	cout << "| Only enter a value less than |" << endl;
+	cout << "|  18,446,744,073,709,552,046  |" << endl;
+	cout << "|   Which is ~18 Quintillion   |" << endl;
+	cout << "|IE: keep it under 20 digits|" << endl;
+	cout << "|    Select units for amount   |" << endl;
+	cout << "|      of data to make:        |" << endl;
+	cout << "|        1- Bits               |" << endl;
+	cout << "|        2- Bytes              |" << endl;
+	cout << "|        3- Kilobytes          |" << endl;
+	cout << "|        4- Megabytes          |" << endl;
+	cout << "|        5- Gigabytes          |" << endl;
+	cout << "|                              |" << endl;
+	cout << "|   -";
+	cin >> userWantedUnits;
+	system("CLS");
+	while(cin.fail() || userWantedUnits < 1 || userWantedUnits > 5){
+		cout << "|    Random Files Generator    |" << endl;
+		cout << "|                              |" << endl;
+		cout << "| Only enter a value less than |" << endl;
+		cout << "|  18,446,744,073,709,552,046  |" << endl;
+		cout << "|   Which is ~18 Quintillion   |" << endl;
+		cout << "|IE: keep it under 20 digits|" << endl;
+		cout << "|        INVALID  INPUT        |" << endl;
+		if(cin.fail()){
+			cout << "|     Only enter a number      |" << endl;
+		}
+		else if(userWantedUnits < 1 || userWantedUnits > 5) {
+			cout << "|   Only a 1, 2, 3, 4, or 5    |" << endl;
+		}
+		cout << "|                              |" << endl;
+		cout << "|    Select units for amount   |" << endl;
+		cout << "|      of data to make:        |" << endl;
+		cout << "|        1- Bits               |" << endl;
+		cout << "|        2- Bytes              |" << endl;
+		cout << "|        3- Kilobytes          |" << endl;
+		cout << "|        4- Megabytes          |" << endl;
+		cout << "|        5- Gigabytes          |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|   -";
+		cin >> userWantedUnits;
+		system("CLS");
+		cin.clear();
+		cin.ignore();
+	}
+
+
+
+
+
+
+	cout << "|    Random Files Generator    |" << endl;
+	cout << "|                              |" << endl;
+	cout << "|  Enter the number            |" << endl;
+	cout << "|   of ";
+	switch(userWantedUnits){
+		case 1:
+		  cout << "Bits     ";
+		break;
+		case 2:
+		  cout << "Bytes    ";
+		break;
+		case 3:
+		  cout << "Kilobytes";
+		break;
+		case 4:
+		  cout << "Megabytes";
+		break;
+		case 5:
+		  cout << "Gigabytes";
+		break;
+		default:
+		  cout << "KilerEror";
+			return -1;
+		break;
+	}
+			      cout << " to generate |" << endl;
+	cout << "|                              |" << endl;
+	cout << "|   -";
+	cin >> userWantedSize;
+	system("CLS");
+	while(cin.fail() || userWantedSize < 1 || userWantedSize > 5){
+		cout << "|    Random Files Generator    |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|        INVALID  INPUT        |" << endl;
+		if(cin.fail()){
+			cout << "|     Only enter a number      |" << endl;
+		}
+		else if(userWantedSize < 1){
+			cout << "| Only enter a positive number |" << endl;
+		}
+		cout << "|                              |" << endl;
+		cout << "|    Select units for amount   |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|        5- Gigabytes          |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|   -";
+		cin >> userWantedSize;
+		system("CLS");
+		cin.clear();
+		cin.ignore();
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	return choice;
+}
+
+
+Planning:
+
+Things for ui:
+
+Total size vs size per files
+
+total: max size then #Files
+perfile: num files then
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int main(){
+	//Initialization
+		//Random Things
+			random_device trueRandom;
+			uint_fast64_t seedTime = clock();
+			uint_fast64_t seedTrueRandom = trueRandom();
+			uint_fast64_t seedReal = combineNumbers(seedTime, seedTrueRandom);
+		//What the user wants:
+			int userWantedUnits;
+			long double userInputSize;
+			int_least64_t realSizePerFile;
+
+
+
+			int_least64_t numOfFiles;
+			int_least64_t numOfValuesToGenerate;
+			int_least64_t numIntOfValPerFile;
+		 	long double numFloatOfValPerFile;
+
+
+
+
+
+
+
+	if( trueRandom.entropy() == 0 ){
+		mt19937_64 generator(seedTime);
+		cout << "Hardware does not support nondeterministic seeds" << endl;
+		cout << "Using current time as seed: " << seedTime << endl;
+	}
+	else{
+		mt19937_64 generator(seedReal);
+		cout << "Using mersenne twister engine seeded with nondeterministic seed" << endl;
+		cout << "  Random seed combined with time: " << seedReal << endl;
+		cout << "  Entropy: " << trueRandom.entropy() << endl;
+	}
+	cout << "  Minimum: " << trueRandom.min() << endl;
+	cout << "  Maximum: " << trueRandom.max() << endl;
 	cout << "setup done" << endl;
+	system("pause");
+	system("CLS");
 
 
-using namespace std;
-
-int main (){
-	mt19937 generator(clock() * chrono::system_clock::now().time_since_epoch().count());  // mt19937 is a standard mersenne_twister_engine
-	int_least64_t seed = generator();
-	srand(seed);
-	random_device rd;
-	int_least64_t numOfFiles;
-	int_least64_t numOfValuesToGenerate;
 	int_least64_t gensTillUpdate;
 	uint_least64_t stopwatchStart;
 	uint_least64_t stopwatch;
@@ -558,62 +741,46 @@ int main (){
 	long double globalStopwatchStart;
 	int_least64_t userOkayWithPercent;
 
-	cout << "Seed: " << seed << endl;
-	cout << "Minimum: " << rd.min() << endl;
-	cout << "Maximum: " << rd.max() << endl;
-	cout << "Entropy: " << rd.entropy() << endl;
-	cout << "setup done" << endl;
+bitset<NUMBEROFBITSMEEP>(FOOBARVARIABLENAME)
 
 
+	int_least64_t userInputSize;
+	int_least64_t userRealSize;
+
+
+
+
+
+
+
+
+	cout << "|    Random Files Generator    |" << endl;
+	cout << "|                              |" << endl;
+	cout << "|                              |" << endl;
+	cout << "| Enter the number of          |" << endl;
+	cout << "|   files to make:             |" << endl;
+	cout << "|      ";
+	cin >> numOfFiles;
+	system("CLS");
 	do{
+		cin.clear();
+		cin.ignore();
 		cout << "|    Random Files Generator    |" << endl;
 		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
+		cout << "|        Invalid  Entry        |" << endl;
 		cout << "| Enter the number of          |" << endl;
 		cout << "|   files to make:             |" << endl;
 		cout << "|      ";
 		cin >> numOfFiles;
-		cin.clear();
-		cin.ignore();
+		system("CLS");
 	}while(cin.fail() || numOfFiles < 1);
 
-	do{
-		cout << "|    Random Files Generator    |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "| Enter the number of          |" << endl;
-		cout << "|   generations per file:      |" << endl;
-		cout << "|      ";
-		cin >> numOfValuesToGenerate;
-		cin.clear();
-		cin.ignore();
-	}while(cin.fail() || numOfValuesToGenerate < 1);
-
-	/*do{
-		do{
-			cout << "|    Random Files Generator    |" << endl;
-			cout << "|                              |" << endl;
-			cout << "|                              |" << endl;
-			cout << "| After how many values should |" << endl;
-			cout << "|   progress be displayed?     |" << endl;
-			cout << "|      ";
-			cin >> gensTillUpdate;
-			cin.clear();
-			cin.ignore();
-		}while(cin.fail() || gensTillUpdate < 1 || gensTillUpdate >= numOfValuesToGenerate);
 
 
-		do{
-			cout << "|    Random Files Generator    |" << endl;
-			cout << "|                              |" << endl;
-			cout << "| This will display updates    |" << endl;
-			cout << "|   every: " << setprecision(4) << (100.0 * (static_cast<long double>(gensTillUpdate) / static_cast<long double>(numOfValuesToGenerate))) << "%" << endl;
-			cout << "|                              |" << endl;
-			cout << "|Is this okay?  1: Yes    0: No|" << endl;
-			cout << "|      ";
-			cin >> userOkayWithPercent;
-		}while(cin.fail() || userOkayWithPercent < 0 || userOkayWithPercent > 1);
-	}while(userOkayWithPercent != 1);*/
+
+
+
+
 
 	globalStopwatchStart = clock();
 
@@ -626,7 +793,7 @@ int main (){
 
 
 		for(uint_least64_t currentNumGeneration = 1; currentNumGeneration <= numOfValuesToGenerate; currentNumGeneration = currentNumGeneration + 1){
-			randomFilesOutput << rd();
+			randomFilesOutput << generate();
 
 
 		}
@@ -656,5 +823,5 @@ int main (){
 	cout << "| Time Taken - " << ((clock() - globalStopwatchStart)/1000) << " seconds" << endl;
 	cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|" << endl;
 	system("pause");
-	return 0;
+	return 1;
 }
