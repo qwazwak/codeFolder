@@ -16,10 +16,24 @@
 //#include "EasyBMP_SimpleArray.h"
 
 
+#include <boost/multiprecision/cpp_int.hpp>
+/*
+	// Fixed precision unsigned inegers:
+		boost::multiprecision::cpp_int::uint128_t
+		boost::multiprecision::cpp_int::uint256_t
+		boost::multiprecision::cpp_int::uint512_t
+		boost::multiprecision::cpp_int::uint1024_t
+	// Fixed precision signed inegers:
+		boost::multiprecision::cpp_int::int128_t
+		boost::multiprecision::cpp_int::int256_t
+		boost::multiprecision::cpp_int::int512_t
+		boost::multiprecision::cpp_int::int1024_t
+*/
+
+
 #include <boost\multiprecision\float128.hpp>
 /*
-boost::multiprecision::float128 variableName;
-128bit numbers
+	boost::multiprecision::float128 variableName;
 */
 
 
@@ -522,8 +536,8 @@ uint_fast64_t combineNumbers(uint_fast64_t a, uint_fast64_t b){
 
 
 
-boost::multiprecision::float128 getNumFiles(){
-	boost::multiprecision::float128 numOfFiles;
+boost::multiprecision::uint1024_t getNumFiles(){
+	boost::multiprecision::uint1024_t numOfFiles;
 
 	cout << "|    Random Files Generator    |" << endl;
 	cout << "|                              |" << endl;
@@ -550,10 +564,10 @@ boost::multiprecision::float128 getNumFiles(){
 }
 
 
-boost::multiprecision::float128 getNumberOfGens(){
+boost::multiprecision::uint1024_t getNumberOfBitsToMake(){
 	int userWantedUnits;
-	boost::multiprecision::float128 userEnteredSizeValue;
-	boost::multiprecision::float128 numberOfGens;
+	boost::multiprecision::uint1024_t userEnteredSizeValue;
+	boost::multiprecision::uint1024_t numberOfBitsToMake;
 
 
 	cout << "|    Random Files Generator    |" << endl;
@@ -594,7 +608,6 @@ boost::multiprecision::float128 getNumberOfGens(){
 		cin >> userWantedUnits;
 		system("CLS");
 	}
-
 
 
 	cout << "|    Random Files Generator    |" << endl;
@@ -675,34 +688,46 @@ boost::multiprecision::float128 getNumberOfGens(){
 	//Convert data size to number o
 	switch(userWantedUnits){
 		case 1:
-			numberOfGens = static_cast<boost::multiprecision::float128>(
+			numberOfBitsToMake = static_cast<boost::multiprecision::uint1024_t>(
 				floor(
 					static_cast<long double>(userEnteredSizeValue) / 32.0
 				)
 			);
 		break;
 		case 2:
-			numberOfGens = static_cast<boost::multiprecision::float128>(
+			numberOfBitsToMake = static_cast<boost::multiprecision::uint1024_t>(
 				floor(
-					static_cast<long double>(userEnteredSizeValue) / 4.0
+					static_cast<long double>(userEnteredSizeValue) / 4
 				)
 			);
 		break;
 		case 3:
-			numberOfGens = userEnteredSizeValue * 4000.0;
+			numberOfBitsToMake = static_cast<boost::multiprecision::uint1024_t>(
+				floor(
+					static_cast<long double>(userEnteredSizeValue) / 4000.0
+				)
+			);
 		break;
 		case 4:
-			numberOfGens = userEnteredSizeValue * 4000000.0;
+			numberOfBitsToMake = static_cast<boost::multiprecision::uint1024_t>(
+				floor(
+					static_cast<long double>(userEnteredSizeValue) / 4000000.0
+				)
+			);
 		break;
 		case 5:
-			numberOfGens = userEnteredSizeValue * 4000000000.0;
+			numberOfBitsToMake = static_cast<boost::multiprecision::uint1024_t>(
+				floor(
+					static_cast<long double>(userEnteredSizeValue) / 4000000000.0
+				)
+			);
 		break;
 		default:
 			cout << "KilerEror";
 			return -1;
 		break;
 	}
-	return numberOfGens;
+	return numberOfBitsToMake;
 }
 
 
@@ -724,11 +749,20 @@ int main(){
 			uint_fast64_t seedTrueRandom = trueRandom();
 			uint_fast64_t seedReal = combineNumbers(seedTime, seedTrueRandom);
 		//Things for the generation
-			boost::multiprecision::float128 numOfFiles;
-			boost::multiprecision::float128 numOfGensTotal;
-			boost::multiprecision::float128 numOfGensPerFile;
-
-
+			boost::multiprecision::uint1024_t numOfFiles;
+			boost::multiprecision::uint1024_t numOfBitsMinimum;
+			boost::multiprecision::uint1024_t numOfBitsTotal;
+			boost::multiprecision::uint1024_t numOfBitsPerFile;
+			boost::multiprecision::float128 numOfGensPerFileMinimum;
+		//Timing things
+		boost::multiprecision::uint1024_t entireGenerationTimeStopwatchStartTime;
+		boost::multiprecision::uint1024_t entireGenerationTimeStopwatchEndTime;
+		boost::multiprecision::uint1024_t SingleFileTimeStopwatchStartTime;
+		boost::multiprecision::uint1024_t SingleFileTimeStopwatchEndTime;
+		//uint_least64_t stopwatch;
+		//long double timePerFileAverage;
+		//uint_least64_t timePerFileTotal = 0;
+		//long double globalStopwatchStart;
 
 
 
@@ -750,17 +784,6 @@ int main(){
 	system("CLS");
 
 
-	//uint_least64_t stopwatchStart;
-	//uint_least64_t stopwatch;
-	//long double timePerFileAverage;
-	//uint_least64_t timePerFileTotal = 0;
-	//long double globalStopwatchStart;
-
-
-
-
-	//boost::multiprecision::float128 numOfGensTotal;
-	//boost::multiprecision::float128 numOfGensPerFile;
 
 	do{
 		cout << "|    Random Files Generator    |" << endl;
@@ -790,33 +813,70 @@ int main(){
 			cin >> maxSizeOrPerfile;
 			system("CLS");
 		}
-
 		if (maxSizeOrPerfile == 1) {
-			numOfGensTotal = getNumberOfGens();
+			numOfBitsMinimum = getNumberOfBitsToMake();
 			numOfFiles = getNumFiles();
-		} else if (maxSizeOrPerfile == 2) {
+		}else if(maxSizeOrPerfile == 2){
 			numOfFiles = getNumFiles();
-			numOfGensTotal = getNumberOfGens();
+			numOfBitsMinimum = getNumberOfBitsToMake();
 		}
+		else{
+			cout << "KilerEror" << endl;
+		}
+		numOfBitsPerFile = static_cast<boost::multiprecision::uint1024_t>(ceil(static_cast<boost::multiprecision::float128>(numOfBitsMinimum) / static_cast<boost::multiprecision::float128>(numOfFiles)));
+		numOfBitsTotal = numOfBitsPerFile * numOfFiles;
+
+
 
 		cout << "|    Random Files Generator    |" << endl;
 		cout << "|                              |" << endl;
 		cout << "|These are the current options |" << endl;
 		cout << "|   Number of files to make:   |" << endl;
 		cout << "|    " << numOfFiles << endl;
-		cout << "|" endl;
+		cout << "|" << endl;
 		cout << "|   Total mount of data to make:" << endl;
 		cout << "|    ";
-		if(numOfGensTotal) {
-			/* code */
-		} else if (/* condition */) {
-			/* code */
+		cout << numOfBitsTotal;
+		if(numOfBitsTotal < 8){
+			cout << " Bits    ";
 		}
-		else if
-		cout << "|" endl;
+		else if(numOfBitsTotal < 8000){
+			cout << " Bytes    ";
+		}
+		else if(numOfBitsTotal < 8000000){
+			cout << " Kilobytes";
+		}
+		else if(numOfBitsTotal < 8000000000){
+			cout << " Megabytes";
+		}
+		else if(numOfBitsTotal < 8000000000000){
+			cout << " Gigabytes";
+		}
+		else{
+			cout << "KilerEror";
+		}
+		cout << "|" << endl;
 		cout << "|   Size per file:" << endl;
-		cout << "|    " << numOfFiles << endl;
-		cout << "|" endl;
+		cout << "|    " << numOfBitsPerFile;
+		if(numOfBitsPerFile < 8){
+			cout << " Bits    ";
+		}
+		else if(numOfBitsPerFile < 8000){
+			cout << " Bytes    ";
+		}
+		else if(numOfBitsPerFile < 8000000){
+			cout << " Kilobytes";
+		}
+		else if(numOfBitsPerFile < 8000000000){
+			cout << " Megabytes";
+		}
+		else if(numOfBitsPerFile < 8000000000000){
+			cout << " Gigabytes";
+		}
+		else{
+			cout << "KilerEror";
+		}
+		cout << "|" << endl;
 		cout << "| If these are okay enter a '1'|" << endl;
 		cout << "|  Otherwise enter a '2'       |" << endl;
 		cout << "|   -";
@@ -827,13 +887,56 @@ int main(){
 			cin.ignore();
 			cout << "|    Random Files Generator    |" << endl;
 			cout << "|                              |" << endl;
+			cout << "|        Invalid  Entry        |" << endl;
+			cout << "|     Only enter a 1 or 2      |" << endl;
+			cout << "|                              |" << endl;
 			cout << "|These are the current options |" << endl;
 			cout << "|   Number of files to make:   |" << endl;
-			cout << "|    " <<  numOfFiles << endl
-			cout << "|   Amount of data to make:   |" << endl;
-			cout << "|    " << s << endl
-			cout << "|   Number of files to make:   |" << endl;
-			cout << "|    " <<  numOfFiles << endl;
+			cout << "|    " << numOfFiles << endl;
+			cout << "|" << endl;
+			cout << "|   Total mount of data to make:" << endl;
+			cout << "|    ";
+			cout << numOfBitsTotal;
+			if(numOfBitsTotal < 8){
+				cout << " Bits    ";
+			}
+			else if(numOfBitsTotal < 8000){
+				cout << " Bytes    ";
+			}
+			else if(numOfBitsTotal < 8000000){
+				cout << " Kilobytes";
+			}
+			else if(numOfBitsTotal < 8000000000){
+				cout << " Megabytes";
+			}
+			else if(numOfBitsTotal < 8000000000000){
+				cout << " Gigabytes";
+			}
+			else{
+				cout << "KilerEror";
+			}
+			cout << "|" << endl;
+			cout << "|   Size per file:" << endl;
+			cout << "|    " << numOfBitsPerFile;
+			if(numOfBitsPerFile < 8){
+				cout << " Bits    ";
+			}
+			else if(numOfBitsPerFile < 8000){
+				cout << " Bytes    ";
+			}
+			else if(numOfBitsPerFile < 8000000){
+				cout << " Kilobytes";
+			}
+			else if(numOfBitsPerFile < 8000000000){
+				cout << " Megabytes";
+			}
+			else if(numOfBitsPerFile < 8000000000000){
+				cout << " Gigabytes";
+			}
+			else{
+				cout << "KilerEror";
+			}
+			cout << "|" << endl;
 			cout << "| If these are okay enter a '1'|" << endl;
 			cout << "|  Otherwise enter a '2'       |" << endl;
 			cout << "|   -";
@@ -843,14 +946,11 @@ int main(){
 
 
 
-	}while(userOkayWithSettings);
-
-
-
-	globalStopwatchStart = clock();
+	}while(userOkayWithSettings == 2);
 
 
 	//Generate and output numbers and files
+	entireGenerationTimeStopwatchStartTime = clock();
 
 	for(uint_least64_t currentFileNumber = 1; currentFileNumber <= numOfFiles; currentFileNumber = currentFileNumber + 1){
 		stopwatchStart = clock();

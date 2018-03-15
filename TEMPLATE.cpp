@@ -16,9 +16,24 @@
 //#include "EasyBMP_SimpleArray.h"
 
 
-#include <boost\multiprecision\float128.hpp>
+//#include <boost/multiprecision/cpp_int.hpp>
 /*
-boost::multiprecision::float128 variableName;
+	// Fixed precision unsigned inegers:
+		boost::multiprecision::cpp_int::uint128_t
+		boost::multiprecision::cpp_int::uint256_t
+		boost::multiprecision::cpp_int::uint512_t
+		boost::multiprecision::cpp_int::uint1024_t
+	// Fixed precision signed inegers:
+		boost::multiprecision::cpp_int::int128_t
+		boost::multiprecision::cpp_int::int256_t
+		boost::multiprecision::cpp_int::int512_t
+		boost::multiprecision::cpp_int::int1024_t
+*/
+
+
+//#include <boost\multiprecision\float128.hpp>
+/*
+	boost::multiprecision::float128 variableName;
 */
 
 
