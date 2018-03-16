@@ -16,43 +16,6 @@
 //#include "EasyBMP_SimpleArray.h"
 
 
-//#include <vector>
-/*
-		Vectors:
-		ONE DATA TYPE
-		Varibale size
-		
-		format:
-			vector <DATA TYPE HERE> VARIABLE NAME; //initial zero sized
-			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE); //sized with INITIALSIZE size
-			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE); //all vals are OGVARIABLE at first
-			vector <DATA TYPE HERE> VARIABLE NAME (anothervectorname); //othervectorname is copyed to the new one
-			
-		Access/assign:
-			myvector[i]
-		
-		
-		
-		VECTORNAME.push_back(NUMBER)
-			puts somthing at the end of a vector
-		VECTORNAME.clear()
-			clears vector
-		VECTORNAME.size()
-			gets size
-		VECTORNAME.empty()
-			If empty returns a one/true
-		VECTORNAME.at(i)
-			returns value of ith entry
-		VECTORNAME.capacity()
-			current max size
-		VECTORNAME.reverse()
-			reverse orders entries
-		VECTORNAME.resize (i, val)
-			adds I spaces to vector, and optinally initialzes to val
-		VECTORNAME.swap(OTHERVECTORNAME);
-			swaps two vectors contents
-*/
-
 //#include <boost/multiprecision/cpp_int.hpp>
 /*
 	// Fixed precision unsigned inegers:
@@ -558,6 +521,9 @@ Useful bits of code:
 	FILEIDENT.open("FILENAME.txt");
 	FILEIDENT << VARIABLE << endl;
 	FILEIDENT.close();
+
+	Vectors
+
 
 
 */

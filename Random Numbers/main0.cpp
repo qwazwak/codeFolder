@@ -732,9 +732,6 @@ boost::multiprecision::uint1024_t getNumberOfBitsToMake(){
 
 
 
-
-
-
 int main(){
 	//Initialization
 		//User choices
@@ -745,20 +742,24 @@ int main(){
 			CreateDirectory("output", NULL);
 		//Random Things
 			random_device trueRandom;
-			uint_fast64_t seedTime = clock();
-			uint_fast64_t seedTrueRandom = trueRandom();
-			uint_fast64_t seedReal = combineNumbers(seedTime, seedTrueRandom);
+			//mt19937_64 generator();
+			uint_fast16_t seedTime = clock();
+			uint_fast16_t seedTrueRandom = trueRandom();
+			uint_fast16_t seedReal = combineNumbers(seedTime, seedTrueRandom);
+			uint_fast16_t seedUsed;
 		//Things for the generation
-			boost::multiprecision::uint1024_t numOfFiles;
+			uint_fast64_t numOfFiles;
 			boost::multiprecision::uint1024_t numOfBitsMinimum;
 			boost::multiprecision::uint1024_t numOfBitsTotal;
 			boost::multiprecision::uint1024_t numOfBitsPerFile;
+			boost::multiprecision::uint1024_t gensPerFile;
 			boost::multiprecision::float128 numOfGensPerFileMinimum;
 		//Timing things
-		boost::multiprecision::uint1024_t entireGenerationTimeStopwatchStartTime;
-		boost::multiprecision::uint1024_t entireGenerationTimeStopwatchEndTime;
-		boost::multiprecision::uint1024_t SingleFileTimeStopwatchStartTime;
-		boost::multiprecision::uint1024_t SingleFileTimeStopwatchEndTime;
+			uint_fast32_t fullGenTimeStart;
+			uint_fast32_t fullGenTimeEnd;
+			//boost::multiprecision::uint_fast64_t singleFileArrayGenTimeStart;
+			//boost::multiprecision::uint_fast64_t singleFileArrayGenTimeEnd;
+			//Setup after user inputs are confirmed(currently line 952)
 		//uint_least64_t stopwatch;
 		//long double timePerFileAverage;
 		//uint_least64_t timePerFileTotal = 0;
@@ -767,16 +768,17 @@ int main(){
 
 
 	if( trueRandom.entropy() == 0 ){
-		mt19937_64 generator(seedTime);
+		seedUsed = seedTime;
 		cout << "Hardware does not support nondeterministic seeds" << endl;
 		cout << "Using current time as seed: " << seedTime << endl;
 	}
 	else{
-		mt19937_64 generator(seedReal);
+		seedUsed = seedReal;
 		cout << "Using mersenne twister engine seeded with nondeterministic seed" << endl;
 		cout << "  Random seed combined with time: " << seedReal << endl;
 		cout << "  Entropy: " << trueRandom.entropy() << endl;
 	}
+	mt19937_64 randomGen (seedUsed);
 	cout << "  Minimum: " << trueRandom.min() << endl;
 	cout << "  Maximum: " << trueRandom.max() << endl;
 	cout << "setup done" << endl;
@@ -945,37 +947,51 @@ int main(){
 		}
 
 
-
 	}while(userOkayWithSettings == 2);
+
+	gensPerFile = static_cast<uint1024_t>(floor(
+				static_cast<long double>(numOfBitsPerFile) / 64.0
+			));
+
+
+
+
+	uint_fast32_t singleFileArrayGenTimeStart[numOfFiles];
+	uint_fast32_t singleFileArrayGenTimeEnd[numOfFiles];
+
+	boost::multiprecision::float128 singleFileTimeTake[numOfFiles];
 
 
 	//Generate and output numbers and files
-	entireGenerationTimeStopwatchStartTime = clock();
+	fullGenTimeStart = clock();
 
-	for(uint_least64_t currentFileNumber = 1; currentFileNumber <= numOfFiles; currentFileNumber = currentFileNumber + 1){
-		stopwatchStart = clock();
-		randomFilesOutput.open(".\\output\\RandomNumbers___Seed-" + to_string(seed) + "___values-" + to_string(numOfValuesToGenerate) + "___Part" + to_string(currentFileNumber) + "of" + to_string(numOfFiles) + ".txt");
-
-
-		for(uint_least64_t currentNumGeneration = 1; currentNumGeneration <= numOfValuesToGenerate; currentNumGeneration = currentNumGeneration + 1){
-			randomFilesOutput << bitset<64>(generate());
+	for(uint_fast64_t currentFileNumber = 1; currentFileNumber <= numOfFiles; currentFileNumber = currentFileNumber + 1){
+		singleFileArrayGenTimeStart[currentFileNumber - 1] = clock();
+		randomFilesOutput.open(".\\output\\RandomNumbers___Seed-" + to_string(seedUsed) + "___Part" + to_string(currentFileNumber) + "of" + to_string(numOfFiles) + ".txt");
 
 
+		for(uint_fast64_t currentGen = 1; currentGen <= gensPerFile; currentGen = currentGen + 1){
+			randomFilesOutput << bitset<64>(randomGen());
 		}
 		randomFilesOutput << flush;
 		randomFilesOutput.close();
 
-		cout << endl << endl << endl << endl << endl << endl << endl;
-		cout << "|    Random Files Generator    |" << endl;
-		cout << "|                              |" << endl;
-		cout << "| Progress - " << setprecision (1) << fixed << 100.0 * (static_cast<long double>(currentFileNumber) / static_cast<long double>(numOfFiles)) << "%" << endl;
-		cout << "|                              |" << endl;
+
+
+
 		cout << "| Time for this file - ";
-		stopwatch = clock() - stopwatchStart;
-		cout << stopwatch << "ms" << endl;
-		cout << "|                              |" << endl;
-		cout << "| Badly estimated time left - " << setprecision(2) << floor((static_cast<long double>(stopwatch) * (static_cast<long double>(numOfFiles) - static_cast<long double>(currentFileNumber)))/60000.0) << " minutes and " << (((static_cast<long double>(stopwatch) * (static_cast<long double>(numOfFiles) - static_cast<long double>(currentFileNumber)))/60000.0) - floor((static_cast<long double>(stopwatch) * (static_cast<long double>(numOfFiles) - static_cast<long double>(currentFileNumber)))/60000.0)) * 60 << " seconds" << endl;
-		cout << "|                              |" << endl;
+		singleFileArrayGenTimeEnd[currentFileNumber - 1] = clock();
+
+		stopwatch << "ms" << endl;
+		cout << "|" << endl;
+		cout << "| Progress - " << setprecision (1) << fixed << 100.0 * (static_cast<long double>(currentFileNumber) / static_cast<long double>(numOfFiles)) << "%" << endl;
+		cout << "|" << endl;
+		cout << "| Badly estimated time left - " << setprecision(2)
+
+
+		floor((static_cast<long double>(stopwatch) * (static_cast<long double>(numOfFiles) - static_cast<long double>(currentFileNumber)))/60000.0) << " minutes and " << (((static_cast<long double>(stopwatch) * (static_cast<long double>(numOfFiles) - static_cast<long double>(currentFileNumber)))/60000.0) - floor((static_cast<long double>(stopwatch) * (static_cast<long double>(numOfFiles) - static_cast<long double>(currentFileNumber)))/60000.0)) * 60 << " seconds" << endl;
+		system("CLS");
+
 	}
 
 	//Display Stats
