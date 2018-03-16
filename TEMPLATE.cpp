@@ -21,18 +21,18 @@
 		Vectors:
 		ONE DATA TYPE
 		Varibale size
-		
+
 		format:
 			vector <DATA TYPE HERE> VARIABLE NAME; //initial zero sized
 			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE); //sized with INITIALSIZE size
 			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE); //all vals are OGVARIABLE at first
 			vector <DATA TYPE HERE> VARIABLE NAME (anothervectorname); //othervectorname is copyed to the new one
-			
+
 		Access/assign:
 			myvector[i]
-		
-		
-		
+
+
+
 		VECTORNAME.push_back(NUMBER)
 			puts somthing at the end of a vector
 		VECTORNAME.clear()
@@ -420,6 +420,9 @@
 				Compute hypotenuse (function)
 
 		Rounding and remainder functions
+			remainder(numerator, denominator);
+				REQUIRES C++11
+				Gives floating point remainder
 			ceil(InputFoo)
 				Round up value (function)
 			floor(InputFoo)

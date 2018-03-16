@@ -12,8 +12,46 @@
 
 //#include "EasyBMP.h"
 //#include "EasyBMP_Font.h"
-//#include "EasyBMP_Geometry.h"
+//#include "EasyBMP_Geometry.h"d
 //#include "EasyBMP_SimpleArray.h"
+
+
+//#include <vector>
+/*
+		Vectors:
+		ONE DATA TYPE
+		Varibale size
+
+		format:
+			vector <DATA TYPE HERE> VARIABLE NAME; //initial zero sized
+			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE); //sized with INITIALSIZE size
+			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE); //all vals are OGVARIABLE at first
+			vector <DATA TYPE HERE> VARIABLE NAME (anothervectorname); //othervectorname is copyed to the new one
+
+		Access/assign:
+			myvector[i]
+
+
+
+		VECTORNAME.push_back(NUMBER)
+			puts somthing at the end of a vector
+		VECTORNAME.clear()
+			clears vector
+		VECTORNAME.size()
+			gets size
+		VECTORNAME.empty()
+			If empty returns a one/true
+		VECTORNAME.at(i)
+			returns value of ith entry
+		VECTORNAME.capacity()
+			current max size
+		VECTORNAME.reverse()
+			reverse orders entries
+		VECTORNAME.resize (i, val)
+			adds I spaces to vector, and optinally initialzes to val
+		VECTORNAME.swap(OTHERVECTORNAME);
+			swaps two vectors contents
+*/
 
 
 #include <boost/multiprecision/cpp_int.hpp>
@@ -536,8 +574,8 @@ uint_fast64_t combineNumbers(uint_fast64_t a, uint_fast64_t b){
 
 
 
-boost::multiprecision::uint1024_t getNumFiles(){
-	boost::multiprecision::uint1024_t numOfFiles;
+uint_fast16_t getNumFiles(){
+	uint_fast16_t numOfFiles;
 
 	cout << "|    Random Files Generator    |" << endl;
 	cout << "|                              |" << endl;
@@ -564,10 +602,10 @@ boost::multiprecision::uint1024_t getNumFiles(){
 }
 
 
-boost::multiprecision::uint1024_t getNumberOfBitsToMake(){
+boost::multiprecision::uint512_t getNumberOfBitsToMake(){
 	int userWantedUnits;
-	boost::multiprecision::uint1024_t userEnteredSizeValue;
-	boost::multiprecision::uint1024_t numberOfBitsToMake;
+	boost::multiprecision::uint512_t userEnteredSizeValue;
+	boost::multiprecision::uint512_t numberOfBitsToMake;
 
 
 	cout << "|    Random Files Generator    |" << endl;
@@ -688,35 +726,35 @@ boost::multiprecision::uint1024_t getNumberOfBitsToMake(){
 	//Convert data size to number o
 	switch(userWantedUnits){
 		case 1:
-			numberOfBitsToMake = static_cast<boost::multiprecision::uint1024_t>(
+			numberOfBitsToMake = static_cast<boost::multiprecision::uint512_t>(
 				floor(
 					static_cast<long double>(userEnteredSizeValue) / 32.0
 				)
 			);
 		break;
 		case 2:
-			numberOfBitsToMake = static_cast<boost::multiprecision::uint1024_t>(
+			numberOfBitsToMake = static_cast<boost::multiprecision::uint512_t>(
 				floor(
 					static_cast<long double>(userEnteredSizeValue) / 4
 				)
 			);
 		break;
 		case 3:
-			numberOfBitsToMake = static_cast<boost::multiprecision::uint1024_t>(
+			numberOfBitsToMake = static_cast<boost::multiprecision::uint512_t>(
 				floor(
 					static_cast<long double>(userEnteredSizeValue) / 4000.0
 				)
 			);
 		break;
 		case 4:
-			numberOfBitsToMake = static_cast<boost::multiprecision::uint1024_t>(
+			numberOfBitsToMake = static_cast<boost::multiprecision::uint512_t>(
 				floor(
 					static_cast<long double>(userEnteredSizeValue) / 4000000.0
 				)
 			);
 		break;
 		case 5:
-			numberOfBitsToMake = static_cast<boost::multiprecision::uint1024_t>(
+			numberOfBitsToMake = static_cast<boost::multiprecision::uint512_t>(
 				floor(
 					static_cast<long double>(userEnteredSizeValue) / 4000000000.0
 				)
@@ -743,39 +781,47 @@ int main(){
 		//Random Things
 			random_device trueRandom;
 			//mt19937_64 generator();
+			bool isSeedRealRandom;
 			uint_fast16_t seedTime = clock();
 			uint_fast16_t seedTrueRandom = trueRandom();
-			uint_fast16_t seedReal = combineNumbers(seedTime, seedTrueRandom);
+			uint_fast16_t seedCombined = combineNumbers(seedTime, seedTrueRandom);
 			uint_fast16_t seedUsed;
 		//Things for the generation
 			uint_fast64_t numOfFiles;
-			boost::multiprecision::uint1024_t numOfBitsMinimum;
-			boost::multiprecision::uint1024_t numOfBitsTotal;
-			boost::multiprecision::uint1024_t numOfBitsPerFile;
-			boost::multiprecision::uint1024_t gensPerFile;
+			boost::multiprecision::uint512_t numOfBitsMinimum;
+			boost::multiprecision::uint512_t numOfBitsTotal;
+			boost::multiprecision::uint512_t numOfBitsPerFile;
+			boost::multiprecision::uint512_t gensPerFile;
 			boost::multiprecision::float128 numOfGensPerFileMinimum;
 		//Timing things
 			uint_fast32_t fullGenTimeStart;
-			uint_fast32_t fullGenTimeEnd;
-			//boost::multiprecision::uint_fast64_t singleFileArrayGenTimeStart;
-			//boost::multiprecision::uint_fast64_t singleFileArrayGenTimeEnd;
-			//Setup after user inputs are confirmed(currently line 952)
-		//uint_least64_t stopwatch;
-		//long double timePerFileAverage;
-		//uint_least64_t timePerFileTotal = 0;
-		//long double globalStopwatchStart;
+			uint_fast32_t fullGenTimeTaken;
+			uint_fast32_t singleFileTimeStartTemp;
+			vector <uint_fast32_t> singleFileGenTimes;
+			uint_fast32_t singleFileTempH;
+			uint_fast32_t singleFileTempM;
+			uint_fast32_t singleFileTempS;
+			uint_fast32_t singleFileTempMS;
+			uint_fast32_t globalTimeH;
+			uint_fast32_t globalTimeM;
+			uint_fast32_t globalTimeS;
+			uint_fast32_t globalTimeMS;
+			boost::multiprecision::uint1024_t averageAddUp;
+			boost::multiprecision::float128 totalGenTimesAverage;
 
 
 
 	if( trueRandom.entropy() == 0 ){
 		seedUsed = seedTime;
+		isSeedRealRandom = false;
 		cout << "Hardware does not support nondeterministic seeds" << endl;
 		cout << "Using current time as seed: " << seedTime << endl;
 	}
 	else{
-		seedUsed = seedReal;
+		seedUsed = seedCombined;
+		isSeedRealRandom = true;
 		cout << "Using mersenne twister engine seeded with nondeterministic seed" << endl;
-		cout << "  Random seed combined with time: " << seedReal << endl;
+		cout << "  Random seed combined with time: " << seedCombined << endl;
 		cout << "  Entropy: " << trueRandom.entropy() << endl;
 	}
 	mt19937_64 randomGen (seedUsed);
@@ -815,7 +861,7 @@ int main(){
 			cin >> maxSizeOrPerfile;
 			system("CLS");
 		}
-		if (maxSizeOrPerfile == 1) {
+		if(maxSizeOrPerfile == 1) {
 			numOfBitsMinimum = getNumberOfBitsToMake();
 			numOfFiles = getNumFiles();
 		}else if(maxSizeOrPerfile == 2){
@@ -825,7 +871,7 @@ int main(){
 		else{
 			cout << "KilerEror" << endl;
 		}
-		numOfBitsPerFile = static_cast<boost::multiprecision::uint1024_t>(ceil(static_cast<boost::multiprecision::float128>(numOfBitsMinimum) / static_cast<boost::multiprecision::float128>(numOfFiles)));
+		numOfBitsPerFile = static_cast<boost::multiprecision::uint512_t>(ceil(static_cast<boost::multiprecision::float128>(numOfBitsMinimum) / static_cast<boost::multiprecision::float128>(numOfFiles)));
 		numOfBitsTotal = numOfBitsPerFile * numOfFiles;
 
 
@@ -949,60 +995,88 @@ int main(){
 
 	}while(userOkayWithSettings == 2);
 
-	gensPerFile = static_cast<uint1024_t>(floor(
+
+	//Get all variables in order
+	gensPerFile = static_cast<boost::multiprecision::uint512_t>(floor(
 				static_cast<long double>(numOfBitsPerFile) / 64.0
 			));
 
 
-
-
-	uint_fast32_t singleFileArrayGenTimeStart[numOfFiles];
-	uint_fast32_t singleFileArrayGenTimeEnd[numOfFiles];
-
-	boost::multiprecision::float128 singleFileTimeTake[numOfFiles];
+	//singleFileArrayGenTimes.resize(numOfFiles);
 
 
 	//Generate and output numbers and files
 	fullGenTimeStart = clock();
 
-	for(uint_fast64_t currentFileNumber = 1; currentFileNumber <= numOfFiles; currentFileNumber = currentFileNumber + 1){
-		singleFileArrayGenTimeStart[currentFileNumber - 1] = clock();
-		randomFilesOutput.open(".\\output\\RandomNumbers___Seed-" + to_string(seedUsed) + "___Part" + to_string(currentFileNumber) + "of" + to_string(numOfFiles) + ".txt");
 
+	randomFilesOutput.open(".\\output\\RandomNumbers-INFO___SID-" + to_string(seedUsed) + "___NumberOfFiles" + to_string(numOfFiles) + ".txt");
+	randomFilesOutput << "This file contains random binary numbers using a mersene twister" << endl;
+	if(isSeedRealRandom == true){
+		randomFilesOutput << "Generated with a truely random seed combined with the time";
+	}
+	else if(isSeedRealRandom == false){
+		randomFilesOutput << "Generated with a time based seed";
+
+	}
+	randomFilesOutput << "The seed is: " << seedUsed << endl;
+	randomFilesOutput.close();
+
+
+	for(uint_fast64_t currentFileNumber = 1; currentFileNumber <= numOfFiles; currentFileNumber = currentFileNumber + 1){
+		singleFileTimeStartTemp = clock();
+		randomFilesOutput.open(".\\output\\RandomNumbers___SID-" + to_string(seedUsed) + "___Part" + to_string(currentFileNumber) + "of" + to_string(numOfFiles) + ".txt");
 
 		for(uint_fast64_t currentGen = 1; currentGen <= gensPerFile; currentGen = currentGen + 1){
-			randomFilesOutput << bitset<64>(randomGen());
+			randomFilesOutput << bitset<64>(randomGen()) << "-";
 		}
 		randomFilesOutput << flush;
 		randomFilesOutput.close();
 
-
-
-
-		cout << "| Time for this file - ";
-		singleFileArrayGenTimeEnd[currentFileNumber - 1] = clock();
-
-		stopwatch << "ms" << endl;
+		cout << "| Progress - " << setprecision (1) << fixed << 100.0 * (static_cast<boost::multiprecision::float128>(currentFileNumber) / static_cast<boost::multiprecision::float128>(numOfFiles)) << "%" << endl;
 		cout << "|" << endl;
-		cout << "| Progress - " << setprecision (1) << fixed << 100.0 * (static_cast<long double>(currentFileNumber) / static_cast<long double>(numOfFiles)) << "%" << endl;
+		cout << "| Last file took :" << endl;
+
+		singleFileGenTimes.push_back(clock() - singleFileTimeStartTemp);
+
+		averageAddUp = 0;
+		for(uint_fast32_t i = 0; i < singleFileGenTimes.size(); i = i + 1) {
+			averageAddUp = averageAddUp + singleFileGenTimes[i];
+		}
+		totalGenTimesAverage = static_cast<boost::multiprecision::float128>(averageAddUp) / static_cast<boost::multiprecision::float128>(singleFileGenTimes.size());
+
+		singleFileTempH = static_cast<uint_fast32_t>(floor(fmod(static_cast<boost::multiprecision::float128>(singleFileGenTimes[currentFileNumber - 1]), 3600000.0)));
+		singleFileTempM = static_cast<uint_fast32_t>(floor(fmod(static_cast<boost::multiprecision::float128>(singleFileGenTimes[currentFileNumber - 1] - (singleFileTempH * 3600000)), 60000.0)));
+		singleFileTempS = static_cast<uint_fast32_t>(floor(fmod(static_cast<boost::multiprecision::float128>(singleFileGenTimes[currentFileNumber - 1] - (singleFileTempH * 3600000) - (singleFileTempM * 60000)), 1000.0)));
+		singleFileTempMS = static_cast<uint_fast32_t>(floor(static_cast<boost::multiprecision::float128>(singleFileGenTimes[currentFileNumber - 1] - (singleFileTempH * 3600000) - (singleFileTempM * 60000) - (singleFileTempS * 1000))));
+
+		cout << "|  " << singleFileTempH << " hours" << endl;
+		cout << "|  " << singleFileTempM << " minutes" << endl;
+		cout << "|  " << singleFileTempS << " seconds" << endl;
+		cout << "|  " << singleFileTempMS << " milliseconds" << endl;
 		cout << "|" << endl;
-		cout << "| Badly estimated time left - " << setprecision(2)
-
-
-		floor((static_cast<long double>(stopwatch) * (static_cast<long double>(numOfFiles) - static_cast<long double>(currentFileNumber)))/60000.0) << " minutes and " << (((static_cast<long double>(stopwatch) * (static_cast<long double>(numOfFiles) - static_cast<long double>(currentFileNumber)))/60000.0) - floor((static_cast<long double>(stopwatch) * (static_cast<long double>(numOfFiles) - static_cast<long double>(currentFileNumber)))/60000.0)) * 60 << " seconds" << endl;
+		cout << "| Estimated time left - " << setprecision(5) << static_cast<boost::multiprecision::float128>(totalGenTimesAverage) * static_cast<boost::multiprecision::float128>(numOfFiles - currentFileNumber) << endl;
 		system("CLS");
-
 	}
 
 	//Display Stats
-	std::cout << endl << endl << endl << endl << endl << endl;
-	cout << endl << endl << endl << endl << endl << endl;
+	system("CLS");
 	cout << "|    Random Files Generator    |" << endl;
 	cout << "|                              |" << endl;
-	cout << "| Number of files    - " << numOfFiles << endl;
-	cout << "| Number of values per file  - " << numOfValuesToGenerate << endl;
-	cout << "| Time Taken - " << ((clock() - globalStopwatchStart)/1000) << " seconds" << endl;
+	cout << "| Number of files - " << numOfFiles << endl;
+	cout << "| Average time taken - " << totalGenTimesAverage << endl;
+	cout << "| Total time taken - " << endl;
+	fullGenTimeTaken = clock() - fullGenTimeStart;
+	globalTimeH = static_cast<uint_fast32_t>(floor(fmod(static_cast<boost::multiprecision::float128>(fullGenTimeTaken), 3600000.0)));
+	globalTimeM = static_cast<uint_fast32_t>(floor(fmod(static_cast<boost::multiprecision::float128>(fullGenTimeTaken - (globalTimeH * 3600000)), 60000.0)));
+	globalTimeS = static_cast<uint_fast32_t>(floor(fmod(static_cast<boost::multiprecision::float128>(fullGenTimeTaken - (globalTimeH * 3600000) - (globalTimeM * 60000)), 1000.0)));
+	globalTimeMS = static_cast<uint_fast32_t>(floor(static_cast<boost::multiprecision::float128>(fullGenTimeTaken - (globalTimeH * 3600000) - (globalTimeM * 60000) - (globalTimeS * 1000))));
+
+	cout << "|  " << globalTimeH << " hours" << endl;
+	cout << "|  " << globalTimeM << " minutes" << endl;
+	cout << "|  " << globalTimeS << " seconds" << endl;
+	cout << "|  " << globalTimeMS << " milliseconds" << endl;
 	cout << "|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|" << endl;
 	system("pause");
+	system("CLS");
 	return 1;
 }
