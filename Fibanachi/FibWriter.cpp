@@ -19,7 +19,7 @@
 //Needed for more than just float128
 
 
-//#include <boost/multiprecision/cpp_int.hpp>
+#include <boost/multiprecision/cpp_int.hpp>
 /*
 	// Fixed precision unsigned inegers:
 		boost::multiprecision::cpp_int::uint128_t
@@ -46,7 +46,7 @@
 
 */
 
-//#include <vector>
+#include <vector>
 /*
 		Vectors:
 		ONE DATA TYPE
@@ -596,13 +596,12 @@ Useful bits of code:
 	for(long long int i = min; i <= max; i = i + 1){
 
 	}
-
-	vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE);
 */
 
 using namespace std;
 
 int main (){
+	vector <boost::multiprecision::cpp_int::uint1024_t> fibSeq (2);
 	/*
 	random_device rd; //call random numbers with rd()
 	int seed = rd() * clock()
