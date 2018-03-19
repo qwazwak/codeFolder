@@ -1,102 +1,13 @@
 /*
-Function FILE- This is actually making functions and should never be shared. only the compiled (rus_BigBadLib.o) should be shared. If this is found please delete.
-
-INFO: SEE BigBadLib_Full.h
-
+	By Rus Hoffman
 */
-
-#include "BigBadLib_Full.h"
-
-
-
-
 #define _WIN64 1 //(also WIN64, __WIN64, and __WIN64__)
 #define __MINGW64__ 1
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
 
-//#include "EasyBMP.h"
-//#include "EasyBMP_Font.h"
-//#include "EasyBMP_Geometry.h"
-//#include "EasyBMP_SimpleArray.h"
-
-#include <vector>
-/*
-		Vectors:
-		ONE DATA TYPE
-		Varibale size
-
-		format:
-			vector <DATA TYPE HERE> VARIABLE NAME; //initial zero sized
-			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE); //sized with INITIALSIZE size
-			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE); //all vals are OGVARIABLE at first
-			vector <DATA TYPE HERE> VARIABLE NAME (anothervectorname); //othervectorname is copyed to the new one
-
-		Access/assign:
-			myvector[i]
-
-
-
-		VECTORNAME.push_back(NUMBER)
-			puts somthing at the end of a vector
-		VECTORNAME.clear()
-			clears vector
-		VECTORNAME.size()
-			gets size
-		VECTORNAME.empty()
-			If empty returns a one/true
-		VECTORNAME.at(i)
-			returns value of ith entry
-		VECTORNAME.capacity()
-			current max size
-		VECTORNAME.reverse()
-			reverse orders entries
-		VECTORNAME.resize (i, val)
-			adds I spaces to vector, and optinally initialzes to val
-		VECTORNAME.swap(OTHERVECTORNAME);
-			swaps two vectors contents
-*/
-
-
-#include <boost/multiprecision/cpp_int.hpp>
-/*
-	// Fixed precision unsigned inegers:
-		boost::multiprecision::cpp_int::uint128_t
-		boost::multiprecision::cpp_int::uint256_t
-		boost::multiprecision::cpp_int::uint512_t
-		boost::multiprecision::cpp_int::uint1024_t
-	// Fixed precision signed inegers:
-		boost::multiprecision::cpp_int::int128_t
-		boost::multiprecision::cpp_int::int256_t
-		boost::multiprecision::cpp_int::int512_t
-		boost::multiprecision::cpp_int::int1024_t
-*/
-
-
-#include <boost\multiprecision\float128.hpp>
-/*
-	boost::multiprecision::float128 variableName;
-*/
-
-
-#include <bitset>
-/*
-	bitset<NUMBEROFBITSMEEP>(FOOBARVARIABLENAME)
-
-*/
-
-
-
-#include <windows.h>
-/*
-	LPCWSTR FOOBARDIRECTERY = L"c:\testdir";
-	CreateDirectory(FOOBARDIRECTERY, NULL)
-	CreateDirectory("output", NULL);
-*/
-
-
-
-
+#include <quadmath.h>
+//Needed for more than just float128
 
 #include <ctime>
 /*
@@ -111,27 +22,7 @@ INFO: SEE BigBadLib_Full.h
 	cout << "waiting for keyhit";
 	cin.ignore();
 	cout << "Time taken in millisecs: " << clock()-start;
-
 */
-
-
-
-
-
-#include <random>
-//All of this library is c++11 and requires compiler support
-/*
-	C++11
-	random_device FOOBARNAMEME;
-	cout << "Minumum: " << FOOBARNAMEME.min() << endl;
-	cout << "Maximum: " << FOOBARNAMEME.max() << endl;
-	cout << "Entropy: " << FOOBARNAMEME.entropy() << endl;
-	This is real random. Only use it to seed a pseduo random generator - SEE cstdlib and rand()
-
-*/
-
-
-
 
 
 #include <cstdint>
@@ -198,11 +89,10 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
-
 #include <cstdlib>
 /*
+	system("pause")
+	system("CLS")
 	Quicksort:
 		qsort (SOURCEARRAY, NumberOfElements, SizeOfEachElementInBytes/sizeof(int), compareMyType);
 
@@ -283,19 +173,6 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
-
-#include <time.h>
-/*
-	Has more, all I use is:
-	VARIABLE = time(NULL);
-*/
-
-
-
-
-
 #include <iostream>
 /*
 	system("pause")
@@ -309,20 +186,6 @@ INFO: SEE BigBadLib_Full.h
 	getline(cin, VARNAME);
 		get a line
 */
-
-
-
-
-
-#include <iomanip>
-/*
-	Manipulates input and output
-	cout << setprecision(2) << fixed << showpoint;
-	cout << minumum decimal points(VARIABLE OR NUMBER) << cutoff decimal points? << show decimal point always;
-*/
-
-
-
 
 
 #include <fstream>
@@ -361,53 +224,6 @@ INFO: SEE BigBadLib_Full.h
 	}
 */
 
-
-
-
-
-#include <string>
-/*
-	real strings
-	cstringvariable = stringVariableName.c_str();
-
-	StringVariableFooBarWhatever = to_string(IntOrFloatOrWhateverBaZZ);
-
-
-
-	Convert from number to string:
-		ALL C++11
-			to_string
-				Convert numerical value to string (function )
-			to_wstring
-				Convert numerical value to wide string (function )
-	Convert from string to number:
-		ALL C++11
-			stoi
-				Convert string to integer (function template )
-			stol
-				Convert string to long int (function template )
-			stoul
-				Convert string to unsigned integer (function template )
-			stoll
-				Convert string to long long (function template )
-			stoull
-				Convert string to unsigned long long (function template )
-			stof
-				Convert string to float (function template )
-			stod
-				Convert string to double (function template )
-			stold
-				Convert string to long double (function template )
-*/
-
-
-
-
-
-#include <cstring>
-/*
-	Ugly Cstring manipulators
-*/
 
 
 
@@ -457,6 +273,9 @@ INFO: SEE BigBadLib_Full.h
 				Compute hypotenuse (function)
 
 		Rounding and remainder functions
+			remainder(numerator, denominator);
+				REQUIRES C++11
+				Gives floating point remainder
 			ceil(InputFoo)
 				Round up value (function)
 			floor(InputFoo)
@@ -501,8 +320,6 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
 /* Delay and dynamic noise making
 #if defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)
 	#include <windows.h>
@@ -534,6 +351,10 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
+
+
+
+
 /*
 Code gud check input
 	Variable Type Check
@@ -550,6 +371,14 @@ Useful bits of code:
 	static means it doesnt die
 
 	cin >> variable;
+
+
+	cin problems can be found by cin.fail()
+	fixes cin problems:
+		cin.clear();
+		cin.ignore();
+
+
 	cout << "text" << endl;
 
 	//for loop
@@ -585,65 +414,126 @@ Useful bits of code:
 	FILEIDENT.open("FILENAME.txt");
 	FILEIDENT << VARIABLE << endl;
 	FILEIDENT.close();
+
+
 */
 
 using namespace std;
 
-
-
-uint_fast64_t combineNumbers(uint_fast64_t a, uint_fast64_t b){
-	uint_fast64_t times = 1;
-	while(times <= b){
-		times = times * 10;
-	}
-	return (a * times ) + b;
-}
-
-void clearScreen(int long lines){
-	if((lines % 11) == 0){
-		for(int i = 0; i < lines; i = i + 11){
-			cout << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl;
+bool primePrecheck(long long int input){
+	if(input > 2){
+		if(input % 2 == 1){
+			return true;
+		}
+		else{
+			return false;
 		}
 	}
-	else if((lines % 7) == 0){
-		for(int i = 0; i < lines; i = i + 7){
-			cout << endl << endl << endl << endl << endl << endl << endl;
-		}
-	}
-	else if((lines % 5) == 0){
-		for(int i = 0; i < lines; i = i + 5){
-			cout << endl << endl << endl << endl << endl;
-		}
-	}
-	else if((lines % 3) == 0){
-		for(int i = 0; i < lines; i = i + 3){
-			cout << endl << endl << endl;
-		}
-	}
-	else if((lines % 2) == 0){
-		for(int i = 0; i < lines; i = i + 2){
-			cout << endl << endl;
-		}
-	}
-	else{
-		for(int i = 0; i < lines; i = i + 1){
-			cout << endl;
-		}
-	}
-}
-bool isEven(int input){
-	if (input % 2 == 0){
-		return true ;
+	else if(input == 2){
+		return true;
 	}
 	else{
 		return false;
 	}
 }
-bool isOdd(int input){
-	if (input % 2 == 1){
-		return true ;
+
+
+bool checkIfPrime(long long int input){
+	if(input > 2){
+		if(input % 2 == 1){
+			for(long long int i = 3; i <= ceil(sqrt(static_cast<long double>(input))); i = i + 2){
+				if(((static_cast<long double>(input) / static_cast<long double>(i)) - floor(static_cast<long double>(input) / static_cast<long double>(i))) == 0){
+					return false;
+				}
+			}
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	else if(input == 2){
+		return true;
 	}
 	else{
 		return false;
 	}
+}
+
+//difftime (end, start)
+
+int main(){
+	time_t startTime;
+	time_t endTime;
+	long double timeTaken;
+	long long int max = 500;
+	long long int min = 0;
+	long long int primeSum = 0;
+	int mode;
+	ifstream inputLimits;
+
+
+
+	inputLimits.open("Range.txt");
+	inputLimits >> min;
+	inputLimits >> max;
+	inputLimits.close();
+
+	if(inputLimits.fail() == true || min == max || max <= min || max <= min){
+		cout << "|   Sum of primes calculator   |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|     An error has occured     |" << endl;
+		cout << "|     The program will end     |" << endl;
+		cout << "|  after you press any button  |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|   One of these has happend:  |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|   The file does not exist    |" << endl;
+		cout << "|                              |" << endl;
+		cout << "| Line one is equal to line 2  |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|Line one is larger than line 2|" << endl;
+		system("pause");
+		return 0;
+	}
+
+
+
+	do{
+		cout << "|   Sum of primes calculator   |" << endl;
+		cout << endl;
+		cout << "|    Select desired mode by    |" << endl;
+		cout << "|     entering its number      |" << endl;
+		cout << "|                              |" << endl;
+		cout << "|     1. Single-Threaded       |" << endl;
+		cout << "|     2. Multi-Threaded        |" << endl;
+		cout << endl;
+		cout << "|   Mode: ";
+		cin >> mode;
+		cin.clear();
+		cin.ignore();
+	}while(cin.fail() || mode < 1 || mode > 2);
+
+	startTime = time(NULL);
+
+	#pragma omp parallel for reduction(+:primeSum)
+	for(long long int i = min; i <= max; i = i + 1){
+		if(primePrecheck(i) == true){
+			if(checkIfPrime(i) == true){
+				primeSum = primeSum + i;
+			}
+		}
+	}
+	endTime = time(NULL);
+
+	timeTaken = difftime(endTime, startTime);
+	cout << "Time taken: " << timeTaken << endl;
+	cout << "Lower Limit:" << min << endl;
+	cout << "Upper Limit:" << max << endl;
+	cout << "Sum of primes:" << primeSum << endl;
+
+
+	system("pause");
+	return 0;
 }

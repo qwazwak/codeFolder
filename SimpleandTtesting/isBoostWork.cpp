@@ -1,93 +1,16 @@
 /*
-Function FILE- This is actually making functions and should never be shared. only the compiled (rus_BigBadLib.o) should be shared. If this is found please delete.
-
-INFO: SEE BigBadLib_Full.h
-
+	By Rus Hoffman
 */
-
-#include "BigBadLib_Full.h"
-
-
-
-
 #define _WIN64 1 //(also WIN64, __WIN64, and __WIN64__)
 #define __MINGW64__ 1
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
 
-//#include "EasyBMP.h"
-//#include "EasyBMP_Font.h"
-//#include "EasyBMP_Geometry.h"
-//#include "EasyBMP_SimpleArray.h"
-
-#include <vector>
-/*
-		Vectors:
-		ONE DATA TYPE
-		Varibale size
-
-		format:
-			vector <DATA TYPE HERE> VARIABLE NAME; //initial zero sized
-			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE); //sized with INITIALSIZE size
-			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE); //all vals are OGVARIABLE at first
-			vector <DATA TYPE HERE> VARIABLE NAME (anothervectorname); //othervectorname is copyed to the new one
-
-		Access/assign:
-			myvector[i]
-
-
-
-		VECTORNAME.push_back(NUMBER)
-			puts somthing at the end of a vector
-		VECTORNAME.clear()
-			clears vector
-		VECTORNAME.size()
-			gets size
-		VECTORNAME.empty()
-			If empty returns a one/true
-		VECTORNAME.at(i)
-			returns value of ith entry
-		VECTORNAME.capacity()
-			current max size
-		VECTORNAME.reverse()
-			reverse orders entries
-		VECTORNAME.resize (i, val)
-			adds I spaces to vector, and optinally initialzes to val
-		VECTORNAME.swap(OTHERVECTORNAME);
-			swaps two vectors contents
-*/
-
-
 #include <boost/multiprecision/cpp_int.hpp>
-/*
-	// Fixed precision unsigned inegers:
-		boost::multiprecision::cpp_int::uint128_t
-		boost::multiprecision::cpp_int::uint256_t
-		boost::multiprecision::cpp_int::uint512_t
-		boost::multiprecision::cpp_int::uint1024_t
-	// Fixed precision signed inegers:
-		boost::multiprecision::cpp_int::int128_t
-		boost::multiprecision::cpp_int::int256_t
-		boost::multiprecision::cpp_int::int512_t
-		boost::multiprecision::cpp_int::int1024_t
-*/
-
-
-#include <boost\multiprecision\float128.hpp>
-/*
-	boost::multiprecision::float128 variableName;
-*/
-
-
-#include <bitset>
-/*
-	bitset<NUMBEROFBITSMEEP>(FOOBARVARIABLENAME)
-
-*/
 
 
 
-#include <windows.h>
+//#include <windows.h>
 /*
 	LPCWSTR FOOBARDIRECTERY = L"c:\testdir";
 	CreateDirectory(FOOBARDIRECTERY, NULL)
@@ -98,43 +21,7 @@ INFO: SEE BigBadLib_Full.h
 
 
 
-#include <ctime>
-/*
-	http://www.cplusplus.com/reference/ctime/
-
-	Macro:
-		CLOCKS_PER_SEC
-
-	seconds = clock() / CLOCKS_PER_SEC
-
-	unsigned int start = clock();
-	cout << "waiting for keyhit";
-	cin.ignore();
-	cout << "Time taken in millisecs: " << clock()-start;
-
-*/
-
-
-
-
-
-#include <random>
-//All of this library is c++11 and requires compiler support
-/*
-	C++11
-	random_device FOOBARNAMEME;
-	cout << "Minumum: " << FOOBARNAMEME.min() << endl;
-	cout << "Maximum: " << FOOBARNAMEME.max() << endl;
-	cout << "Entropy: " << FOOBARNAMEME.entropy() << endl;
-	This is real random. Only use it to seed a pseduo random generator - SEE cstdlib and rand()
-
-*/
-
-
-
-
-
-#include <cstdint>
+//#include <cstdint>
 //All of this library is c++11 and requires compiler support
 /*
 	C++11
@@ -198,11 +85,10 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
-
 #include <cstdlib>
 /*
+	system("pause")
+	system("CLS")
 	Quicksort:
 		qsort (SOURCEARRAY, NumberOfElements, SizeOfEachElementInBytes/sizeof(int), compareMyType);
 
@@ -283,17 +169,11 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
-
 #include <time.h>
 /*
 	Has more, all I use is:
 	VARIABLE = time(NULL);
 */
-
-
-
 
 
 #include <iostream>
@@ -311,10 +191,7 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
-
-#include <iomanip>
+//#include <iomanip>
 /*
 	Manipulates input and output
 	cout << setprecision(2) << fixed << showpoint;
@@ -322,10 +199,7 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
-
-#include <fstream>
+//#include <fstream>
 /* i/ofstream info
 	(i or o)fstream FILEIDENT;
 	FILEIDENT.open("FILENAME.txt");
@@ -362,10 +236,7 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
-
-#include <string>
+//#include <string>
 /*
 	real strings
 	cstringvariable = stringVariableName.c_str();
@@ -401,19 +272,13 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
-
-#include <cstring>
+//#include <cstring>
 /*
 	Ugly Cstring manipulators
 */
 
 
-
-
-
-#include <cmath>
+//#include <cmath>
 //Some parts of this library have C++11 requirments
 /*
 	Functions:
@@ -457,6 +322,9 @@ INFO: SEE BigBadLib_Full.h
 				Compute hypotenuse (function)
 
 		Rounding and remainder functions
+			remainder(numerator, denominator);
+				REQUIRES C++11
+				Gives floating point remainder
 			ceil(InputFoo)
 				Round up value (function)
 			floor(InputFoo)
@@ -501,8 +369,6 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
 /* Delay and dynamic noise making
 #if defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)
 	#include <windows.h>
@@ -534,6 +400,10 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
+
+
+
+
 /*
 Code gud check input
 	Variable Type Check
@@ -550,6 +420,14 @@ Useful bits of code:
 	static means it doesnt die
 
 	cin >> variable;
+
+
+	cin problems can be found by cin.fail()
+	fixes cin problems:
+		cin.clear();
+		cin.ignore();
+
+
 	cout << "text" << endl;
 
 	//for loop
@@ -585,65 +463,22 @@ Useful bits of code:
 	FILEIDENT.open("FILENAME.txt");
 	FILEIDENT << VARIABLE << endl;
 	FILEIDENT.close();
+
+
 */
 
 using namespace std;
 
+int main (){
+	cout << "Program started" << endl;
+	srand(time(NULL));
+	cout << "srand seeded" << endl;
+	boost::multiprecision::int128_t memebigboy = rand();
+	cout << "int128_t made with value of " << memebigboy << endl;
+	
 
 
-uint_fast64_t combineNumbers(uint_fast64_t a, uint_fast64_t b){
-	uint_fast64_t times = 1;
-	while(times <= b){
-		times = times * 10;
-	}
-	return (a * times ) + b;
-}
 
-void clearScreen(int long lines){
-	if((lines % 11) == 0){
-		for(int i = 0; i < lines; i = i + 11){
-			cout << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl;
-		}
-	}
-	else if((lines % 7) == 0){
-		for(int i = 0; i < lines; i = i + 7){
-			cout << endl << endl << endl << endl << endl << endl << endl;
-		}
-	}
-	else if((lines % 5) == 0){
-		for(int i = 0; i < lines; i = i + 5){
-			cout << endl << endl << endl << endl << endl;
-		}
-	}
-	else if((lines % 3) == 0){
-		for(int i = 0; i < lines; i = i + 3){
-			cout << endl << endl << endl;
-		}
-	}
-	else if((lines % 2) == 0){
-		for(int i = 0; i < lines; i = i + 2){
-			cout << endl << endl;
-		}
-	}
-	else{
-		for(int i = 0; i < lines; i = i + 1){
-			cout << endl;
-		}
-	}
-}
-bool isEven(int input){
-	if (input % 2 == 0){
-		return true ;
-	}
-	else{
-		return false;
-	}
-}
-bool isOdd(int input){
-	if (input % 2 == 1){
-		return true ;
-	}
-	else{
-		return false;
-	}
+	system("pause");
+	return 0;
 }

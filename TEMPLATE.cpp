@@ -15,6 +15,36 @@
 //#include "EasyBMP_Geometry.h"
 //#include "EasyBMP_SimpleArray.h"
 
+#include <quadmath.h>
+//Needed for more than just float128
+
+
+#include <boost/multiprecision/cpp_int.hpp>
+/*
+	// Fixed precision unsigned inegers:
+		boost::multiprecision::cpp_int::uint128_t
+		boost::multiprecision::cpp_int::uint256_t
+		boost::multiprecision::cpp_int::uint512_t
+		boost::multiprecision::cpp_int::uint1024_t
+	// Fixed precision signed inegers:
+		boost::multiprecision::cpp_int::int128_t
+		boost::multiprecision::cpp_int::int256_t
+		boost::multiprecision::cpp_int::int512_t
+		boost::multiprecision::cpp_int::int1024_t
+*/
+
+
+#include <boost\multiprecision\float128.hpp>
+/*
+	boost::multiprecision::float128 variableName;
+*/
+
+
+#include <bitset>
+/*
+	bitset<NUMBEROFBITSMEEP>(FOOBARVARIABLENAME)
+
+*/
 
 //#include <vector>
 /*
