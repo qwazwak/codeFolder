@@ -34,13 +34,8 @@
 */
 
 
-//#include <boost\multiprecision\float128.hpp>
-/*
-	boost::multiprecision::float128 variableName;
-*/
 
-
-//#include <vector>
+#include <vector>
 /*
 		Vectors:
 		ONE DATA TYPE
@@ -77,34 +72,6 @@
 			swaps two vectors contents
 */
 
-//#include <boost/multiprecision/cpp_int.hpp>
-/*
-	// Fixed precision unsigned inegers:
-		boost::multiprecision::cpp_int::uint128_t
-		boost::multiprecision::cpp_int::uint256_t
-		boost::multiprecision::cpp_int::uint512_t
-		boost::multiprecision::cpp_int::uint1024_t
-	// Fixed precision signed inegers:
-		boost::multiprecision::cpp_int::int128_t
-		boost::multiprecision::cpp_int::int256_t
-		boost::multiprecision::cpp_int::int512_t
-		boost::multiprecision::cpp_int::int1024_t
-*/
-
-
-//#include <boost\multiprecision\float128.hpp>
-/*
-	boost::multiprecision::float128 variableName;
-*/
-
-
-
-//#include <bitset>
-/*
-	bitset<NUMBEROFBITSMEEP>(FOOBARVARIABLENAME)
-
-*/
-
 
 //#include <windows.h>
 /*
@@ -130,7 +97,7 @@
 */
 
 
-//#include <random>
+#include <random>
 //All of this library is c++11 and requires compiler support
 /*
 	C++11
@@ -143,7 +110,7 @@
 */
 
 
-//#include <cstdint>
+#include <cstdint>
 //All of this library is c++11 and requires compiler support
 /*
 	C++11
@@ -321,7 +288,7 @@
 */
 
 
-//#include <fstream>
+#include <fstream>
 /* i/ofstream info
 	(i or o)fstream FILEIDENT;
 	FILEIDENT.open("FILENAME.txt");
@@ -592,24 +559,72 @@ Useful bits of code:
 	}
 
 	vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE);
+
+	VECTORNAME.resize (i, val)
 */
 
 using namespace std;
 
-int main (){
-	/*
-	random_device rd; //call random numbers with rd()
-	int seed = rd() * clock()
-	mt19937_64 generator(seed);  // mt19937 is a standard mersenne_twister_engine
-	srand(seed);
-	Call randoms with generator() or rand()
+int main(){
+	//General
+		vector <int_fast32_t> numFromFile;
+	//File IO
+		ifstream loadArray;
+		bool continueLoading;
+		int_fast32_t tempInput = 0;
+		int_fast32_t numFailedInput = 0;
+		int_fast32_t numGoodInput = 0;
+		int_fast32_t numNetInput = 0;
 
-	cout << "Seed: " << seed << endl;
-	cout << "Minimum: " << rd.min() << endl;
-	cout << "Maximum: " << rd.max() << endl;
-	cout << "Entropy: " << rd.entropy() << endl;
-	cout << "setup done" << endl;
-	*/
+
+
+	loadArray.open("unsorted.txt");
+	do{
+		loadArray >> tempInput;
+		if(loadArray.fail()){
+			loadArray.clear();
+			loadArray.ignore();
+			numFailedInput = numFailedInput + 1;
+			continue;
+		}
+		if(tempInput == -1)[
+			continueLoading = false;
+			continue;
+		}
+		numFromFile.push_back(tempInput);
+		continueLoading = true;
+		numGoodInput = numGoodInput + 1;
+	}while(continueLoading == true);
+	loadArray.close();
+
+
+
+		loadArray.close();
+		int_fast32_t numOfValForNewFile;
+		vector <int_fast32_t> tempVectFRandom;
+		mt19937 generator(time(NULL));
+		do{
+			cout << "unsorted.txt does not exist" << endl;
+			cout << "a new one will be generated" << endl;
+			cout << "enter number of values to make" << endl;
+			cin >> numOfValForNewFile;
+			cin.clear();
+			cin.ignore();
+		}while(cin.fail() || numOfValForNewFile < 1);
+		tempVectFRandom.resize(numOfValForNewFile);
+
+		ofstream writeArray;
+		writeArray.open("unsorted.txt");
+		for (int_fast32_t i = 0; i < numOfValForNewFile; i = i + 1) {
+			writeArray << generator() << endl;
+		}
+		writeArray << -1 << endl;
+		writeArray.close();
+	}
+
+
+
+
 
 
 
