@@ -40,12 +40,6 @@
 */
 
 
-//#include <bitset>
-/*
-	bitset<NUMBEROFBITSMEEP>(FOOBARVARIABLENAME)
-
-*/
-
 //#include <vector>
 /*
 		Vectors:
@@ -606,7 +600,7 @@ int main (){
 	/*
 	random_device rd; //call random numbers with rd()
 	int seed = rd() * clock()
-	mt19937 generator(seed);  // mt19937 is a standard mersenne_twister_engine
+	mt19937_64 generator(seed);  // mt19937 is a standard mersenne_twister_engine
 	srand(seed);
 	Call randoms with generator() or rand()
 
