@@ -9,20 +9,11 @@
 
 #include <vector>
 /*
-		Vectors:
-		ONE DATA TYPE
-		Varibale size
-
 		format:
 			vector <DATA TYPE HERE> VARIABLE NAME; //initial zero sized
 			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE); //sized with INITIALSIZE size
 			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE); //all vals are OGVARIABLE at first
 			vector <DATA TYPE HERE> VARIABLE NAME (anothervectorname); //othervectorname is copyed to the new one
-
-		Access/assign:
-			myvector[i]
-
-
 
 		VECTORNAME.push_back(NUMBER)
 			puts somthing at the end of a vector
@@ -36,12 +27,8 @@
 			returns value of ith entry
 		VECTORNAME.capacity()
 			current max size
-		VECTORNAME.reverse()
-			reverse orders entries
 		VECTORNAME.resize (i, val)
 			adds I spaces to vector, and optinally initialzes to val
-		VECTORNAME.swap(OTHERVECTORNAME);
-			swaps two vectors contents
 */
 
 
@@ -63,13 +50,6 @@
 #include <boost\multiprecision\float128.hpp>
 /*
 	boost::multiprecision::float128 variableName;
-*/
-
-
-#include <bitset>
-/*
-	bitset<NUMBEROFBITSMEEP>(FOOBARVARIABLENAME)
-
 */
 
 
