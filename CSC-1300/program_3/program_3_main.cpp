@@ -8,7 +8,7 @@
 
 //#include "BigBadLib_Full.h"
 //#include "BigBadLib_CSC.h"
-
+#include "BasicSort.h"
 
 //#include "EasyBMP.h"
 //#include "EasyBMP_Font.h"
@@ -17,28 +17,6 @@
 
 //#include <quadmath.h>
 //Needed for more than just float128
-
-
-//#include <boost/multiprecision/cpp_int.hpp>
-/*
-	// Fixed precision unsigned inegers:
-		boost::multiprecision::cpp_int::uint128_t
-		boost::multiprecision::cpp_int::uint256_t
-		boost::multiprecision::cpp_int::uint512_t
-		boost::multiprecision::cpp_int::uint1024_t
-	// Fixed precision signed inegers:
-		boost::multiprecision::cpp_int::int128_t
-		boost::multiprecision::cpp_int::int256_t
-		boost::multiprecision::cpp_int::int512_t
-		boost::multiprecision::cpp_int::int1024_t
-*/
-
-
-//#include <boost\multiprecision\float128.hpp>
-/*
-	boost::multiprecision::float128 variableName;
-*/
-
 
 //#include <vector>
 /*
@@ -75,34 +53,6 @@
 			adds I spaces to vector, and optinally initialzes to val
 		VECTORNAME.swap(OTHERVECTORNAME);
 			swaps two vectors contents
-*/
-
-//#include <boost/multiprecision/cpp_int.hpp>
-/*
-	// Fixed precision unsigned inegers:
-		boost::multiprecision::cpp_int::uint128_t
-		boost::multiprecision::cpp_int::uint256_t
-		boost::multiprecision::cpp_int::uint512_t
-		boost::multiprecision::cpp_int::uint1024_t
-	// Fixed precision signed inegers:
-		boost::multiprecision::cpp_int::int128_t
-		boost::multiprecision::cpp_int::int256_t
-		boost::multiprecision::cpp_int::int512_t
-		boost::multiprecision::cpp_int::int1024_t
-*/
-
-
-//#include <boost\multiprecision\float128.hpp>
-/*
-	boost::multiprecision::float128 variableName;
-*/
-
-
-
-//#include <bitset>
-/*
-	bitset<NUMBEROFBITSMEEP>(FOOBARVARIABLENAME)
-
 */
 
 
@@ -321,7 +271,7 @@
 */
 
 
-//#include <fstream>
+#include <fstream>
 /* i/ofstream info
 	(i or o)fstream FILEIDENT;
 	FILEIDENT.open("FILENAME.txt");
@@ -597,41 +547,49 @@ Useful bits of code:
 using namespace std;
 
 /*
+Things to make for code:
+	meanFromVector
+	modeFromVector
+	medianFromVector
 
-When dealing with large groups of numbers, it is often statistically relevant to find out the median, mean and mode of the data set. Whether this data represents grades, temperatures or other observations of the world around us, finding these pieces of data can help us eliminate outlying data and concentrate on the more important results.
-For this program, you will create multiple files that will allow the program to read in a selection of data points and generate the required information. The format of the file is described in detail below. The files you will create will include:
-Statistics.h
-Statistics.h will include an include guard and the functional prototypes required to calculate the information required by this program. Namely:
-int* readData (const char* filename, int& size);
-float findMean (int* numbers, int size);
-float findMedian (int* numbers, int size);
-int findMode (int* numbers, int size);
-void displayInformation (float mean, float median, int mode);
-Statistics.cpp
-Statistics.cpp will contain all of the code necessary to implement the functions that are prototyped in Statistics.h
-StatisticsDriver.cpp
-StatisticsDriver.cpp will read in a filename from the user via command line arguments, then use the functions from Statistics.h/.cpp to create the necessary data structures, find the necessary information and display the results.
-Input
+
+When dealing with large groups of numbers, it is often statistically relevant to find out the median, mean and mode of the data set.
+
+
+For this program, you will create multiple files that will allow the program to read in a selection of data points and generate the required information.
+The format of the file is described in detail below. The files you will create will include:
+	Statistics.h
+		Statistics.h will include an include guard and the functional prototypes required to calculate the information required by this program. Namely:
+		int* readData (const char* filename, int& size);
+		float findMean (int* numbers, int size);
+		float findMedian (int* numbers, int size);
+		int findMode (int* numbers, int size);
+		void displayInformation (float mean, float median, int mode);
+	Statistics.cpp
+		Statistics.cpp will contain all of the code necessary to implement the functions that are prototyped in Statistics.h
+	StatisticsDriver.cpp
+		StatisticsDriver.cpp will read in a filename from the user via command line arguments, then use the functions from Statistics.h/.cpp to create the necessary data structures, find the necessary information and display the results.
+	Input
 The user will provide the file name containing all information via command line argument at the time the program is executed. If the file does not exist, the user should be prompted for a new file. The input fill I will provide (numbers20.txt) and all test files I use will follow the same formatting. The first line of the file contains the number of integer values in the file, after that line, the numbers are listed one per line.
 After all of the information has been read in, the functions outlined in Statistics.h should be run to get the required data and finally the information should be displayed in a nicely formatted table to the user.
-Sample Output
-C:\CSC1300\Programs> Statistics.exe numbers20.txt
-Welcome to the statistics program.
-The statistics for the 20 read in values are :
-The mean of the data set provided is :     65.2
-The median of the data set provided is :   70.5
-The mode of the data set provided is :       47
-Thank you and have a nice day
+Sample Output:
+	C:\CSC1300\Programs> Statistics.exe numbers20.txt
+	Welcome to the statistics program.
+	The statistics for the 20 read in values are :
+	The mean of the data set provided is :     65.2
+	The median of the data set provided is :   70.5
+	The mode of the data set provided is :       47
+	Thank you and have a nice day
 
-A couple of quick notes...
-A word about Mode
-Since mode is the item that appears most often in your data set it is possible to have multiple modes within the same dataset. Your program should return the FIRST of the data points that occurs if a tie exists.
-A further word about Mode (and Median)
-While finding the mode and median of a list of data points IS possible with the list being unsorted, it is appreciably harder to do. With that in mind, you might want to use functions from the BasicSort.h/BasicSort.cpp files attached to sort the data.
-Provided Files
-Numbers20.txt
-BasicSort.h
-BasicSort.cpp
+Keep in mind:
+	A word about Mode
+		Since mode is the item that appears most often in your data set it is possible to have multiple modes within the same dataset.
+		Your program should return the FIRST of the data points that occurs if a tie exists.
+
+Provided Files:
+	Numbers20.txt
+	BasicSort.h
+	BasicSort.cpp
 
 
 
