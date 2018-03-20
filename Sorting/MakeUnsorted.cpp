@@ -6,34 +6,8 @@
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
 
-//#include "BigBadLib_Full.h"
-//#include "BigBadLib_CSC.h"
-
-
-//#include "EasyBMP.h"
-//#include "EasyBMP_Font.h"
-//#include "EasyBMP_Geometry.h"
-//#include "EasyBMP_SimpleArray.h"
-
 //#include <quadmath.h>
 //Needed for more than just float128
-
-
-//#include <boost/multiprecision/cpp_int.hpp>
-/*
-	// Fixed precision unsigned inegers:
-		boost::multiprecision::cpp_int::uint128_t
-		boost::multiprecision::cpp_int::uint256_t
-		boost::multiprecision::cpp_int::uint512_t
-		boost::multiprecision::cpp_int::uint1024_t
-	// Fixed precision signed inegers:
-		boost::multiprecision::cpp_int::int128_t
-		boost::multiprecision::cpp_int::int256_t
-		boost::multiprecision::cpp_int::int512_t
-		boost::multiprecision::cpp_int::int1024_t
-*/
-
-
 
 #include <vector>
 /*
@@ -73,15 +47,7 @@
 */
 
 
-//#include <windows.h>
-/*
-	LPCWSTR FOOBARDIRECTERY = L"c:\testdir";
-	CreateDirectory(FOOBARDIRECTERY, NULL)
-	CreateDirectory("output", NULL);
-*/
-
-
-//#include <ctime>
+#include <ctime>
 /*
 	http://www.cplusplus.com/reference/ctime/
 
@@ -258,13 +224,6 @@
 */
 
 
-//#include <time.h>
-/*
-	Has more, all I use is:
-	VARIABLE = time(NULL);
-*/
-
-
 #include <iostream>
 /*
 	system("pause")
@@ -322,48 +281,6 @@
 	if(!IDENFIFIERWHATEVERYOUWANT){
 		happens if it didnt open correctly
 	}
-*/
-
-
-//#include <string>
-/*
-	real strings
-	cstringvariable = stringVariableName.c_str();
-
-	StringVariableFooBarWhatever = to_string(IntOrFloatOrWhateverBaZZ);
-
-
-
-	Convert from number to string:
-		ALL C++11
-			to_string
-				Convert numerical value to string (function )
-			to_wstring
-				Convert numerical value to wide string (function )
-	Convert from string to number:
-		ALL C++11
-			stoi
-				Convert string to integer (function template )
-			stol
-				Convert string to long int (function template )
-			stoul
-				Convert string to unsigned integer (function template )
-			stoll
-				Convert string to long long (function template )
-			stoull
-				Convert string to unsigned long long (function template )
-			stof
-				Convert string to float (function template )
-			stod
-				Convert string to double (function template )
-			stold
-				Convert string to long double (function template )
-*/
-
-
-//#include <cstring>
-/*
-	Ugly Cstring manipulators
 */
 
 
