@@ -81,7 +81,7 @@
 */
 
 
-//#include <ctime>
+#include <ctime>
 /*
 	http://www.cplusplus.com/reference/ctime/
 
@@ -565,23 +565,189 @@ Useful bits of code:
 
 using namespace std;
 
-int main(){
-	int_fast32_t numOfValForNewFile;
-	mt19937 generator(time(NULL));
+
+
+int doASort(const int_fast32_t* a, const int_fast32_t* b){
+	if(*a < *b){
+		return -1;
+	}
+	if(*a > *b){
+		return 1;
+	}
+	if(*a == *b){
+		return 0;
+	}
+}
+
+int getSortingMode(){
+	int modeChoice;
+
 	do{
-		cout << "enter the number of values" << endl;
-		cout << "to make for unsorted.txt" << endl;
-		cin >> numOfValForNewFile;
+		cout << " Enter the number of the" << endl;
+		cout << "  mode you want to use" << endl;
+		cout << "" << endl;
+		cout << "NOT MADE     1. Quicksort     " << endl;
+		cout << "NOT MADE     2. Mergesort     " << endl;
+		cout << "NOT MADE     3. Insertionsort" << endl;
+		cout << "NOT MADE     4. Selectionsort" << endl;
+		cout << "     5. Bubble sort" << endl;
+		cout << "NOT MADE     		6. Cocktail shaker sort" << endl;
+		cout << "|      ";
+		cin >> modeChoice;
 		cin.clear();
 		cin.ignore();
-	}while(cin.fail() || numOfValForNewFile < 1);
-	vector <int_fast32_t> tempVectFRandom(numOfValForNewFile);
-	ofstream writeArray;
-	writeArray.open("unsorted.txt");
-	for (int_fast32_t i = 0; i < numOfValForNewFile; i = i + 1) {
-		writeArray << generator() << endl;
+	}while(cin.fail() || modeChoice != 5);
+	return modeChoice;
+}
+
+
+
+bool isVectorAllTrue(vector<bool> inputVector){
+	for (int_fast32_t i = 0; i < static_cast<int_fast32_t>(inputVector.size()); i++) {
+		if(inputVector[i] == false){
+			return false;
+		}
 	}
-	writeArray << -1 << endl;
-	writeArray.close();
+	return true;
+}
+
+
+int main(){
+	//Timing
+		int_fast32_t timeSortStart;
+		int_fast32_t timeSortEnd;
+	//General
+		//int sortmode;
+		//bool continueSorting;
+		int continueSortingINT;
+		vector <int_fast32_t> numFromFile;
+		//vector <int_fast32_t> sortingMe; actually made later
+		//vector <int_fast32_t> sortedVector; actually made later
+		int_fast32_t sizeOfVector;
+		int_fast32_t tempForSwap;
+	//File IO
+		ifstream loadVectors;
+		bool continueLoading;
+		int_fast32_t tempInput = 0;
+		int_fast32_t numFailedInput = 0;
+		int_fast32_t numGoodInput = 0;
+
+
+
+	loadVectors.open("unsorted.txt");
+	cout << "Loading Numbers from unsorted.txt" << endl;
+	do{
+		loadVectors >> tempInput;
+		if(loadVectors.fail()){
+			loadVectors.clear();
+			loadVectors.ignore();
+			numFailedInput = numFailedInput + 1;
+			cout << "ERROR" << endl;
+			continue;
+		}
+		if(tempInput == -1){
+			continueLoading = false;
+			cout << "Done Loading" << endl;
+			continue;
+		}
+		numFromFile.push_back(tempInput);
+		continueLoading = true;
+		numGoodInput = numGoodInput + 1;
+	}while(continueLoading == true);
+	loadVectors.close();
+	sizeOfVector = numFromFile.size();
+
+
+	cout << sizeOfVector << " values loaded correctly" << endl;
+	if(numFailedInput != 0){
+		cout << numFailedInput << " values failed to load" << endl;
+	}
+	cout << "Setup done" << endl;
+	system("pause");
+	system("CLS");
+
+	timeSortStart = clock();
+	cout << "sorting..." << endl;
+
+
+	/*sortmode = getSortingMode();
+	switch (sortmode){
+		case 5:
+
+		break;
+		default:
+
+		break;
+	}*/
+
+
+
+	vector <int_fast32_t> sortingMe (numFromFile);
+	vector <bool> arePairsSorted(sortingMe.size() - 1, false);
+	do{
+		//sort array
+		for(int_fast32_t i = 0; i < static_cast<int_fast32_t>(sortingMe.size() - 1); i++){
+			int_fast32_t j = i + 1;
+			switch(doASort(&i, &j)){
+				case 0:
+					//a > *b
+					tempForSwap = sortingMe[i];
+					sortingMe[i] = sortingMe[j];
+					sortingMe[j] = tempForSwap;
+				break;
+				case -1:
+					//a < *b
+					//Do nothing I guess
+				break;
+				case 1:
+					//a == *b
+					//Do nothing I guess
+				break;
+			}
+		}
+
+		continueSortingINT = 0;
+		#pragma omp parallel for reduction(+:continueSortingINT)
+		for(int_fast32_t i = 0; i < static_cast<int_fast32_t>(sortingMe.size() - 1); i++){
+			if(sortingMe[i] > sortingMe[i + 1]){
+				continueSortingINT = 1;
+				//break;
+			}
+			/*int_fast32_t j = i + 1;
+
+			if(sortingMe[i] > sortingMe[j]){
+				arePairsSorted[i] = false;
+			}
+			else if(sortingMe[i] <= sortingMe[j]){
+				arePairsSorted[i] = true;
+			}*/
+		}
+		//continueSorting = true;
+	}while(/*isVectorAllTrue(arePairsSorted)*/continueSortingINT == 1);
+	timeSortEnd = clock();
+
+
+
+
+	vector <int_fast32_t> sortedVector (sortingMe);
+	ofstream writeSortedPlain;
+	ofstream writeSortedFancy;
+	writeSortedPlain.open("sortedPlain.txt");
+	writeSortedFancy.open("sortedFancy.txt");
+	writeSortedFancy << "This is a sorted list with size:" << endl;
+	writeSortedFancy << sortedVector.size() << endl;
+	writeSortedFancy << "Time taken to sort:" << endl;
+	writeSortedFancy << timeSortStart - timeSortEnd << endl;
+
+
+	cout << "Sorted array:" << endl;
+	for (size_t i = 0; i < sortedVector.size(); i++) {
+		cout << i << ".  " << sortedVector[i] << endl;
+		writeSortedPlain << sortedVector[i] << endl;
+		writeSortedFancy << i << ".  " << sortedVector[i] << endl;
+	}
+	writeSortedPlain.close();
+	writeSortedFancy.close();
+	system("pause");
 	return 0;
 }

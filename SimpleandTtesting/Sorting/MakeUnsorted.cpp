@@ -566,81 +566,29 @@ Useful bits of code:
 using namespace std;
 
 int main(){
-	//General
-		vector <int_fast32_t> numFromFile;
-	//File IO
-		ifstream loadArray;
-		bool continueLoading;
-		int_fast32_t tempInput = 0;
-		int_fast32_t numFailedInput = 0;
-		int_fast32_t numGoodInput = 0;
-		int_fast32_t numNetInput = 0;
-
-
-
-	loadArray.open("unsorted.txt");
+	int_fast32_t numOfValForNewFile;
+	int_fast32_t maxValue;
+	mt19937 generator(time(NULL));
 	do{
-		loadArray >> tempInput;
-		if(loadArray.fail()){
-			loadArray.clear();
-			loadArray.ignore();
-			numFailedInput = numFailedInput + 1;
-			continue;
-		}
-		if(tempInput == -1)[
-			continueLoading = false;
-			continue;
-		}
-		numFromFile.push_back(tempInput);
-		continueLoading = true;
-		numGoodInput = numGoodInput + 1;
-	}while(continueLoading == true);
-	loadArray.close();
-
-
-
-		loadArray.close();
-		int_fast32_t numOfValForNewFile;
-		vector <int_fast32_t> tempVectFRandom;
-		mt19937 generator(time(NULL));
-		do{
-			cout << "unsorted.txt does not exist" << endl;
-			cout << "a new one will be generated" << endl;
-			cout << "enter number of values to make" << endl;
-			cin >> numOfValForNewFile;
-			cin.clear();
-			cin.ignore();
-		}while(cin.fail() || numOfValForNewFile < 1);
-		tempVectFRandom.resize(numOfValForNewFile);
-
-		ofstream writeArray;
-		writeArray.open("unsorted.txt");
-		for (int_fast32_t i = 0; i < numOfValForNewFile; i = i + 1) {
-			writeArray << generator() << endl;
-		}
-		writeArray << -1 << endl;
-		writeArray.close();
-	}
-
-
-
-
-
-
-
-	do{
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|      ";
-		cin >> USERINPUT;
+		cout << "enter the number of values" << endl;
+		cout << "to make for unsorted.txt" << endl;
+		cin >> numOfValForNewFile;
 		cin.clear();
 		cin.ignore();
-	}while(cin.fail() || USERINPUT < minimum || USERINPUT > maximum);
-
-
-	system("pause");
+	}while(cin.fail() || numOfValForNewFile < 1);
+	do{
+		cout << "enter the maximum value" << endl;
+		cin >> maxValue;
+		cin.clear();
+		cin.ignore();
+	}while(cin.fail() || maxValue < 2);
+	vector <int_fast32_t> tempVectFRandom(numOfValForNewFile);
+	ofstream writeArray;
+	writeArray.open("unsorted.txt");
+	for (int_fast32_t i = 0; i < numOfValForNewFile; i = i + 1) {
+		writeArray << generator() % maxValue << endl;
+	}
+	writeArray << -1 << endl;
+	writeArray.close();
 	return 0;
 }
