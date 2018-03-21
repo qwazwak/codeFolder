@@ -6,11 +6,6 @@
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
 
-//#include "BigBadLib_Full.h"
-//#include "BigBadLib_CSC.h"
-#include "BasicSort.h"
-
-
 //#include <quadmath.h>
 //Needed for more than just float128
 
@@ -437,7 +432,18 @@
 */
 
 
-/* Dynamic noise
+/* Delay and dynamic noise making
+#if defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)
+	#include <windows.h>
+	inline void delay(unsigned long long ms){
+		Sleep(ms);
+	}
+#else //presume POSIX
+	#include <unistd.h>
+	inline void delay(unsigned long long ms){
+		usleep( ms * 1000 );
+	}
+#endif
 #if (defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && !defined(LINUX)
 	#include <Windows.h>
 	inline void dynBeep(int freq, intmax_t timeOfBeep){
@@ -584,30 +590,23 @@ Provided Files:
 */
 
 
-int main(int argc, char *argv[]){
-	//Confirm there /are/ any arguments
-	if(argc == 1){
-		cout << "missing arguments" << endl;
-		cout << "EX: " << argv[0] << " -help" << endl;
-		system("pause");
-		return 0;
-	}
-	//now we know there are arguments
-	//Make sure the arguments are valid, if not give an ERROR
-
-
-
-
-	//All arguments are known to be valid
-
-
-
-	//This section will deal with 'system' or program commands, not ones for normal use, but things like -help or -enableDebugOutput
-
-
-		cout << argv[0] << endl;
-		cout << argv[1] << endl;
+int main (){
 	/*
+	random_device rd; //call random numbers with rd()
+	int seed = rd() * clock()
+	mt19937_64 generator(seed);  // mt19937 is a standard mersenne_twister_engine
+	srand(seed);
+	Call randoms with generator() or rand()
+
+	cout << "Seed: " << seed << endl;
+	cout << "Minimum: " << rd.min() << endl;
+	cout << "Maximum: " << rd.max() << endl;
+	cout << "Entropy: " << rd.entropy() << endl;
+	cout << "setup done" << endl;
+	*/
+
+
+
 	do{
 		cout << "|                              |" << endl;
 		cout << "|                              |" << endl;
@@ -618,7 +617,7 @@ int main(int argc, char *argv[]){
 		cin >> USERINPUT;
 		cin.clear();
 		cin.ignore();
-	}while(cin.fail() || USERINPUT < minimum || USERINPUT > maximum);*/
+	}while(cin.fail() || USERINPUT < minimum || USERINPUT > maximum);
 
 
 	system("pause");
