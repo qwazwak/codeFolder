@@ -1,6 +1,6 @@
 /*
 	Lab 9, multithreaded prime summer
-	By Rus Hoffman & Jared Queitsch
+	By Rus Hoffman
 */
 #define _WIN64 1 //(also WIN64, __WIN64, and __WIN64__)
 #define __MINGW64__ 1
@@ -74,12 +74,12 @@ int main(){
 	if(inputLimits.fail() == true || min == max || max <= min || max <= min){
 		cout << "|   Sum of primes calculator   |" << endl;
 		cout << "|                              |" << endl;
-		cout << "|     An error has occurred    |" << endl;
+		cout << "|     An error has occured     |" << endl;
 		cout << "|     The program will end     |" << endl;
 		cout << "|  after you press any button  |" << endl;
 		cout << "|                              |" << endl;
 		cout << "|                              |" << endl;
-		cout << "|   One of these has happens:  |" << endl;
+		cout << "|   One of these has happend:  |" << endl;
 		cout << "|                              |" << endl;
 		cout << "|   The file does not exist    |" << endl;
 		cout << "|                              |" << endl;
@@ -112,13 +112,13 @@ int main(){
 	startTime = getTime();
 	cout << "working..." << endl;
 	
-	if(mode == 2){
+	if(mode == 1){
 		#pragma omp parallel for reduction(+:primeSum)
 		for(long long int i = min; i <= max; i = i + 1){
 			if(primePrecheck(i) == true){
-				if(checkIfPrime(i) = = primeSum + i;
-				}= true){
-					primeSum
+				if(checkIfPrime(i) == true){
+					primeSum = primeSum + i;
+				}
 			}
 		}
 	}
