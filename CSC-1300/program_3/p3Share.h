@@ -1,9 +1,6 @@
 #if !defined PROGRAM3SHARED
 #define PROGRAM3SHARED
 
-enum argr {-h, --help, -db, --enableDebugOutput, -ni, --generateNewInput};
-
-
-
+enum userInputArgumentEnum {badError=0, h, help, edo, enableDebugOutput, gnd, generateNewData};
 
 #endif

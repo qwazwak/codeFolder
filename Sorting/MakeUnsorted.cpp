@@ -47,9 +47,9 @@
 */
 
 
-#include <ctime>
+#include <c>
 /*
-	http://www.cplusplus.com/reference/ctime/
+	http://www.cplusplus.com/reference/c/
 
 	Macro:
 		CLOCKS_PER_SEC
@@ -59,7 +59,7 @@
 	unsigned int start = clock();
 	cout << "waiting for keyhit";
 	cin.ignore();
-	cout << "Time taken in millisecs: " << clock()-start;
+	cout << " taken in millisecs: " << clock()-start;
 */
 
 
@@ -186,7 +186,7 @@
 	random:
 		srand(SEEDGOESHERE);
 			seed sources:
-				time(NULL)
+				(NULL)
 
 				if c++ 11 is avalible use a real random generator to seed
 		rand() to generate random numbers
@@ -389,17 +389,17 @@
 #endif
 #if (defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && !defined(LINUX)
 	#include <Windows.h>
-	inline void dynBeep(int freq, intmax_t timeOfBeep){
-		Beep(freq, timeOfBeep);
+	inline void dynBeep(int freq, intmax_t OfBeep){
+		Beep(freq, OfBeep);
 	}
 #elif !(defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && defined(LINUX)
 	#include <stdio.h>
-	void dynBeep(int freq, intmax_t timeOfBeep){
+	void dynBeep(int freq, intmax_t OfBeep){
 		system("echo -e "\007" >/dev/tty10");
 	}
 #else
 	#include <stdio.h>
-	void dynBeep(int freq, intmax_t timeOfBeep){
+	void dynBeep(int freq, intmax_t OfBeep){
 		std::cout << "\a" << std::flush;
 	}
 #endif
@@ -485,7 +485,7 @@ using namespace std;
 int main(){
 	int_fast32_t numOfValForNewFile;
 	int_fast32_t maxValue;
-	mt19937 generator(time(NULL));
+	mt19937 generator((NULL));
 	do{
 		cout << "enter the number of values" << endl;
 		cout << "to make for unsorted.txt" << endl;

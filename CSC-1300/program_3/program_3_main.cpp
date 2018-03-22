@@ -8,6 +8,8 @@
 
 //#include "BigBadLib_Full.h"
 //#include "BigBadLib_CSC.h"
+
+#include "p3Share.h"
 #include "BasicSort.h"
 
 
@@ -28,7 +30,6 @@
 
 		Access/assign:
 			myvector[i]
-
 
 
 		VECTORNAME.push_back(NUMBER)
@@ -584,18 +585,39 @@ Provided Files:
 */
 
 
-int main(int argc, char *argv[]){
+int main (int argc, char* argv[]){
+	//Variables!
+		//Arguments:
+			userInputArgumentEnum inputArgument;
+
 	//Confirm there /are/ any arguments
-	if(argc == 1){
-		cout << "missing arguments" << endl;
-		cout << "EX: " << argv[0] << " -help" << endl;
-		system("pause");
-		return 0;
-	}
+		if(argc == 1){
+			cout << "missing arguments" << endl;
+			cout << "EX: " << argv[0] << " -help" << endl;
+			system("pause");
+			return 0;
+		}
+		if(argc > 2){
+			cout << "too many arguments" << endl;
+			cout << "only use one" << endl;
+			cout << "EX: " << argv[0] << " -help" << endl;
+			system("pause");
+			return 0;
+		}
 	//now we know there are arguments
 	//Make sure the arguments are valid, if not give an ERROR
-
-
+		if(argv[1] == "h" || argv[1] == "help"){
+			inputArgument = help;
+		}
+		else if(argv[1] == "edo" || argv[1] == "enableDebugOutput"){
+			inputArgument = enableDebugOutput;
+		}
+		else if(argv[1] == "gnd" || argv[1] == "generateNewData"){
+			inputArgument = generateNewData;
+		}
+		else{
+			inputArgument = badError;
+		}
 
 
 	//All arguments are known to be valid
