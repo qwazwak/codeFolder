@@ -77,34 +77,6 @@
 			swaps two vectors contents
 */
 
-//#include <boost/multiprecision/cpp_int.hpp>
-/*
-	// Fixed precision unsigned inegers:
-		boost::multiprecision::cpp_int::uint128_t
-		boost::multiprecision::cpp_int::uint256_t
-		boost::multiprecision::cpp_int::uint512_t
-		boost::multiprecision::cpp_int::uint1024_t
-	// Fixed precision signed inegers:
-		boost::multiprecision::cpp_int::int128_t
-		boost::multiprecision::cpp_int::int256_t
-		boost::multiprecision::cpp_int::int512_t
-		boost::multiprecision::cpp_int::int1024_t
-*/
-
-
-//#include <boost\multiprecision\float128.hpp>
-/*
-	boost::multiprecision::float128 variableName;
-*/
-
-
-
-//#include <bitset>
-/*
-	bitset<NUMBEROFBITSMEEP>(FOOBARVARIABLENAME)
-
-*/
-
 
 //#include <windows.h>
 /*
@@ -140,6 +112,20 @@
 	cout << "Entropy: " << FOOBARNAMEME.entropy() << endl;
 	This is real random. Only use it to seed a pseduo random generator - SEE cstdlib and rand()
 
+
+
+
+		random_device rd; //call random numbers with rd()
+		int seed = rd() * clock()
+		mt19937_64 generator(seed);  // mt19937 is a standard mersenne_twister_engine
+		srand(seed);
+		Call randoms with generator() or rand()
+
+		cout << "Seed: " << seed << endl;
+		cout << "Minimum: " << rd.min() << endl;
+		cout << "Maximum: " << rd.max() << endl;
+		cout << "Entropy: " << rd.entropy() << endl;
+		cout << "setup done" << endl;
 */
 
 
@@ -510,12 +496,12 @@
 	}
 #elif !(defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && defined(LINUX)
 	#include <stdio.h>
-	void dynBeep(int freq, intmax_t timeOfBeep){
+	inline void dynBeep(int freq, intmax_t timeOfBeep){
 		system("echo -e "\007" >/dev/tty10");
 	}
 #else
 	#include <stdio.h>
-	void dynBeep(int freq, intmax_t timeOfBeep){
+	inline void dynBeep(int freq, intmax_t timeOfBeep){
 		std::cout << "\a" << std::flush;
 	}
 #endif
@@ -537,49 +523,12 @@ Code gud check input
 
 Useful bits of code:
 	Variables:
-		const VARTYPE VARNAME - makes it not change
-		int - float - intmax_t - long intmax_t - increasing size
-	static means it doesnt die
-
-	cin >> variable;
-
+		static means it doesnt die
 
 	cin problems can be found by cin.fail()
 	fixes cin problems:
 		cin.clear();
 		cin.ignore();
-
-
-	cout << "text" << endl;
-
-	//for loop
-	for(int i = 1; i <= limit; i = i + 1){
-
-	}
-
-	//real loop
-	while(){
-
-	}
-
-	//do while template
-	do{
-
-	}while();
-
-
-	//switch template
-	switch(VARIABLE){
-		case ():
-
-		break;
-		case ():
-
-		break;
-		default:
-
-		break;
-	}
 
 	(i or o)fstream FILEIDENT;
 	FILEIDENT.open("FILENAME.txt");
@@ -597,35 +546,40 @@ Useful bits of code:
 using namespace std;
 
 int main (){
-	/*
-	random_device rd; //call random numbers with rd()
-	int seed = rd() * clock()
-	mt19937_64 generator(seed);  // mt19937 is a standard mersenne_twister_engine
-	srand(seed);
-	Call randoms with generator() or rand()
-
-	cout << "Seed: " << seed << endl;
-	cout << "Minimum: " << rd.min() << endl;
-	cout << "Maximum: " << rd.max() << endl;
-	cout << "Entropy: " << rd.entropy() << endl;
-	cout << "setup done" << endl;
-	*/
 
 
 
-	do{
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|      ";
-		cin >> USERINPUT;
+	cout << "" << endl;
+	cout << "" << endl;
+	cout << "" << endl;
+	cout << "" << endl;
+	cout << "" << endl;
+	cin >> input;
+	while(cin.fail() || input < min || input > max){
+		system("CLS");
 		cin.clear();
 		cin.ignore();
-	}while(cin.fail() || USERINPUT < minimum || USERINPUT > maximum);
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "Invalid Input" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cout << "" << endl;
+		cin >> input;
+	}
+	system("CLS");
+
+
+
+
+
+
+
+
+
 
 
 	system("pause");
+	system("CLS");
 	return 0;
 }
