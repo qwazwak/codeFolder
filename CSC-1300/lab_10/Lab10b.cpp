@@ -11,12 +11,14 @@ int main(){
 		double *monthSales = nullptr;
 	// total of all sales
 		double total = 0;
-		// average of monthly sales
+	// average of monthly sales
 		double average;
 	// number of sales to be processed
-		int numOfSales;
+		long int numOfSales;
 	// loop counter
-		int count;
+		long int count;
+	// month Names
+		string monthNames[12] = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 
 	cout << fixed << showpoint << setprecision(2);
 
@@ -36,32 +38,45 @@ int main(){
 	system("CLS");
 
 	// Fill in the code to allocate memory for the array pointed to by monthSales.
-
-	if ( ) 		// Fill in the condition to determine if memory has been
-				// allocated (or eliminate this if construct if your instructor
-				// tells you it is not needed for your compiler)
-	{
+	monthSales = new double[numOfSales];
+	if(monthSales == nullptr){
 		cout << "Error allocating memory!\n";
+		system("pause");
+		system("CLS");
 		return 1;
 	}
-	cout << "Enter the sales below\n";
 
-	for (count = 0; count < numOfSales; count++)
-	{
-		cout << "Sales for Month number "
-			 << // Fill in code to show the number of the month
-			 << ":";
-		// Fill in code to bring sales into an element of the array
+
+
+	cout << "Enter the sales below" << endl;
+	for (count = 0; count < numOfSales; count++){
+		cout << "Sales for " << monthNames[count % 12] << ": ";
+		cin >> monthSales[count];
+		while(cin.fail() || monthSales[count] < 0){
+			system("CLS");
+			cin.clear();
+			cin.ignore();
+			cout << "Invalid Input" << endl;
+			cout << "Be sure you enter only a positive number or zero" << endl;
+			cout << endl;
+			cout << "Sales for " << monthNames[count % 12] << ": ";
+			cin >> monthSales[count];
+		}
 	}
 
-	for (count = 0; count < numOfSales; count++)
-	{
+
+	// Fill in code to find the average
+	for(count = 0; count < numOfSales; count++){
 		total = total + monthSales[count];
 	}
+	average = total / static_cast <double> (numOfSales);
 
-	average = // Fill in code to find the average
+
 	cout << "Average Monthly sale is $" << average << endl;
 	// Fill in the code to deallocate memory assigned to the array.
 
+	delete[] monthSales;
+	system("pause");
+	system("CLS");
 	return 0;
 }
