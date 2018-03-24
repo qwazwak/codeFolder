@@ -12,16 +12,8 @@
 #include "p3Share.h"
 #include "BasicSort.h"
 
-
-//#include <quadmath.h>
-//Needed for more than just float128
-
-//#include <vector>
+#include <vector>
 /*
-		Vectors:
-		ONE DATA TYPE
-		Varibale size
-
 		format:
 			vector <DATA TYPE HERE> VARIABLE NAME; //initial zero sized
 			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE); //sized with INITIALSIZE size
@@ -77,81 +69,6 @@
 */
 
 
-//#include <random>
-//All of this library is c++11 and requires compiler support
-/*
-	C++11
-	random_device FOOBARNAMEME;
-	cout << "Minumum: " << FOOBARNAMEME.min() << endl;
-	cout << "Maximum: " << FOOBARNAMEME.max() << endl;
-	cout << "Entropy: " << FOOBARNAMEME.entropy() << endl;
-	This is real random. Only use it to seed a pseduo random generator - SEE cstdlib and rand()
-
-*/
-
-
-//#include <cstdint>
-//All of this library is c++11 and requires compiler support
-/*
-	C++11
-	What it adds:
-		Signed maximum width integer type
-			intmax_t
-		Maximum width unsigned integer type
-			uintmax_t
-
-		Integer with width of exactly 8, 16, 32 and 64 bits respectively with no padding bits and using 2's complement for negative values
-		(provided only if the implementation directly supports the type)
-			Signed:
-				int8_t
-				int16_t
-				int32_t
-				int64_t
-			Unsigned:
-				uint8_t
-				uint16_t
-				uint32_t
-				uint64_t
-
-		Fastest integer type with width of at least 8, 16, 32 and 64 bits respectively
-			Signed:
-				int_fast8_t
-				int_fast16_t
-				int_fast32_t
-				int_fast64_t
-			Unsigned:
-				uint_fast8_t
-				uint_fast16_t
-				uint_fast32_t
-				uint_fast64_t
-
-		Smallest integer type with width of at least 8, 16, 32 and 64 bits respectively
-			Signed:
-				int_least8_t
-				int_least16_t
-				int_least32_t
-				int_least64_t
-			Unsigned:
-				uint_least8_t
-				uint_least16_t
-				uint_least32_t
-				uint_least64_t
-
-		Constants: (max value)
-			INTMAX_MAX
-			INT8_MAX
-			INT16_MAX
-			INT32_MAX
-			INT64_MAX
-			INT_FAST8_MAX
-			INT_FAST16_MAX
-			INT_FAST32_MAX
-			INT_FAST64_MAX
-			INT_LEAST8_MAX
-			INT_LEAST16_MAX
-			INT_LEAST32_MAX
-			INT_LEAST64_MAX
-*/
 
 
 #include <cstdlib>
@@ -196,45 +113,6 @@
 						Pointer to a function that compares two elements.
 						This function is called repeatedly by qsort to compare two elements. It shall follow the following prototype:
 
-
-	random:
-		srand(SEEDGOESHERE);
-			seed sources:
-				time(NULL)
-
-				if c++ 11 is avalible use a real random generator to seed
-		rand() to generate random numbers
-
-
-	String to XXX Conversions:
-		To use these the format is VARIABLEWITHTARGETTYPE = functionName(SOURCEVARIABLE)
-			atof
-				Convert string to double (function )
-			atoi
-				Convert string to integer (function )
-			atol
-				Convert string to long integer (function )
-			atoll
-				C++11
-				Convert string to long long integer (function )
-			strtod
-				Convert string to double (function )
-			strtof
-				C++11
-				Convert string to float (function )
-			strtol
-				Convert string to long integer (function )
-			strtold
-				C++11
-				Convert string to long double (function )
-			strtoll
-				C++11
-				Convert string to long long integer (function )
-			strtoul
-				Convert string to unsigned long integer (function )
-			strtoull
-				C++11
-				Convert string to unsigned long long integer (function )
 */
 
 
@@ -311,33 +189,6 @@
 	cstringvariable = stringVariableName.c_str();
 
 	StringVariableFooBarWhatever = to_string(IntOrFloatOrWhateverBaZZ);
-
-
-
-	Convert from number to string:
-		ALL C++11
-			to_string
-				Convert numerical value to string (function )
-			to_wstring
-				Convert numerical value to wide string (function )
-	Convert from string to number:
-		ALL C++11
-			stoi
-				Convert string to integer (function template )
-			stol
-				Convert string to long int (function template )
-			stoul
-				Convert string to unsigned integer (function template )
-			stoll
-				Convert string to long long (function template )
-			stoull
-				Convert string to unsigned long long (function template )
-			stof
-				Convert string to float (function template )
-			stod
-				Convert string to double (function template )
-			stold
-				Convert string to long double (function template )
 */
 
 
@@ -348,7 +199,6 @@
 
 
 //#include <cmath>
-//Some parts of this library have C++11 requirments
 /*
 	Functions:
 		Trigonometric functions:
@@ -364,13 +214,6 @@
 			cosh(InputFoo)
 			sinh(InputFoo)
 			tanh(InputFoo)
-		Area Hyperbolic functions:
-			acosh(InputFoo)
-				REQUIRES C++11
-			asinh(InputFoo)
-				REQUIRES C++11
-			atanh(InputFoo)
-				REQUIRES C++11
 
 		Exponential and logarithmic functions
 			log(InputFoo)
@@ -383,52 +226,14 @@
 				Raise to power (function)
 			sqrt(InputFoo)
 				Compute square root (function)
-			cbrt(InputFoo)
-				REQUIRES C++11
-				Compute cubic root (function)
-			hypot(InputA, InputB)
-				REQUIRES C++11
-				Compute hypotenuse (function)
 
 		Rounding and remainder functions
-			remainder(numerator, denominator);
-				REQUIRES C++11
-				Gives floating point remainder
 			ceil(InputFoo)
 				Round up value (function)
 			floor(InputFoo)
 				Round down value (function)
 			fmod(numerator, denominator)
 				Compute remainder of division (function)
-			trunc(InputFoo)
-				REQUIRES C++11
-				Truncate value  IE rounds towards zero (function)
-			round(InputFoo)
-				REQUIRES C++11
-				Round to nearest (function)
-			lround(InputFoo)
-				REQUIRES C++11
-				Round to nearest and cast to long integer (function)
-			llround(InputFoo)
-				REQUIRES C++11
-				Round to nearest and cast to long long integer (function)
-			rint(InputFoo)
-				REQUIRES C++11
-				Round to integral value (function)
-			lrint(InputFoo)
-				REQUIRES C++11
-				Round and cast to long integer (function)
-			llrint(InputFoo)
-				REQUIRES C++11
-				Round and cast to long long integer (function)
-			nearbyint(InputFoo)
-				REQUIRES C++11
-				Round to nearby integral value (function)
-
-		Floating-point manipulation functions
-			copysign(InputMagnitude, InputSign)
-				REQUIRES C++11
-				Copy sign (function)
 
 		Other functions
 			fabs(InputFoo)
@@ -436,29 +241,6 @@
 			abs(InputFoo)
 				Compute absolute value, int or floating point (function)
 */
-
-
-/* Dynamic noise
-#if (defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && !defined(LINUX)
-	#include <Windows.h>
-	inline void dynBeep(int freq, intmax_t timeOfBeep){
-		Beep(freq, timeOfBeep);
-	}
-#elif !(defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && defined(LINUX)
-	#include <stdio.h>
-	void dynBeep(int freq, intmax_t timeOfBeep){
-		system("echo -e "\007" >/dev/tty10");
-	}
-#else
-	#include <stdio.h>
-	void dynBeep(int freq, intmax_t timeOfBeep){
-		std::cout << "\a" << std::flush;
-	}
-#endif
-*/
-
-
-
 
 
 
@@ -472,58 +254,13 @@ Code gud check input
 	Format Check (MM/DD/YYY vs YYYY/MM/DD)
 
 Useful bits of code:
-	Variables:
-		const VARTYPE VARNAME - makes it not change
-		int - float - intmax_t - long intmax_t - increasing size
-	static means it doesnt die
-
-	cin >> variable;
-
-
 	cin problems can be found by cin.fail()
 	fixes cin problems:
 		cin.clear();
 		cin.ignore();
 
-
-	cout << "text" << endl;
-
-	//for loop
-	for(int i = 1; i <= limit; i = i + 1){
-
-	}
-
-	//real loop
-	while(){
-
-	}
-
-	//do while template
-	do{
-
-	}while();
-
-
-	//switch template
-	switch(VARIABLE){
-		case ():
-
-		break;
-		case ():
-
-		break;
-		default:
-
-		break;
-	}
-
-	(i or o)fstream FILEIDENT;
-	FILEIDENT.open("FILENAME.txt");
-	FILEIDENT << VARIABLE << endl;
-	FILEIDENT.close();
-
 	#pragma omp parallel for reduction(+:VariableThatCallCanAccess)
-	for(long long int i = min; i <= max; i = i + 1){
+	for(long long int i = start; i <= max; i = i + 1){
 
 	}
 
@@ -585,48 +322,46 @@ Provided Files:
 */
 
 
+typedef string stringHack;
+
 int main (int argc, char* argv[]){
+	system("CLS");
 	//Variables!
 		//Arguments:
-			userInputArgumentEnum inputArgument;
+			string executableName = argv[0];
+			string userArgument;
+			string userArgumentSingle;
+			if(argc == 2) {
+				userArgumentSingle = argv[1];
+			}
+			string userArgumentFilename;
+		//Fstream things:
+			ifstream loadData;
 
+		//Sorting/DATA
+			vector<long int> dataVector;
+	//Variables are done being made
 	//Confirm there /are/ any arguments
-		if(argc == 1){
-			cout << "missing arguments" << endl;
-			cout << "EX: " << argv[0] << " -help" << endl;
+		if(argc == 1 || argc > 2){
+			cout << "To use this program use this format:" << endl;
+			cout << "EX: " << executableName << " filename.txt" << endl;
+			cout << endl;
+			cout << "NOTE:" << endl;
+			cout << "\tthe file's first line should be the number values" << endl;
+			cout << "\tafter that, each value is on its own line" << endl;
 			system("pause");
 			return 0;
 		}
-		if(argc > 2){
-			cout << "too many arguments" << endl;
-			cout << "only use one" << endl;
-			cout << "EX: " << argv[0] << " -help" << endl;
-			system("pause");
-			return 0;
-		}
-	//now we know there are arguments
-	//Make sure the arguments are valid, if not give an ERROR
-		if(argv[1] == "h" || argv[1] == "help"){
-			inputArgument = help;
-		}
-		else if(argv[1] == "edo" || argv[1] == "enableDebugOutput"){
-			inputArgument = enableDebugOutput;
-		}
-		else if(argv[1] == "gnd" || argv[1] == "generateNewData"){
-			inputArgument = generateNewData;
-		}
-		else{
-			inputArgument = badError;
-		}
+	//now we know there are 2 arguments, the exe name and somthing else
+	//Make sure the argument is a valid file name
 
+	//file name is valid and opened
+	//load dataset
 
-	//All arguments are known to be valid
+	dataVector.resize (i, val)
 
-
-
+	//data is loaded
 	//This section will deal with 'system' or program commands, not ones for normal use, but things like -help or -enableDebugOutput
-
-
 		cout << argv[0] << endl;
 		cout << argv[1] << endl;
 	/*
@@ -644,5 +379,6 @@ int main (int argc, char* argv[]){
 
 
 	system("pause");
+	system("CLS");
 	return 0;
 }
