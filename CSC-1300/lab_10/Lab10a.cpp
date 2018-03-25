@@ -7,12 +7,11 @@
 using namespace std;
 
 int main(){
-	system("CLS");
 	int length; // holds length
 	int width; // holds width
 	int area; // holds area
-	int *lengthPtr = nullptr; // int pointer which will be set to point to length
-	int *widthPtr = nullptr; // int pointer which will be set to point to width
+	int *lengthPtr = NULL; // int pointer which will be set to point to length
+	int *widthPtr = NULL; // int pointer which will be set to point to width
 	do{
 		cout << "Please input the length of the rectangle" << endl;
 		cin >> length;
@@ -43,7 +42,5 @@ int main(){
 	else{
 		cout << "The width and length are the same" << endl;
 	}
-	system("pause");
-	system("CLS");
 	return 0;
 }

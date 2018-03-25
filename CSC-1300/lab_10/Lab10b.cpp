@@ -8,7 +8,7 @@ using namespace std;
 
 int main(){
 	// a pointer used to point to an array holding monthly sales
-		double *monthSales = nullptr;
+		double *monthSales = NULL;
 	// total of all sales
 		double total = 0;
 	// average of monthly sales
@@ -22,11 +22,10 @@ int main(){
 
 	cout << fixed << showpoint << setprecision(2);
 
-
+	//Have user enter number of entries to enter
 	cout << "How many monthly sales will be processed? ";
 	cin >> numOfSales;
 	while(cin.fail() || numOfSales < 1){
-		system("CLS");
 		cin.clear();
 		cin.ignore();
 		cout << "Invalid Input" << endl;
@@ -35,25 +34,22 @@ int main(){
 		cout << "How many monthly sales will be processed? ";
 		cin >> numOfSales;
 	}
-	system("CLS");
 
-	// Fill in the code to allocate memory for the array pointed to by monthSales.
+	
+	//If memory cannot be allocated, give an error
 	monthSales = new double[numOfSales];
-	if(monthSales == nullptr){
-		cout << "Error allocating memory!\n";
-		system("pause");
-		system("CLS");
+	if(monthSales == NULL){
+		cout << "Error allocating memory!" << endl;
 		return 1;
 	}
 
 
-
+	//Have user enter the sales
 	cout << "Enter the sales below" << endl;
 	for (count = 0; count < numOfSales; count++){
 		cout << "Sales for " << monthNames[count % 12] << ": ";
 		cin >> monthSales[count];
 		while(cin.fail() || monthSales[count] < 0){
-			system("CLS");
 			cin.clear();
 			cin.ignore();
 			cout << "Invalid Input" << endl;
@@ -71,12 +67,9 @@ int main(){
 	}
 	average = total / static_cast <double> (numOfSales);
 
-
+	//Display average
 	cout << "Average Monthly sale is $" << average << endl;
-	// Fill in the code to deallocate memory assigned to the array.
-
+	//Deallocate memory assigned to the array.
 	delete[] monthSales;
-	system("pause");
-	system("CLS");
 	return 0;
 }

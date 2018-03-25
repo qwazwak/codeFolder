@@ -9,7 +9,6 @@
 //#include "BigBadLib_Full.h"
 //#include "BigBadLib_CSC.h"
 
-#include "p3Share.h"
 #include "BasicSort.h"
 
 #include <vector>
@@ -325,21 +324,20 @@ Provided Files:
 typedef string stringHack;
 
 int main (int argc, char* argv[]){
-	system("CLS");
 	//Variables!
 		//Arguments:
 			string executableName = argv[0];
 			string userArgument;
-			string userArgumentSingle;
+			string userArgumentOGSingleString;
 			if(argc == 2) {
-				userArgumentSingle = argv[1];
+				userArgumentOGSingleString = argv[1];
 			}
-			string userArgumentFilename;
 		//Fstream things:
 			ifstream loadData;
-
+			char fileName[300];
 		//Sorting/DATA
 			vector<long int> dataVector;
+			long int * dataArray;
 	//Variables are done being made
 	//Confirm there /are/ any arguments
 		if(argc == 1 || argc > 2){
@@ -354,11 +352,40 @@ int main (int argc, char* argv[]){
 		}
 	//now we know there are 2 arguments, the exe name and somthing else
 	//Make sure the argument is a valid file name
+	//MAYBE THIS WORKS IDK
+	//MAYBE THIS WORKS IDK
+	//MAYBE THIS WORKS IDK
+	//MAYBE THIS WORKS IDK
+	//MAYBE THIS WORKS IDK
+	//MAYBE THIS WORKS IDK
+	//MAYBE THIS WORKS IDK
+	//MAYBE THIS WORKS IDK
+	//MAYBE THIS WORKS IDK
+	//MAYBE THIS WORKS IDK
+	//MAYBE THIS WORKS IDK
+	//MAYBE THIS WORKS IDK
+	//MAYBE THIS WORKS IDK
+	//MAYBE THIS WORKS IDK
+	//MAYBE THIS WORKS IDK
+		loadData.open(argv[0]);
+		if(!loadData){
+			//This happens when there is an error opening the file
+			loadData.close();
+			cout << "The file " << userArgumentOGSingleString << " does not exist" << endl;
+			cout << "Enter a new file name, including the extention:" << endl;
+			cin.getline(fileName, 300);
 
+			loadData.open(fileName);
+			while(!loadData || cin.fail()){
+				loadData.close();
+				cout << "The file " << fileName << " does not exist" << endl;
+				cout << "Enter a new file name, including the extention:" << endl;
+				cin.getline(fileName, 300);
+				loadData.open(fileName);
+			}
+		}
 	//file name is valid and opened
-	//load dataset
-
-	dataVector.resize (i, val)
+	//load dataset and confirm that there are the said number
 
 	//data is loaded
 	//This section will deal with 'system' or program commands, not ones for normal use, but things like -help or -enableDebugOutput

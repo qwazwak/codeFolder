@@ -6,10 +6,41 @@
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
 
+//#include "BigBadLib_Full.h"
+//#include "BigBadLib_CSC.h"
+
+
+//#include "EasyBMP.h"
+//#include "EasyBMP_Font.h"
+//#include "EasyBMP_Geometry.h"
+//#include "EasyBMP_SimpleArray.h"
+
 //#include <quadmath.h>
 //Needed for more than just float128
 
-#include <vector>
+
+//#include <boost/multiprecision/cpp_int.hpp>
+/*
+	// Fixed precision unsigned inegers:
+		boost::multiprecision::cpp_int::uint128_t
+		boost::multiprecision::cpp_int::uint256_t
+		boost::multiprecision::cpp_int::uint512_t
+		boost::multiprecision::cpp_int::uint1024_t
+	// Fixed precision signed inegers:
+		boost::multiprecision::cpp_int::int128_t
+		boost::multiprecision::cpp_int::int256_t
+		boost::multiprecision::cpp_int::int512_t
+		boost::multiprecision::cpp_int::int1024_t
+*/
+
+
+//#include <boost\multiprecision\float128.hpp>
+/*
+	boost::multiprecision::float128 variableName;
+*/
+
+
+//#include <vector>
 /*
 		Vectors:
 		ONE DATA TYPE
@@ -47,9 +78,17 @@
 */
 
 
-#include <ctime>
+//#include <windows.h>
 /*
-	http://www.cplusplus.com/reference/c/
+	LPCWSTR FOOBARDIRECTERY = L"c:\testdir";
+	CreateDirectory(FOOBARDIRECTERY, NULL)
+	CreateDirectory("output", NULL);
+*/
+
+
+//#include <ctime>
+/*
+	http://www.cplusplus.com/reference/ctime/
 
 	Macro:
 		CLOCKS_PER_SEC
@@ -59,7 +98,7 @@
 	unsigned int start = clock();
 	cout << "waiting for keyhit";
 	cin.ignore();
-	cout << " taken in millisecs: " << clock()-start;
+	cout << "Time taken in millisecs: " << clock()-start;
 */
 
 
@@ -73,6 +112,20 @@
 	cout << "Entropy: " << FOOBARNAMEME.entropy() << endl;
 	This is real random. Only use it to seed a pseduo random generator - SEE cstdlib and rand()
 
+
+
+
+		random_device rd; //call random numbers with rd()
+		int seed = rd() * clock()
+		mt19937_64 generator(seed);  // mt19937 is a standard mersenne_twister_engine
+		srand(seed);
+		Call randoms with generator() or rand()
+
+		cout << "Seed: " << seed << endl;
+		cout << "Minimum: " << rd.min() << endl;
+		cout << "Maximum: " << rd.max() << endl;
+		cout << "Entropy: " << rd.entropy() << endl;
+		cout << "setup done" << endl;
 */
 
 
@@ -186,7 +239,7 @@
 	random:
 		srand(SEEDGOESHERE);
 			seed sources:
-				(NULL)
+				time(NULL)
 
 				if c++ 11 is avalible use a real random generator to seed
 		rand() to generate random numbers
@@ -224,6 +277,13 @@
 */
 
 
+#include <time.h>
+/*
+	Has more, all I use is:
+	VARIABLE = time(NULL);
+*/
+
+
 #include <iostream>
 /*
 	system("pause")
@@ -247,7 +307,7 @@
 */
 
 
-#include <fstream>
+//#include <fstream>
 /* i/ofstream info
 	(i or o)fstream FILEIDENT;
 	FILEIDENT.open("FILENAME.txt");
@@ -281,6 +341,48 @@
 	if(!IDENFIFIERWHATEVERYOUWANT){
 		happens if it didnt open correctly
 	}
+*/
+
+
+//#include <string>
+/*
+	real strings
+	cstringvariable = stringVariableName.c_str();
+
+	StringVariableFooBarWhatever = to_string(IntOrFloatOrWhateverBaZZ);
+
+
+
+	Convert from number to string:
+		ALL C++11
+			to_string
+				Convert numerical value to string (function )
+			to_wstring
+				Convert numerical value to wide string (function )
+	Convert from string to number:
+		ALL C++11
+			stoi
+				Convert string to integer (function template )
+			stol
+				Convert string to long int (function template )
+			stoul
+				Convert string to unsigned integer (function template )
+			stoll
+				Convert string to long long (function template )
+			stoull
+				Convert string to unsigned long long (function template )
+			stof
+				Convert string to float (function template )
+			stod
+				Convert string to double (function template )
+			stold
+				Convert string to long double (function template )
+*/
+
+
+//#include <cstring>
+/*
+	Ugly Cstring manipulators
 */
 
 
@@ -375,41 +477,6 @@
 */
 
 
-/* Delay and dynamic noise making
-#if defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)
-	#include <windows.h>
-	inline void delay(unsigned long long ms){
-		Sleep(ms);
-	}
-#else //presume POSIX
-	#include <unistd.h>
-	inline void delay(unsigned long long ms){
-		usleep( ms * 1000 );
-	}
-#endif
-#if (defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && !defined(LINUX)
-	#include <Windows.h>
-	inline void dynBeep(int freq, intmax_t OfBeep){
-		Beep(freq, OfBeep);
-	}
-#elif !(defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && defined(LINUX)
-	#include <stdio.h>
-	void dynBeep(int freq, intmax_t OfBeep){
-		system("echo -e "\007" >/dev/tty10");
-	}
-#else
-	#include <stdio.h>
-	void dynBeep(int freq, intmax_t OfBeep){
-		std::cout << "\a" << std::flush;
-	}
-#endif
-*/
-
-
-
-
-
-
 /*
 Code gud check input
 	Variable Type Check
@@ -421,49 +488,12 @@ Code gud check input
 
 Useful bits of code:
 	Variables:
-		const VARTYPE VARNAME - makes it not change
-		int - float - intmax_t - long intmax_t - increasing size
-	static means it doesnt die
-
-	cin >> variable;
-
+		static means it doesnt die
 
 	cin problems can be found by cin.fail()
 	fixes cin problems:
 		cin.clear();
 		cin.ignore();
-
-
-	cout << "text" << endl;
-
-	//for loop
-	for(int i = 1; i <= limit; i = i + 1){
-
-	}
-
-	//real loop
-	while(){
-
-	}
-
-	//do while template
-	do{
-
-	}while();
-
-
-	//switch template
-	switch(VARIABLE){
-		case ():
-
-		break;
-		case ():
-
-		break;
-		default:
-
-		break;
-	}
 
 	(i or o)fstream FILEIDENT;
 	FILEIDENT.open("FILENAME.txt");
@@ -476,36 +506,64 @@ Useful bits of code:
 	}
 
 	vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE);
-
-	VECTORNAME.resize (i, val)
 */
 
 using namespace std;
 
-int main(){
-	int_fast32_t numOfValForNewFile;
-	int_fast32_t maxValue;
+void fillArrayRandom(int_fast32_t * inputArray, int_fast32_t numOfValForNewFile = 20, int_fast32_t maxValue = 50){
 	mt19937 generator(time(NULL));
+	maxValue = maxValue + 1;
+	for(int_fast32_t i = 0; i < numOfValForNewFile; i = i + 1) {
+		inputArray[i] = generator() % maxValue;
+	}
+}
+
+int compare (const void * a, const void * b){
+	return ( *(int_fast32_t*)a - *(int_fast32_t*)b );
+}
+
+int main (){
+	int_fast32_t arraySize;
+	int_fast32_t maxValue;
+	int_fast32_t * randomArrayPointer;
+	int_fast32_t * sortedArrayPointer;
 	do{
-		cout << "enter the number of values" << endl;
-		cout << "to make for unsorted.txt" << endl;
-		cin >> numOfValForNewFile;
+		cout << "Enter size of array" << endl;
+		cout << "Minimum size is 2" << endl;
+		cout << "" << endl;
+		cin >> arraySize;
 		cin.clear();
 		cin.ignore();
-	}while(cin.fail() || numOfValForNewFile < 1);
+		system("CLS");
+	}while(cin.fail() || arraySize < 2);
+
 	do{
-		cout << "enter the maximum value" << endl;
+		cout << "Enter the maximum value" << endl;
+		cout << "minimum value is 1" << endl;
 		cin >> maxValue;
 		cin.clear();
 		cin.ignore();
-	}while(cin.fail() || maxValue < 2);
-	vector <int_fast32_t> tempVectFRandom(numOfValForNewFile);
-	ofstream writeArray;
-	writeArray.open("unsorted.txt");
-	for (int_fast32_t i = 0; i < numOfValForNewFile; i = i + 1) {
-		writeArray << generator() % maxValue << endl;
+		system("CLS");
+	}while(cin.fail() || maxValue <= 1);
+	randomArrayPointer = new int_fast32_t[arraySize];
+	sortedArrayPointer = new int_fast32_t[arraySize];
+	fillArrayRandom(randomArrayPointer, arraySize, maxValue);
+	for (int_fast32_t i = 0; i < arraySize; i++) {
+		sortedArrayPointer[i] = randomArrayPointer[i];
 	}
-	writeArray << -1 << endl;
-	writeArray.close();
+
+
+	qsort(sortedArrayPointer, arraySize, sizeof(int_fast32_t), compare);
+
+
+	cout << left << "OG array vs Sorted Array" << endl;
+	for(int_fast32_t i = 0; i < arraySize; i++){
+		cout << setw(0) << i + 1 << ".      " << setw(10) << randomArrayPointer[i] << setw(0) << "  :  "  << setw(10) << sortedArrayPointer[i] << setw(0) << endl;
+	}
+
+	delete[] randomArrayPointer;
+	delete[] sortedArrayPointer;
+	system("pause");
+	system("CLS");
 	return 0;
 }

@@ -58,7 +58,7 @@ find lowest and do average:
 */
 int main(){
 	// a pointer used to point to an array holding monthly sales
-		double *grades = nullptr;
+		double *grades = NULL;
 	// total of all sales
 		double total = 0;
 	// average of monthly sales
@@ -72,11 +72,10 @@ int main(){
 
 	cout << fixed << showpoint << setprecision(3);
 
-
+	//Have user enter number of entries to enter
 	cout << "How many grades will be entered? ";
 	cin >> numOfGrades;
 	while(cin.fail() || numOfGrades < 1){
-		system("CLS");
 		cin.clear();
 		cin.ignore();
 		cout << "Invalid Input" << endl;
@@ -85,25 +84,21 @@ int main(){
 		cout << "How many grades will be entered? ";
 		cin >> numOfGrades;
 	}
-	system("CLS");
-
+	
+	//If memory cannot be allocated, give an error
 	grades = new double[numOfGrades];
-	if(grades == nullptr){
-		cout << "Error allocating memory!\n";
-		system("pause");
-		system("CLS");
+	if(grades == NULL){
+		cout << "Error allocating memory!" << endl;
 		return 1;
 	}
 
 
-
+	//Have user enter the grades
 	cout << "Enter the grades below" << endl;
 	for (long int i = 0; i < numOfGrades; i++){
 		cout << "Enter grade #" << i + 1 << ":";
 		cin >> grades[i];
-		system("CLS");
 		while(cin.fail() || grades[i] < 0 || grades[i] > 100){
-			system("CLS");
 			cin.clear();
 			cin.ignore();
 			cout << "Invalid Input" << endl;
@@ -115,7 +110,7 @@ int main(){
 	}
 
 
-	// Fill in code to find the average
+	//Calculate average but drop the lowest value
 	smallest = grades[0];
 	for(long int i = 0; i < numOfGrades; i++){
 		if(grades[i] <= smallest){
@@ -130,11 +125,9 @@ int main(){
 
 
 	cout << "Average grade is " << average << "%" << endl;
-	// Fill in the code to deallocate memory assigned to the array.
-
-
+	
+	
+	//Deallocate memory assigned to the array.
 	delete[] grades;
-	system("pause");
-	system("CLS");
 	return 0;
 }
