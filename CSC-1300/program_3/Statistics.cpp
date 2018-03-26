@@ -6,6 +6,8 @@
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
 
+#include "Statistics.h"
+
 //#include <quadmath.h>
 //Needed for more than just float128
 
@@ -341,7 +343,7 @@
 */
 
 
-//#include <cmath>
+#include <cmath>
 //Some parts of this library have C++11 requirments
 /*
 	Functions:
@@ -432,108 +434,6 @@
 */
 
 
-/* Delay and dynamic noise making
-#if defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)
-	#include <windows.h>
-	inline void delay(unsigned long long ms){
-		Sleep(ms);
-	}
-#else //presume POSIX
-	#include <unistd.h>
-	inline void delay(unsigned long long ms){
-		usleep( ms * 1000 );
-	}
-#endif
-#if (defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && !defined(LINUX)
-	#include <Windows.h>
-	inline void dynBeep(int freq, intmax_t timeOfBeep){
-		Beep(freq, timeOfBeep);
-	}
-#elif !(defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && defined(LINUX)
-	#include <stdio.h>
-	void dynBeep(int freq, intmax_t timeOfBeep){
-		system("echo -e "\007" >/dev/tty10");
-	}
-#else
-	#include <stdio.h>
-	void dynBeep(int freq, intmax_t timeOfBeep){
-		std::cout << "\a" << std::flush;
-	}
-#endif
-*/
-
-
-
-
-
-
-/*
-Code gud check input
-	Variable Type Check
-	Length Check (over/underflow attack)
-	Range Check (month should be 1 to 12)
-	Reasonable Check (birthyear is reasonable)
-	Divide by Zero (and indirect devisions)
-	Format Check (MM/DD/YYY vs YYYY/MM/DD)
-
-Useful bits of code:
-	Variables:
-		const VARTYPE VARNAME - makes it not change
-		int - float - intmax_t - long intmax_t - increasing size
-	static means it doesnt die
-
-	cin >> variable;
-
-
-	cin problems can be found by cin.fail()
-	fixes cin problems:
-		cin.clear();
-		cin.ignore();
-
-
-	cout << "text" << endl;
-
-	//for loop
-	for(int i = 1; i <= limit; i = i + 1){
-
-	}
-
-	//real loop
-	while(){
-
-	}
-
-	//do while template
-	do{
-
-	}while();
-
-
-	//switch template
-	switch(VARIABLE){
-		case ():
-
-		break;
-		case ():
-
-		break;
-		default:
-
-		break;
-	}
-
-	(i or o)fstream FILEIDENT;
-	FILEIDENT.open("FILENAME.txt");
-	FILEIDENT << VARIABLE << endl;
-	FILEIDENT.close();
-
-	#pragma omp parallel for reduction(+:VariableThatCallCanAccess)
-	for(long long int i = min; i <= max; i = i + 1){
-
-	}
-
-	vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE);
-*/
 
 using namespace std;
 
@@ -589,37 +489,116 @@ Provided Files:
 
 */
 
-
-int main (){
-	/*
-	random_device rd; //call random numbers with rd()
-	int seed = rd() * clock()
-	mt19937_64 generator(seed);  // mt19937 is a standard mersenne_twister_engine
-	srand(seed);
-	Call randoms with generator() or rand()
-
-	cout << "Seed: " << seed << endl;
-	cout << "Minimum: " << rd.min() << endl;
-	cout << "Maximum: " << rd.max() << endl;
-	cout << "Entropy: " << rd.entropy() << endl;
-	cout << "setup done" << endl;
-	*/
+/*
+long* readData (const char* filename, long& size){
+	long * array;
+	ifstream loadData;
 
 
 
-	do{
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|      ";
-		cin >> USERINPUT;
-		cin.clear();
-		cin.ignore();
-	}while(cin.fail() || USERINPUT < minimum || USERINPUT > maximum);
+	loadData.open(filename);
+	if(!loadData || loadData.fail()){
+		//This happens when there is an error opening the file
+		cout << "There was an error loading the file '" << filename << "'" << endl;
+		cout << "Program will now close" << endl;
+		return 0;
+	}
+	cout << "File Loaded!" << endl;
+	//file name is valid and opened
+	//load dataset and confirm that there are the said number and makes the array
+	loadData >> size;
+	if(loadData.fail() || size < 1) {
+		cout << "Invalid number of values" << endl;
+		cout << "Program will now close" << endl;
+		return 0;
+	}
+	array = new long[size];
+	//long dataArray[numberOfValues];
+	if(array == NULL){
+		cout << "Error allocating memory" << endl;
+		cout << "Program will now close" << endl;
+		return 0;
+	}
+
+		for (int i = 0; i < size; i++) {
+			loadData >> array[i];
+		}
+
+		loadData.close();
 
 
-	system("pause");
-	return 0;
+	return array;
+}
+*/
+
+
+
+double findMean (long* numbers, long size){
+	long addUp = 0;
+	double mean;
+	for(long i = 0; i < size; i = i + 1){
+		addUp = addUp + numbers[i];
+	}
+	mean = static_cast<double>(addUp) / static_cast<double>(size);
+	return mean;
+}
+
+
+
+
+
+double findMedian (long* numbers, long size){
+	double Median;
+	if(size % 2 == 1){
+		Median = numbers[static_cast<long>(ceil(static_cast<double>(size) / 2.0))];
+	}
+	else{
+		Median = static_cast<double>(numbers[static_cast<long>(ceil(static_cast<double>(size) / 2.0))] + numbers[static_cast<long>(floor(static_cast<double>(size) / 2.0))]) / 2.0;
+	}
+	return Median;
+}
+
+
+
+
+
+
+long findMode (long* numbers, long size){
+	long positionFromNumbers;
+	long largestNumber = numbers[size - 1];
+	long modeInstanceCount;
+	long modeValue;
+	long * modeArray = new long[largestNumber];
+	for(long i = 0; i < largestNumber; i = i + 1){
+		modeArray[i] = 0;
+	}
+
+
+	for(long i = 0; i < size; i = i + 1) {
+		positionFromNumbers = numbers[i];
+		//cout << "position: " << positionFromNumbers << endl;
+		++modeArray[positionFromNumbers];
+	}
+
+	modeInstanceCount = modeArray[0];
+	for(long i = 0; i < largestNumber; i = i + 1){
+		if(modeArray[i] > modeInstanceCount){
+			modeValue = i;
+			modeInstanceCount = modeArray[i];
+		}
+	}
+	//modeValue = 420;
+	delete[] modeArray;
+	return modeValue;
+}
+
+
+
+
+
+void displayInformation (double mean, double median, long mode){
+	cout << "Statistics:" << endl;
+	cout << setw(8) << left << "Mean:   " << right << setw(15) << mean << setw(1) << endl;
+	cout << setw(8) << left << "Median: " << right << setw(15) << median << setw(1) << endl;
+	cout << setw(8) << left << "Mode:   " << right << setw(15) << mode << setw(1) << endl;
 }

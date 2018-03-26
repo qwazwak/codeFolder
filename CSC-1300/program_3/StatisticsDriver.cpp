@@ -9,7 +9,7 @@
 //#include "BigBadLib_Full.h"
 //#include "BigBadLib_CSC.h"
 
-#include "BasicSort.h"
+#include "Statistics.h"
 
 #include <vector>
 /*
@@ -75,7 +75,7 @@
 	system("pause")
 	system("CLS")
 	Quicksort:
-		qsort (SOURCEARRAY, NumberOfElements, SizeOfEachElementInBytes/sizeof(int), compareMyType);
+		qsort (SOURCEARRAY, numberOfValues, SizeOfEachElementInBytes/sizeof(int), compareMyType);
 
 		Outside main you must make a fucnction that quicksort references when checking how things are related
 			prototype
@@ -319,9 +319,9 @@ Provided Files:
 
 
 */
-
-
-typedef string stringHack;
+int compare(const void * a, const void * b){
+	return *(long*)a - *(long*)b;
+}
 
 int main (int argc, char* argv[]){
 	//Variables!
@@ -329,83 +329,82 @@ int main (int argc, char* argv[]){
 			string executableName = argv[0];
 			string userArgument;
 			string userArgumentOGSingleString;
-			if(argc == 2) {
+			if(argc == 2){
 				userArgumentOGSingleString = argv[1];
 			}
 		//Fstream things:
 			ifstream loadData;
-			char fileName[300];
+			char* filename = argv[1];
+
+			long numberOfValues = 5;
 		//Sorting/DATA
-			vector<long int> dataVector;
-			long int * dataArray;
+			long * dataArray = NULL;
 	//Variables are done being made
 	//Confirm there /are/ any arguments
-		if(argc == 1 || argc > 2){
+		if(argc != 2){
 			cout << "To use this program use this format:" << endl;
 			cout << "EX: " << executableName << " filename.txt" << endl;
 			cout << endl;
 			cout << "NOTE:" << endl;
 			cout << "\tthe file's first line should be the number values" << endl;
 			cout << "\tafter that, each value is on its own line" << endl;
-			system("pause");
 			return 0;
 		}
 	//now we know there are 2 arguments, the exe name and somthing else
 	//Make sure the argument is a valid file name
 	//MAYBE THIS WORKS IDK
-	//MAYBE THIS WORKS IDK
-	//MAYBE THIS WORKS IDK
-	//MAYBE THIS WORKS IDK
-	//MAYBE THIS WORKS IDK
-	//MAYBE THIS WORKS IDK
-	//MAYBE THIS WORKS IDK
-	//MAYBE THIS WORKS IDK
-	//MAYBE THIS WORKS IDK
-	//MAYBE THIS WORKS IDK
-	//MAYBE THIS WORKS IDK
-	//MAYBE THIS WORKS IDK
-	//MAYBE THIS WORKS IDK
-	//MAYBE THIS WORKS IDK
-	//MAYBE THIS WORKS IDK
-		loadData.open(argv[0]);
-		if(!loadData){
+		loadData.open(filename);
+		if(!loadData || loadData.fail()){
 			//This happens when there is an error opening the file
-			loadData.close();
-			cout << "The file " << userArgumentOGSingleString << " does not exist" << endl;
-			cout << "Enter a new file name, including the extention:" << endl;
-			cin.getline(fileName, 300);
-
-			loadData.open(fileName);
-			while(!loadData || cin.fail()){
-				loadData.close();
-				cout << "The file " << fileName << " does not exist" << endl;
-				cout << "Enter a new file name, including the extention:" << endl;
-				cin.getline(fileName, 300);
-				loadData.open(fileName);
-			}
+			cout << "There was an error loading the file '" << filename << "'" << endl;
+			cout << "Program will now close" << endl;
+			return 0;
 		}
+		cout << "File Loaded!" << endl;
 	//file name is valid and opened
-	//load dataset and confirm that there are the said number
+	//load dataset and confirm that there are the said number and makes the array
+		loadData >> numberOfValues;
+		if(loadData.fail() || numberOfValues < 1) {
+			cout << "Invalid number of values" << endl;
+			cout << "Program will now close" << endl;
+			return 0;
+		}
+		dataArray = new long[numberOfValues];
+		//long dataArray[numberOfValues];
+		if(dataArray == NULL){
+			cout << "Error allocating memory" << endl;
+			cout << "Program will now close" << endl;
+			return 0;
+		}
 
+		for (int i = 0; i < numberOfValues; i++) {
+			loadData >> dataArray[i];
+		}
+
+		loadData.close();
 	//data is loaded
-	//This section will deal with 'system' or program commands, not ones for normal use, but things like -help or -enableDebugOutput
-		cout << argv[0] << endl;
-		cout << argv[1] << endl;
-	/*
-	do{
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|                              |" << endl;
-		cout << "|      ";
-		cin >> USERINPUT;
-		cin.clear();
-		cin.ignore();
-	}while(cin.fail() || USERINPUT < minimum || USERINPUT > maximum);*/
+	//sort data
+		qsort(dataArray, numberOfValues, sizeof(long), compare);
+	//data is sorted
 
 
-	system("pause");
-	system("CLS");
-	return 0;
+	/*cout << "Sorted Array:" << endl;
+	for (long i = 0; i < numberOfValues; i++) {
+		cout << i + 1 << ".    " << dataArray[i] << endl;
+	}*/
+
+
+/*
+	cout << "Statistics:" << endl;
+	cout << setw(8) << left << "Mean:   " << right << setw(15) << findMean(dataArray, numberOfValues) << setw(1) << endl;
+	cout << setw(8) << left << "Median: " << right << setw(15) << findMedian(dataArray, numberOfValues) << setw(1) << endl;
+	cout << setw(8) << left << "Mode:   " << right << setw(15) << findMode(dataArray, numberOfValues) << setw(1) << endl;
+	*/
+
+	displayInformation(findMean(dataArray, numberOfValues), findMedian(dataArray, numberOfValues), findMode(dataArray, numberOfValues));
+
+
+	//Program is over clean up the heap
+	delete[] dataArray;
+	return 1;
 }
