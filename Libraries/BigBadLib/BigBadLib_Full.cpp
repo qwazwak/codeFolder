@@ -20,6 +20,31 @@ INFO: SEE BigBadLib_Full.h
 //#include "EasyBMP_Geometry.h"
 //#include "EasyBMP_SimpleArray.h"
 
+#include <quadmath.h>
+//Needed for more than just float128
+
+
+#include <boost/multiprecision/cpp_int.hpp>
+/*
+	// Fixed precision unsigned inegers:
+		boost::multiprecision::cpp_int::uint128_t
+		boost::multiprecision::cpp_int::uint256_t
+		boost::multiprecision::cpp_int::uint512_t
+		boost::multiprecision::cpp_int::uint1024_t
+	// Fixed precision signed inegers:
+		boost::multiprecision::cpp_int::int128_t
+		boost::multiprecision::cpp_int::int256_t
+		boost::multiprecision::cpp_int::int512_t
+		boost::multiprecision::cpp_int::int1024_t
+*/
+
+
+#include <boost\multiprecision\float128.hpp>
+/*
+	boost::multiprecision::float128 variableName;
+*/
+
+
 #include <vector>
 /*
 		Vectors:
@@ -58,44 +83,12 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-#include <boost/multiprecision/cpp_int.hpp>
-/*
-	// Fixed precision unsigned inegers:
-		boost::multiprecision::cpp_int::uint128_t
-		boost::multiprecision::cpp_int::uint256_t
-		boost::multiprecision::cpp_int::uint512_t
-		boost::multiprecision::cpp_int::uint1024_t
-	// Fixed precision signed inegers:
-		boost::multiprecision::cpp_int::int128_t
-		boost::multiprecision::cpp_int::int256_t
-		boost::multiprecision::cpp_int::int512_t
-		boost::multiprecision::cpp_int::int1024_t
-*/
-
-
-#include <boost\multiprecision\float128.hpp>
-/*
-	boost::multiprecision::float128 variableName;
-*/
-
-
-#include <bitset>
-/*
-	bitset<NUMBEROFBITSMEEP>(FOOBARVARIABLENAME)
-
-*/
-
-
-
 #include <windows.h>
 /*
 	LPCWSTR FOOBARDIRECTERY = L"c:\testdir";
 	CreateDirectory(FOOBARDIRECTERY, NULL)
 	CreateDirectory("output", NULL);
 */
-
-
-
 
 
 #include <ctime>
@@ -111,11 +104,7 @@ INFO: SEE BigBadLib_Full.h
 	cout << "waiting for keyhit";
 	cin.ignore();
 	cout << "Time taken in millisecs: " << clock()-start;
-
 */
-
-
-
 
 
 #include <random>
@@ -128,10 +117,21 @@ INFO: SEE BigBadLib_Full.h
 	cout << "Entropy: " << FOOBARNAMEME.entropy() << endl;
 	This is real random. Only use it to seed a pseduo random generator - SEE cstdlib and rand()
 
+
+
+
+		random_device rd; //call random numbers with rd()
+		int seed = rd() * clock()
+		mt19937_64 generator(seed);  // mt19937 is a standard mersenne_twister_engine
+		srand(seed);
+		Call randoms with generator() or rand()
+
+		cout << "Seed: " << seed << endl;
+		cout << "Minimum: " << rd.min() << endl;
+		cout << "Maximum: " << rd.max() << endl;
+		cout << "Entropy: " << rd.entropy() << endl;
+		cout << "setup done" << endl;
 */
-
-
-
 
 
 #include <cstdint>
@@ -198,11 +198,10 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
-
 #include <cstdlib>
 /*
+	system("pause")
+	system("CLS")
 	Quicksort:
 		qsort (SOURCEARRAY, NumberOfElements, SizeOfEachElementInBytes/sizeof(int), compareMyType);
 
@@ -283,17 +282,11 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
-
 #include <time.h>
 /*
 	Has more, all I use is:
 	VARIABLE = time(NULL);
 */
-
-
-
 
 
 #include <iostream>
@@ -311,18 +304,12 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
-
 #include <iomanip>
 /*
 	Manipulates input and output
 	cout << setprecision(2) << fixed << showpoint;
 	cout << minumum decimal points(VARIABLE OR NUMBER) << cutoff decimal points? << show decimal point always;
 */
-
-
-
 
 
 #include <fstream>
@@ -362,9 +349,6 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
-
 #include <string>
 /*
 	real strings
@@ -399,18 +383,6 @@ INFO: SEE BigBadLib_Full.h
 			stold
 				Convert string to long double (function template )
 */
-
-
-
-
-
-#include <cstring>
-/*
-	Ugly Cstring manipulators
-*/
-
-
-
 
 
 #include <cmath>
@@ -457,6 +429,9 @@ INFO: SEE BigBadLib_Full.h
 				Compute hypotenuse (function)
 
 		Rounding and remainder functions
+			remainder(numerator, denominator);
+				REQUIRES C++11
+				Gives floating point remainder
 			ceil(InputFoo)
 				Round up value (function)
 			floor(InputFoo)
@@ -501,102 +476,32 @@ INFO: SEE BigBadLib_Full.h
 */
 
 
-
-
-/* Delay and dynamic noise making
-#if defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)
-	#include <windows.h>
-	inline void delay(unsigned long long ms){
-		Sleep(ms);
-	}
-#else //presume POSIX
-	#include <unistd.h>
-	inline void delay(unsigned long long ms){
-		usleep( ms * 1000 );
-	}
-#endif
-#if (defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && !defined(LINUX)
-	#include <Windows.h>
-	inline void dynBeep(int freq, intmax_t timeOfBeep){
-		Beep(freq, timeOfBeep);
-	}
-#elif !(defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && defined(LINUX)
-	#include <stdio.h>
-	void dynBeep(int freq, intmax_t timeOfBeep){
-		system("echo -e "\007" >/dev/tty10");
-	}
-#else
-	#include <stdio.h>
-	void dynBeep(int freq, intmax_t timeOfBeep){
-		std::cout << "\a" << std::flush;
-	}
-#endif
-*/
-
-
 /*
-Code gud check input
-	Variable Type Check
-	Length Check (over/underflow attack)
-	Range Check (month should be 1 to 12)
-	Reasonable Check (birthyear is reasonable)
-	Divide by Zero (and indirect devisions)
-	Format Check (MM/DD/YYY vs YYYY/MM/DD)
-
-Useful bits of code:
 	Variables:
-		const VARTYPE VARNAME - makes it not change
-		int - float - intmax_t - long intmax_t - increasing size
-	static means it doesnt die
+		static means it doesnt die
 
-	cin >> variable;
-	cout << "text" << endl;
-
-	//for loop
-	for(int i = 1; i <= limit; i = i + 1){
-
-	}
-
-	//real loop
-	while(){
-
-	}
-
-	//do while template
-	do{
-
-	}while();
-
-
-	//switch template
-	switch(VARIABLE){
-		case ():
-
-		break;
-		case ():
-
-		break;
-		default:
-
-		break;
-	}
+	cin problems can be found by cin.fail()
+	fixes cin problems:
+		cin.clear();
+		cin.ignore();
 
 	(i or o)fstream FILEIDENT;
 	FILEIDENT.open("FILENAME.txt");
 	FILEIDENT << VARIABLE << endl;
 	FILEIDENT.close();
+
+	#pragma omp parallel for reduction(+:VariableThatCallCanAccess)
+	for(long long int i = min; i <= max; i = i + 1){
+
+	}
+
+	vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE);
 */
 
 using namespace std;
 
-
-
-uint_fast64_t combineNumbers(uint_fast64_t a, uint_fast64_t b){
-	uint_fast64_t times = 1;
-	while(times <= b){
-		times = times * 10;
-	}
-	return (a * times ) + b;
+void beep(){
+	cout << "\a";
 }
 
 void clearScreen(int long lines){

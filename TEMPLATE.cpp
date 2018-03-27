@@ -380,12 +380,6 @@
 */
 
 
-//#include <cstring>
-/*
-	Ugly Cstring manipulators
-*/
-
-
 //#include <cmath>
 //Some parts of this library have C++11 requirments
 /*
@@ -477,51 +471,7 @@
 */
 
 
-/* Delay and dynamic noise making
-#if defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)
-	#include <windows.h>
-	inline void delay(unsigned long long ms){
-		Sleep(ms);
-	}
-#else //presume POSIX
-	#include <unistd.h>
-	inline void delay(unsigned long long ms){
-		usleep( ms * 1000 );
-	}
-#endif
-#if (defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && !defined(LINUX)
-	#include <Windows.h>
-	inline void dynBeep(int freq, intmax_t timeOfBeep){
-		Beep(freq, timeOfBeep);
-	}
-#elif !(defined(WINDOWS) || defined(__WIN32__) || defined(_WIN32) || defined(WIN32) || defined(__WINDOWS__) || defined(__TOS_WIN__)) && defined(LINUX)
-	#include <stdio.h>
-	inline void dynBeep(int freq, intmax_t timeOfBeep){
-		system("echo -e "\007" >/dev/tty10");
-	}
-#else
-	#include <stdio.h>
-	inline void dynBeep(int freq, intmax_t timeOfBeep){
-		std::cout << "\a" << std::flush;
-	}
-#endif
-*/
-
-
-
-
-
-
 /*
-Code gud check input
-	Variable Type Check
-	Length Check (over/underflow attack)
-	Range Check (month should be 1 to 12)
-	Reasonable Check (birthyear is reasonable)
-	Divide by Zero (and indirect devisions)
-	Format Check (MM/DD/YYY vs YYYY/MM/DD)
-
-Useful bits of code:
 	Variables:
 		static means it doesnt die
 
@@ -545,6 +495,7 @@ Useful bits of code:
 
 using namespace std;
 
+
 int main (){
 
 
@@ -567,7 +518,6 @@ int main (){
 		cout << "" << endl;
 		cin >> input;
 	}
-	system("CLS");
 
 
 
@@ -578,8 +528,5 @@ int main (){
 
 
 
-
-	system("pause");
-	system("CLS");
 	return 0;
 }

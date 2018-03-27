@@ -23,7 +23,7 @@ example: for a tictactoe program make sure to have #define TicTacToe
 		//postconditions: what will happen as outputs
 		bool foo(int bar, double baz);
 	*/
-	uint_fast64_t combineNumbers(uint_fast64_t a, uint_fast64_t b);
+	void beep();
 	//Pre: Assumes lines is a reasonable positive integer
 	//Post: Will output N number of lines to the command terminal. WIll do some minor optimization
 	void clearScreen(int long lines);

@@ -1,7 +1,9 @@
-// This program demonstrates the use of pointer variables
-// It finds the area of a rectangle given length and width
-// It prints the length and width in ascending order
-// By Rus Hoffman &
+/*
+This program demonstrates the use of pointer variables
+It finds the area of a rectangle given length and width
+It prints the length and width in ascending order
+By Rus Hoffman &
+*/
 
 #include <iostream>
 using namespace std;

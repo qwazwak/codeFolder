@@ -1,5 +1,4 @@
 // This program demonstrates the use of dynamic arrays
-
 // By Rus Hoffman and
 
 #include <iostream>
@@ -35,7 +34,7 @@ int main(){
 		cin >> numOfSales;
 	}
 
-	
+
 	//If memory cannot be allocated, give an error
 	monthSales = new double[numOfSales];
 	if(monthSales == NULL){
@@ -61,7 +60,7 @@ int main(){
 	}
 
 
-	// Fill in code to find the average
+	//Add up all values, then devide by number of values
 	for(count = 0; count < numOfSales; count++){
 		total = total + monthSales[count];
 	}
@@ -69,7 +68,7 @@ int main(){
 
 	//Display average
 	cout << "Average Monthly sale is $" << average << endl;
-	//Deallocate memory assigned to the array.
+	//Deallocate memory assigned to the array and end the program
 	delete[] monthSales;
 	return 0;
 }

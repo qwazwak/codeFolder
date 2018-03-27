@@ -1,42 +1,7 @@
 /*
 This program asks for the total number of grades and has the user enter them, then drops the lowest and displayes the average
 
-Ask user for sized
-read in test scores
-find lowest and do average:
-
-	add up all
-	find lowest
-	total - lowest
-	devide by count - 1
-
-display to 3 decimal places
-
-
-nt values[] = { 40, 10, 100, 90, 20, 25 };
-
-int compare (const void * a, const void * b)
-{
-  return ( *(int*)a - *(int*)b );
-}
-
-int main ()
-{
-  int n;
-  qsort (values, 6, sizeof(int), compare);
-  for (n=0; n<6; n++)
-     printf ("%d ",values[n]);
-  return 0;
-}
-
-
-
-
-
-
-
 By Rus Hoffman and
-
 */
 
 #include <iostream>
@@ -46,16 +11,6 @@ By Rus Hoffman and
 
 using namespace std;
 
-/*
-Ask user for sized
-read in test scores
-find lowest and do average:
-
-	add up all
-	find lowest
-	total - lowest
-	devide by count - 1
-*/
 int main(){
 	// a pointer used to point to an array holding monthly sales
 		double *grades = NULL;
@@ -84,7 +39,7 @@ int main(){
 		cout << "How many grades will be entered? ";
 		cin >> numOfGrades;
 	}
-	
+
 	//If memory cannot be allocated, give an error
 	grades = new double[numOfGrades];
 	if(grades == NULL){
@@ -125,9 +80,9 @@ int main(){
 
 
 	cout << "Average grade is " << average << "%" << endl;
-	
-	
-	//Deallocate memory assigned to the array.
+
+
+	//Deallocate memory assigned to the array and end program
 	delete[] grades;
 	return 0;
 }
