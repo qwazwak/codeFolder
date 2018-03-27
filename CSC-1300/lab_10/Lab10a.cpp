@@ -2,7 +2,7 @@
 This program demonstrates the use of pointer variables
 It finds the area of a rectangle given length and width
 It prints the length and width in ascending order
-By Rus Hoffman &
+By Rus Hoffman & Rebekah Brandt
 */
 
 #include <iostream>

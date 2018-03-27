@@ -8,13 +8,8 @@ By Rus Hoffman and Rebekah Brandt
 #include <iomanip>
 #include <stdlib.h>
 #include <algorithm>
-#include <cstdlib>
 
 using namespace std;
-
-int compare(const void * a, const void * b){
-	return *(double*)a - *(double*)b;
-}
 
 int main(){
 	// a pointer used to point to an array holding monthly sales
@@ -26,7 +21,7 @@ int main(){
 	// number of sales to be processed
 		long int numOfGrades;
 	//Smallest value
-		// smallest;
+		double smallest;
 
 	cout << fixed << showpoint << setprecision(3);
 
@@ -48,7 +43,7 @@ int main(){
 	//Have user enter the grades
 	cout << "Enter the grades below" << endl;
 	for (long int i = 0; i < numOfGrades; i++){
-		cout << "Enter grade #" << i + 1 << ": ";
+		cout << "Enter grade #" << i + 1 << ":";
 		cin >> grades[i];
 		while(cin.fail() || grades[i] < 0 || grades[i] > 100){
 			cin.clear();
@@ -56,15 +51,21 @@ int main(){
 			cout << "Invalid Input" << endl;
 			cout << "Be sure you enter only number between 0 and 100" << endl;
 			cout << endl;
-			cout << "Enter grade #" << i + 1 << ": ";
+			cout << "Enter grade #" << i + 1 << ":";
 			cin >> grades[i];
 		}
 	}
 
-	qsort(grades, numOfGrades, sizeof(double), compare);
-	//Calculate average but drop the first value
-	for(long int i = 1; i < numOfGrades; i++){
+	//Calculate average but drop the lowest value
+	smallest = grades[0];
+	for(long int i = 0; i < numOfGrades; i++){
+		if(grades[i] <= smallest){
+			total = total + smallest;
+			smallest = grades[i];
+		}
+		else{
 			total = total + grades[i];
+		}
 	}
 	average = total / static_cast <double> (numOfGrades - 1);
 

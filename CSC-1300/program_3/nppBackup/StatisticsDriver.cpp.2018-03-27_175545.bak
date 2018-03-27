@@ -39,7 +39,7 @@ int main (int argc, char* argv[]){
 			cout << "\tafter that, each value is on its own line" << endl;
 			return 0;
 		}
-	//now we know there are 2 arguments, the exe name and something else
+	//now we know there are 2 arguments, the exe name and somthing else
 	//Make sure the argument is a valid file name
 		loadData.open(filename);
 		if(!loadData || loadData.fail()){

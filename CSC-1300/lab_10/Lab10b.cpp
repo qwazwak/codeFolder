@@ -1,5 +1,5 @@
 // This program demonstrates the use of dynamic arrays
-// By Rus Hoffman and
+// By Rus Hoffman and Rebekah Brandt
 
 #include <iostream>
 #include <iomanip>
@@ -34,14 +34,7 @@ int main(){
 		cin >> numOfSales;
 	}
 
-
-	//If memory cannot be allocated, give an error
 	monthSales = new double[numOfSales];
-	if(monthSales == NULL){
-		cout << "Error allocating memory!" << endl;
-		return 1;
-	}
-
 
 	//Have user enter the sales
 	cout << "Enter the sales below" << endl;
