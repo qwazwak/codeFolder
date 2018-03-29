@@ -1,6 +1,5 @@
 /*
 This program asks for the total number of grades and has the user enter them, then drops the lowest and displayes the average
-
 By Rus Hoffman and Rebekah Brandt
 */
 
@@ -62,6 +61,7 @@ int main(){
 	}
 
 	qsort(grades, numOfGrades, sizeof(double), compare);
+	
 	//Calculate average but drop the first value
 	for(long int i = 1; i < numOfGrades; i++){
 			total = total + grades[i];
