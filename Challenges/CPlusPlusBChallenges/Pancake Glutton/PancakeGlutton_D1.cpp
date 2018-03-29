@@ -6,84 +6,6 @@
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
 
-//#include "BigBadLib_Full.h"
-//#include "BigBadLib_CSC.h"
-//#include "EasyBMP.h"
-//#include "EasyBMP_Font.h"
-//#include "EasyBMP_Geometry.h"
-//#include "EasyBMP_SimpleArray.h"
-
-//#include <quadmath.h>
-//Needed for more than just float128
-
-
-//#include <boost/multiprecision/cpp_int.hpp>
-/*
-	// Fixed precision unsigned inegers:
-		boost::multiprecision::cpp_int::uint128_t
-		boost::multiprecision::cpp_int::uint256_t
-		boost::multiprecision::cpp_int::uint512_t
-		boost::multiprecision::cpp_int::uint1024_t
-	// Fixed precision signed inegers:
-		boost::multiprecision::cpp_int::int128_t
-		boost::multiprecision::cpp_int::int256_t
-		boost::multiprecision::cpp_int::int512_t
-		boost::multiprecision::cpp_int::int1024_t
-*/
-
-
-//#include <boost\multiprecision\float128.hpp>
-/*
-	boost::multiprecision::float128 variableName;
-*/
-
-
-//#include <vector>
-/*
-		Vectors:
-		ONE DATA TYPE
-		Varibale size
-
-		format:
-			vector <DATA TYPE HERE> VARIABLE NAME; //initial zero sized
-			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE); //sized with INITIALSIZE size
-			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE); //all vals are OGVARIABLE at first
-			vector <DATA TYPE HERE> VARIABLE NAME (anothervectorname); //othervectorname is copyed to the new one
-
-		Access/assign:
-			myvector[i]
-
-
-
-		VECTORNAME.push_back(NUMBER)
-			puts somthing at the end of a vector
-		VECTORNAME.clear()
-			clears vector
-		VECTORNAME.size()
-			gets size
-		VECTORNAME.empty()
-			If empty returns a one/true
-		VECTORNAME.at(i)
-			returns value of ith entry
-		VECTORNAME.capacity()
-			current max size
-		VECTORNAME.reverse()
-			reverse orders entries
-		VECTORNAME.resize (i, val)
-			adds I spaces to vector, and optinally initialzes to val
-		VECTORNAME.swap(OTHERVECTORNAME);
-			swaps two vectors contents
-*/
-
-
-//#include <windows.h>
-/*
-	LPCWSTR FOOBARDIRECTERY = L"c:\testdir";
-	CreateDirectory(FOOBARDIRECTERY, NULL)
-	CreateDirectory("output", NULL);
-*/
-
-
 //#include <ctime>
 /*
 	http://www.cplusplus.com/reference/ctime/
@@ -98,98 +20,6 @@
 	cin.ignore();
 	cout << "Time taken in millisecs: " << clock()-start;
 */
-
-
-//#include <random>
-//All of this library is c++11 and requires compiler support
-/*
-	C++11
-	random_device FOOBARNAMEME;
-	cout << "Minumum: " << FOOBARNAMEME.min() << endl;
-	cout << "Maximum: " << FOOBARNAMEME.max() << endl;
-	cout << "Entropy: " << FOOBARNAMEME.entropy() << endl;
-	This is real random. Only use it to seed a pseduo random generator - SEE cstdlib and rand()
-
-
-
-
-		random_device rd; //call random numbers with rd()
-		int seed = rd() * clock()
-		mt19937_64 generator(seed);  // mt19937 is a standard mersenne_twister_engine
-		srand(seed);
-		Call randoms with generator() or rand()
-
-		cout << "Seed: " << seed << endl;
-		cout << "Minimum: " << rd.min() << endl;
-		cout << "Maximum: " << rd.max() << endl;
-		cout << "Entropy: " << rd.entropy() << endl;
-		cout << "setup done" << endl;
-*/
-
-
-//#include <cstdint>
-//All of this library is c++11 and requires compiler support
-/*
-	C++11
-	What it adds:
-		Signed maximum width integer type
-			intmax_t
-		Maximum width unsigned integer type
-			uintmax_t
-
-		Integer with width of exactly 8, 16, 32 and 64 bits respectively with no padding bits and using 2's complement for negative values
-		(provided only if the implementation directly supports the type)
-			Signed:
-				int8_t
-				int16_t
-				int32_t
-				int64_t
-			Unsigned:
-				uint8_t
-				uint16_t
-				uint32_t
-				uint64_t
-
-		Fastest integer type with width of at least 8, 16, 32 and 64 bits respectively
-			Signed:
-				int_fast8_t
-				int_fast16_t
-				int_fast32_t
-				int_fast64_t
-			Unsigned:
-				uint_fast8_t
-				uint_fast16_t
-				uint_fast32_t
-				uint_fast64_t
-
-		Smallest integer type with width of at least 8, 16, 32 and 64 bits respectively
-			Signed:
-				int_least8_t
-				int_least16_t
-				int_least32_t
-				int_least64_t
-			Unsigned:
-				uint_least8_t
-				uint_least16_t
-				uint_least32_t
-				uint_least64_t
-
-		Constants: (max value)
-			INTMAX_MAX
-			INT8_MAX
-			INT16_MAX
-			INT32_MAX
-			INT64_MAX
-			INT_FAST8_MAX
-			INT_FAST16_MAX
-			INT_FAST32_MAX
-			INT_FAST64_MAX
-			INT_LEAST8_MAX
-			INT_LEAST16_MAX
-			INT_LEAST32_MAX
-			INT_LEAST64_MAX
-*/
-
 
 #include <cstdlib>
 /*
@@ -491,6 +321,18 @@
 
 using namespace std;
 
+class pancakeLover {
+	private:
+		int numPancake;
+	public:
+		void eatPancakes(int max){
+			srand(time(NULL));
+			numPancake = rand() % max;
+		}
+		int getPancakeCount(){
+			return numPancake;
+		}
+};
 
 int main (){
 
