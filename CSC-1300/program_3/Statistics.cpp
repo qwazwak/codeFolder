@@ -16,7 +16,7 @@
 using namespace std;
 
 long* readData (const char* filename, long& size){
-	long * array;
+	long * array = NULL;
 	ifstream loadData;
 	loadData.open(filename);
 	if(!loadData || loadData.fail()){
