@@ -20,7 +20,6 @@
 	cin.ignore();
 	cout << "Time taken in millisecs: " << clock()-start;
 */
-
 #include <cstdlib>
 /*
 	Quicksort:
@@ -334,24 +333,21 @@ class pancakeLover {
 		}
 };
 
+void first
+
+
 int main (){
 
 
 
 
-	do{
+	while(true){
 		cout << "" << endl;
 		cout << "" << endl;
 		cout << "" << endl;
 		cin >> input;
 		cin.clear();
 		cin.ignore();
-	}while(cin.fail() || input < min || input > max);
-
-
-
-
-	cout << "Press enter to close program..." << endl;
-	cin.ignore();
+	}
 	return 0;
 }

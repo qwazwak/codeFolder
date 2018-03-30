@@ -89,6 +89,7 @@ long findMode (long* numbers, long size){
 	}
 
 	modeInstanceCount = modeArray[0];
+	modeValue = 0;
 	for(long i = 0; i < largestNumber; i = i + 1){
 		if(modeArray[i] > modeInstanceCount){
 			modeValue = i;
