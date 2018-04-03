@@ -6,7 +6,7 @@
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
 
-//#include ".hpp"
+#include "functions.hpp"
 
 
 //#include "BigBadLib_Full.h"
@@ -491,23 +491,37 @@
 
 	vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE);
 */
-
 using namespace std;
 
 
 int main (int argc, char* argv[]){
+	long boardSizeX;
+	long boardSizeY;
+	long bombCount;
+
+	if (argc == 1) {
+		//setup with user input
+	}
+	else if (argc == 4){
+		boardSizeX = atoi(argv[1]);
+		boardSizeY = atoi(argv[2]);
+		bombCount = atoi(argv[3]);
+		//Verify inputs, if they are not good end the program
+		if (boardSizeX < 1 || boardSizeY < 1 || (boardSizeX * boardSizeY <= bombCountz) || ) {
+			/* code */
+		}
+	}
+	cout << "█▓▒░┏╋┓┣┫┃┗┳┻━┛◦●◌○!→←↑↓P" << endl;
 
 
-
-
-	do{
+	while(cin.fail() || bombCount < 1){
 		cout << "" << endl;
 		cout << "" << endl;
 		cout << "" << endl;
-		cin >> input;
+		cin >> bombCount;
 		cin.clear();
 		cin.ignore();
-	}while(cin.fail() || input < min || input > max);
+	}
 
 
 

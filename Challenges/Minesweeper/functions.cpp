@@ -1,13 +1,11 @@
 /*
-	By Rus Hoffman
+	Created by Rus Hoffman
+	This should my template, and should change
 */
 #define _WIN64 1 //(also WIN64, __WIN64, and __WIN64__)
 #define __MINGW64__ 1
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
-
-//#include ".hpp"
-
 
 //#include "BigBadLib_Full.h"
 //#include "BigBadLib_CSC.h"
@@ -194,7 +192,7 @@
 */
 
 
-#include <cstdlib>
+//#include <cstdlib>
 /*
 	Quicksort:
 		qsort (SOURCEARRAY, NumberOfElements, SizeOfEachElementInBytes/sizeof(int), compareMyType);
@@ -283,7 +281,7 @@
 */
 
 
-#include <iostream>
+//#include <iostream>
 /*
 	system("pause")
 		Enter any key to continue..
@@ -298,7 +296,7 @@
 */
 
 
-#include <iomanip>
+//#include <iomanip>
 /*
 	Manipulates input and output
 	cout << setprecision(2) << fixed << showpoint;
@@ -470,49 +468,8 @@
 */
 
 
-/*
-	Variables:
-		static means it doesnt die
-
-	cin problems can be found by cin.fail()
-	fixes cin problems:
-		cin.clear();
-		cin.ignore();
-
-	(i or o)fstream FILEIDENT;
-	FILEIDENT.open("FILENAME.txt");
-	FILEIDENT << VARIABLE << endl;
-	FILEIDENT.close();
-
-	#pragma omp parallel for reduction(+:VariableThatCallCanAccess)
-	for(long long int i = min; i <= max; i = i + 1){
-
-	}
-
-	vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE);
-*/
-
 using namespace std;
 
+void function (){
 
-int main (int argc, char* argv[]){
-
-
-
-
-	do{
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cin >> input;
-		cin.clear();
-		cin.ignore();
-	}while(cin.fail() || input < min || input > max);
-
-
-
-
-	cout << "Press enter to close program..." << endl;
-	cin.ignore();
-	return 0;
 }
