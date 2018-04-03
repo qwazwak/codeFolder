@@ -14,10 +14,6 @@
 //#include "EasyBMP_Geometry.h"
 //#include "EasyBMP_SimpleArray.h"
 
-//#include <quadmath.h>
-//Needed for more than just float128
-
-
 //#include <boost/multiprecision/cpp_int.hpp>
 /*
 	// Fixed precision unsigned inegers:
@@ -33,11 +29,6 @@
 */
 
 
-//#include <boost\multiprecision\float128.hpp>
-/*
-	boost::multiprecision::float128 variableName;
-*/
-
 
 //#include <vector>
 /*
@@ -46,10 +37,10 @@
 		Varibale size
 
 		format:
-			vector <DATA TYPE HERE> VARIABLE NAME; //initial zero sized
-			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE); //sized with INITIALSIZE size
-			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE); //all vals are OGVARIABLE at first
-			vector <DATA TYPE HERE> VARIABLE NAME (anothervectorname); //othervectorname is copyed to the new one
+			vector <DATA TYPE HERE> VARIABLE NAME; // initial zero sized
+			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE); // sized with INITIALSIZE size
+			vector <DATA TYPE HERE> VARIABLE NAME (INITIALSIZE, OGVARIABLE); // all vals are OGVARIABLE at first
+			vector <DATA TYPE HERE> VARIABLE NAME (anothervectorname); // othervectorname is copyed to the new one
 
 		Access/assign:
 			myvector[i]
@@ -114,7 +105,7 @@
 
 
 
-		random_device rd; //call random numbers with rd()
+		random_device rd; // call random numbers with rd()
 		int seed = rd() * clock()
 		mt19937_64 generator(seed);  // mt19937 is a standard mersenne_twister_engine
 		srand(seed);
@@ -128,7 +119,7 @@
 */
 
 
-//#include <cstdint>
+#include <cstdint>
 //All of this library is c++11 and requires compiler support
 /*
 	C++11
@@ -281,7 +272,7 @@
 */
 
 
-//#include <iostream>
+#include <iostream>
 /*
 	system("pause")
 		Enter any key to continue..
@@ -296,7 +287,7 @@
 */
 
 
-//#include <iomanip>
+#include <iomanip>
 /*
 	Manipulates input and output
 	cout << setprecision(2) << fixed << showpoint;
@@ -341,7 +332,7 @@
 */
 
 
-//#include <string>
+#include <string>
 /*
 	real strings
 	cstringvariable = stringVariableName.c_str();
@@ -467,9 +458,94 @@
 				Compute absolute value, int or floating point (function)
 */
 
-
 using namespace std;
+bool isOdd(int_fast64_t input){
+	return input % 2;
+}
+bool isEven(int_fast64_t input){
+	return !(input % 2);
+}
 
-void function (){
+int_fast64_t** generateBoard(const int_fast64_t xSize, const int_fast64_t ySize, int_fast64_t bombCount){
+	int_fast64_t** array = new int_fast64_t*[ySize];
+	for(int_fast64_t i = 0; i < ySize; i++) {
+		array[0] = new int_fast64_t[xSize];
+	}
 
+
+
+
+
+
+
+
+
+
+
+	return array;
+}
+
+void displayBoard(const int_fast64_t yGameSize, const int_fast64_t xGameSize, const int_fast64_t * array){
+	const char bomb = 157; // Ø
+	const char flag = 80; // P
+
+	const char arrowL = 60; // <
+	const char arrowR = 62; // >
+	const char arrowT = 118; // v
+	const char arrowB = 94; // ^
+
+
+	const char cornerDTL = 201; // ╔
+	const char cornerDTR = 189; // ╗
+	const char cornerDBL = 200; // ╚
+	const char cornerDBR = 188; // ╝
+	const char cornerSTL = 218; // ┌
+	const char cornerSBL = 192; // └
+	const char cornerSTR = 191; // ┐
+	const char cornerSBR = 217; // ┘
+
+	const char wallSV = 179; // │
+	const char wallSH = 196; // ─
+	const char wallDV = 186; // ║
+	const char wallDH = 205; // ═
+
+
+	const char wallTSD = 194; // ┬
+	const char wallTSL = 180; // ┤
+	const char wallTSR = 195; // ├
+	const char wallTSU = 193; // ┴
+	const char wallTDD = 203; // ╦
+	const char wallTDL = 189; // ╣
+	const char wallTDR = 204; // ╠
+	const char wallTDU = 202; // ╩
+
+	const char crossS = 197; // ┼
+	const char crossD = 206; // ╬
+
+	const char solidS = 219; // █
+	const char solidD = 178; // ▓
+	const char solidN = 177; // ▒
+	const char solidL = 176; // ░
+	const char solidE = 32; // SPACE
+
+	const char errorSymbol = 245; // §
+
+	int_fast64_t yBoardSize = yGameSize + 2;
+	int_fast64_t xBoardSize = xGameSize + 2;
+	u32string lineBuffer;
+
+	lineBuffer.clear();
+	lineBuffer += cornerDTL;
+	for (int_fast64_t x = 1; x < xBoardSize - 1; x++) {
+		lineBuffer += wallDH;
+	}
+	lineBuffer += cornerDTR;
+
+
+	for(int_fast64_t y = 0; y < yBoardSize; y++){
+		lineBuffer.clear();
+		for (int_fast64_t x = 0; x < xBoardSize; x++) {
+
+		}
+	}
 }

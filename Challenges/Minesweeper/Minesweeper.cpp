@@ -130,7 +130,7 @@
 */
 
 
-//#include <cstdint>
+#include <cstdint>
 //All of this library is c++11 and requires compiler support
 /*
 	C++11
@@ -495,37 +495,94 @@ using namespace std;
 
 
 int main (int argc, char* argv[]){
-	long boardSizeX;
-	long boardSizeY;
-	long bombCount;
 
+		const char errorSymbol = 245; // §
+
+		const char bomb = 157; // Ø
+		const char flag = 80; // P
+
+		const char arrowL = 60; // <
+		const char arrowR = 62; // >
+		const char arrowT = 118; // v
+		const char arrowB = 94; // ^
+
+
+		const char cornerDTL = 201; // ╔
+		const char cornerDBL = 200; // ╚
+		const char cornerDTR = 189; // ╗
+		const char cornerDBR = 188; // ╝
+		const char cornerSTL = 218; // ┌
+		const char cornerSBL = 192; // └
+		const char cornerSTR = 191; // ┐
+		const char cornerSBR = 217; // ┘
+
+		const char wallSV = 179; // │
+		const char wallSH = 196; // ─
+		const char wallDV = 186; // ║
+		const char wallDH = 205; // ═
+
+
+		const char wallTSD = 194; // ┬
+		const char wallTSL = 180; // ┤
+		const char wallTSR = 195; // ├
+		const char wallTSU = 193; // ┴
+		const char wallTDD = 203; // ╦
+		const char wallTDL = 189; // ╣
+		const char wallTDR = 204; // ╠
+		const char wallTDU = 202; // ╩
+
+		const char crossS = 197; // ┼
+		const char crossD = 206; // ╬
+
+		const char solidS = 219; // █
+		const char solidD = 178; // ▓
+		const char solidN = 177; // ▒
+		const char solidL = 176; // ░
+		const char solidE = 32; // SPACE
+
+	string fillme;
+
+	int_fast64_t userWantBoardSizeX;
+	int_fast64_t userWantBoardSizeY;
+	int_fast64_t userWantBombCount;
+	int_fast64_t** msBoard = NULL;
+/*
 	if (argc == 1) {
-		//setup with user input
-	}
-	else if (argc == 4){
-		boardSizeX = atoi(argv[1]);
-		boardSizeY = atoi(argv[2]);
-		bombCount = atoi(argv[3]);
-		//Verify inputs, if they are not good end the program
-		if (boardSizeX < 1 || boardSizeY < 1 || (boardSizeX * boardSizeY <= bombCountz) || ) {
-			/* code */
+		while(cin.fail() || bombCount < 1){
+			cout << "" << endl;
+			cout << "" << endl;
+			cout << "" << endl;
+			cin >> bombCount;
+			cin.clear();
+			cin.ignore();
 		}
 	}
-	cout << "█▓▒░┏╋┓┣┫┃┗┳┻━┛◦●◌○!→←↑↓P" << endl;
+	else if (argc == 4){
+		userWantBoardSizeX = atoi(argv[1]);
+		userWantBoardSizeY = atoi(argv[2]);
+		userWantBombCount = atoi(argv[3]);
+		//Verify inputs, if they are not good end the program
+		if(userWantBoardSizeX < 1 || userWantBoardSizeY < 1 || (userWantBoardSizeX * userWantBoardSizeY <= userWantBombCount)) {
 
-
-	while(cin.fail() || bombCount < 1){
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cin >> bombCount;
-		cin.clear();
-		cin.ignore();
+		}
 	}
+*/
+
+
+	//cout << "█▓▒░┏╋┓┣┫┃┗┳┻━┛◦●◌○!→←↑↓P" << endl;
+
+	fillme = fillme + cornerDBL;
+cout << fillme << endl;
 
 
 
 
+
+
+	for(int_fast64_t i = 0; i < userWantBoardSizeY; ++i){
+		delete [] msBoard[i];
+	} 
+	delete [] msBoard;
 	cout << "Press enter to close program..." << endl;
 	cin.ignore();
 	return 0;
