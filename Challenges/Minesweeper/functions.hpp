@@ -9,6 +9,6 @@
 		Pre:
 		Post:
 	*/
-	void function();
+	bool saveStatistics();
 
 #endif

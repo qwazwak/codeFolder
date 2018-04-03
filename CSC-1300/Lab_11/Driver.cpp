@@ -13,16 +13,14 @@
 using namespace std;
 
 
-
-
 void manyEndl (){
 	cout << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl;
 }
 
 int main (){
 	long n;
+	long cardsToDrawCount;
 	long* drawFromDeck = NULL;
-
 
 
 	//Ask the user for the size of the deck, call it n
@@ -34,16 +32,16 @@ int main (){
 			cin.ignore();
 			manyEndl();
 		}while(cin.fail() || n < 1);
-
+		cardsToDrawCount = n;
 	//Generate a deck using the initPermutation function
-		drawFromDeck = initPermuation(n);
+		drawFromDeck = initPermuation(cardsToDrawCount);
 
 
 	//Loop through the size of the deck (hint: do not use your deckSize variable for this)
 		cout << "Generated Cards:" << endl;
-		for (long i = n; i >= 1; i--){
+		for (long i = 1; i <= n; i++){
 			//Call nextPermutation
-				cout << nextPermutation(drawFromDeck, i) << endl;
+			cout << nextPermutation(drawFromDeck, cardsToDrawCount) << endl;
 		}
 	//Release the dynamically allocated memory
 	delete[] drawFromDeck;
