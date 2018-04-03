@@ -1,9 +1,9 @@
 /*
 	Created by Rus Hoffman
-	This should my template, and should change
+	permuation selector for card drawer for lab 11
 */
-#if !defined IDENTIFIER
-	#define IDENTIFIER
+#if !defined PERMUTE
+	#define PERMUTE
 
 	// Creates a dynamic array of size n, initializes it with the correct values and returns the array to the user
 	long* initPermuation (long n);
