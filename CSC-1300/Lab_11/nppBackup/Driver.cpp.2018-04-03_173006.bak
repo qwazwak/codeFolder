@@ -1,5 +1,5 @@
 /*
-	By Rus Hoffman and James Bigler
+	By Rus Hoffman
 */
 #define _WIN64 1 //(also WIN64, __WIN64, and __WIN64__)
 #define __MINGW64__ 1

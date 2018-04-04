@@ -1,5 +1,5 @@
 /*
-	Created by Rus Hoffman and James Bigler
+	Created by Rus Hoffman
 	permuation selector for card drawer for lab 11
 */
 #define _WIN64 1 //(also WIN64, __WIN64, and __WIN64__)
@@ -8,6 +8,7 @@
 #define __amd64 1 //(also __amd64__)
 
 #include "Permutation.hpp"
+
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
@@ -24,6 +25,7 @@ void removePermutation (long* cardsToDrawFrom, long& cardsToDrawFromSize, long c
 	}
 	cardsToDrawFromSize = cardsToDrawFromSize - 1;
 }
+
 
 
 //Creates a dynamic array of size n, initializes it with the correct values and returns the array to the user

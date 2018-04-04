@@ -1,21 +1,23 @@
 /*
-	By Rus Hoffman and James Bigler
+	By Rus Hoffman
 */
 #define _WIN64 1 //(also WIN64, __WIN64, and __WIN64__)
 #define __MINGW64__ 1
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
 
-#include "Permutation.h"
+#include "Permutation.hpp"
 #include <cstdlib>
 #include <iostream>
-#include <ctime>
 
 using namespace std;
 
 
+void manyEndl (){
+	cout << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl;
+}
+
 int main (){
-	srand(time(NULL));
 	long n;
 	long cardsToDrawCount;
 	long* drawFromDeck = NULL;
@@ -28,6 +30,7 @@ int main (){
 			cin >> n;
 			cin.clear();
 			cin.ignore();
+			manyEndl();
 		}while(cin.fail() || n < 1);
 		cardsToDrawCount = n;
 	//Generate a deck using the initPermutation function
