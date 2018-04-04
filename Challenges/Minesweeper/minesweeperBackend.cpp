@@ -7,6 +7,10 @@
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
 
+#include "minesweeperBackend.h"
+#include <algorithm>
+
+
 //#include "BigBadLib_Full.h"
 //#include "BigBadLib_CSC.h"
 //#include "EasyBMP.h"
@@ -30,7 +34,7 @@
 
 
 
-//#include <vector>
+#include <vector>
 /*
 		Vectors:
 		ONE DATA TYPE
@@ -92,7 +96,7 @@
 */
 
 
-//#include <random>
+#include <random>
 //All of this library is c++11 and requires compiler support
 /*
 	C++11
@@ -459,6 +463,9 @@
 */
 
 using namespace std;
+
+
+
 bool isOdd(int_fast64_t input){
 	return input % 2;
 }
@@ -466,86 +473,298 @@ bool isEven(int_fast64_t input){
 	return !(input % 2);
 }
 
-int_fast64_t** generateBoard(const int_fast64_t xSize, const int_fast64_t ySize, int_fast64_t bombCount){
-	int_fast64_t** array = new int_fast64_t*[ySize];
+int_fast64_t numDigits(int_fast64_t number){
+	int_fast64_t digits = 0;
+	if(number < 0){
+		digits = 1; // remove this line if '-' counts as a digit
+	}
+	while(number){
+		number /= 10;
+		digits++;
+	}
+	return digits;
+}
+
+
+int_fast64_t* setupBombLocations(int_fast64_t count){
+	int_fast64_t* arrayPointer = new int_fast64_t[count];
+	for(int_fast64_t i = 0; i < count; i++) {
+		arrayPointer[i] = i + 1;
+	}
+	return arrayPointer;
+}
+
+
+int_fast64_t nextLocation(int_fast64_t* array, int_fast64_t& numElements, const int_fast64_t seed){
+
+	int_fast64_t location = rand() % numElements;
+	int_fast64_t value = array[location];
+	for(int_fast64_t i = 0; i < numElements; i++){
+		if(i >= location){
+			array[i] = array[i + 1];
+		}
+	}
+	numElements = numElements - 1;
+	return value;
+}
+
+
+
+
+sweepSquare** generateBoard(const int_fast64_t ySize, const int_fast64_t xSize, const int_fast64_t bombCount){
+	int_fast64_t tempXLoc;
+	int_fast64_t tempYLoc;
+	int_fast64_t tempEncodedLoc;
+	int_fast64_t tempLocationToRemove;
+
+
+
+
+
+	int_fast64_t locationLeftToPlace = bombCount;
+
+	random_device randomSource;
+	int_fast64_t seed = clock();
+	//if(randomSource.entropy() != 0) {
+	//	seed = randomSource();
+	//}
+	mt19937_64 generator(seed);
+
+
+	sweepSquare** array = new sweepSquare*[ySize];
 	for(int_fast64_t i = 0; i < ySize; i++) {
-		array[0] = new int_fast64_t[xSize];
+		array[i] = new sweepSquare[xSize];
+		for (int_fast64_t j = 0; j < xSize; j++) {
+			array[i][j].isKnown = false;
+			array[i][j].isBomb = false;
+			array[i][j].isEmpty = true;
+			array[i][j].numBombNear = 0;
+		}
+	}
+
+
+
+	int_fast64_t* possibleBombLoc = new int_fast64_t[ySize * xSize];
+	for(int_fast64_t i = 0; i < ySize * xSize; i++) {
+		possibleBombLoc[i] = i;
 	}
 
 
 
 
+	for (int_fast64_t bNum = 0; bNum < bombCount; bNum++){
+	/*	cout << "bnum" << bNum << endl;
+		tempLocationToRemove = rand() % locationLeftToPlace;
+		cout << "            temp loc to remove" << tempLocationToRemove << endl;
+		tempEncodedLoc = possibleBombLoc[tempLocationToRemove];
+		for(int_fast64_t i = 0; i < locationLeftToPlace; i++){
+			if(i >= tempLocationToRemove){
+				possibleBombLoc[i] = possibleBombLoc[i + 1];
+			}
+		}
+		locationLeftToPlace--;
 
 
+		tempYLoc = tempEncodedLoc % ySize;
+		tempXLoc = tempEncodedLoc / xSize;*/
+		do {
+			tempYLoc = generator() % ySize;
+			tempXLoc = generator() % xSize;
+		} while(array[tempYLoc][tempXLoc].isBomb == true);
 
 
+		array[tempYLoc][tempXLoc].isBomb = true;
+		array[tempYLoc][tempXLoc].numBombNear = -1;
+		array[tempYLoc][tempXLoc].isEmpty = false;
 
 
+		//top left
+			if((tempYLoc - 1 >= 0) && (tempYLoc - 1 <= ySize - 1)
+			&& (tempXLoc - 1 >= 0) && (tempXLoc - 1 <= xSize - 1)
+			&& (array[tempYLoc - 1][tempXLoc - 1].isBomb == false)){
 
+					array[tempYLoc - 1][tempXLoc - 1].numBombNear++;
+					array[tempYLoc - 1][tempXLoc - 1].isEmpty = false;
+
+			}
+
+
+		//top center
+			if((tempYLoc - 1 >= 0) && (tempYLoc - 1 <= ySize - 1)
+			&& (tempXLoc + 0 >= 0) && (tempXLoc + 0 <= xSize - 1)
+			&& (array[tempYLoc - 1][tempXLoc + 0].isBomb == false)){
+
+					array[tempYLoc - 1][tempXLoc + 0].numBombNear++;
+					array[tempYLoc - 1][tempXLoc + 0].isEmpty = false;
+
+			}
+
+
+		//top Right
+			if((tempYLoc - 1 >= 0) && (tempYLoc - 1 <= ySize - 1)
+			&& (tempXLoc + 1 >= 0) && (tempXLoc + 1 <= xSize - 1)
+			&& (array[tempYLoc - 1][tempXLoc + 1].isBomb == false)){
+
+					array[tempYLoc - 1][tempXLoc + 1].numBombNear++;
+					array[tempYLoc - 1][tempXLoc + 1].isEmpty = false;
+
+			}
+
+
+		//Left center
+			if((tempYLoc + 0 >= 0) && (tempYLoc + 0 <= ySize - 1)
+			&& (tempXLoc - 1 >= 0) && (tempXLoc - 1 <= xSize - 1)
+			&& (array[tempYLoc + 0][tempXLoc - 1].isBomb == false)){
+
+					array[tempYLoc + 0][tempXLoc - 1].numBombNear++;
+					array[tempYLoc + 0][tempXLoc - 1].isEmpty = false;
+
+			}
+
+
+		//right center
+			if((tempYLoc + 0 >= 0) && (tempYLoc + 0 <= ySize - 1)
+			&& (tempXLoc + 1 >= 0) && (tempXLoc + 1 <= xSize - 1)
+			&& (array[tempYLoc + 0][tempXLoc + 1].isBomb == false)){
+
+					array[tempYLoc + 0][tempXLoc + 1].numBombNear++;
+					array[tempYLoc + 0][tempXLoc + 1].isEmpty = false;
+
+			}
+
+
+		//bottom left
+			if((tempYLoc + 1 >= 0) && (tempYLoc + 1 <= ySize - 1)
+			&& (tempXLoc - 1 >= 0) && (tempXLoc - 1 <= xSize - 1)
+			&& (array[tempYLoc + 1][tempXLoc - 1].isBomb == false)){
+
+					array[tempYLoc + 1][tempXLoc - 1].numBombNear++;
+					array[tempYLoc + 1][tempXLoc - 1].isEmpty = false;
+
+			}
+
+
+		//bottom center
+			if((tempYLoc + 1 >= 0) && (tempYLoc + 1 <= ySize - 1)
+			&& (tempXLoc + 0 >= 0) && (tempXLoc + 0 <= xSize - 1)
+			&& (array[tempYLoc + 1][tempXLoc + 0].isBomb == false)){
+
+					array[tempYLoc + 1][tempXLoc + 0].numBombNear++;
+					array[tempYLoc + 1][tempXLoc + 0].isEmpty = false;
+
+			}
+
+
+		//bottom right
+			if((tempYLoc + 1 >= 0) && (tempYLoc + 1 <= ySize - 1)
+			&& (tempXLoc + 1 >= 0) && (tempXLoc + 1 <= xSize - 1)
+			&& (array[tempYLoc + 1][tempXLoc + 1].isBomb == false)){
+
+					array[tempYLoc + 1][tempXLoc + 1].numBombNear++;
+					array[tempYLoc + 1][tempXLoc + 1].isEmpty = false;
+
+			}
+
+
+	}
+
+	delete[] possibleBombLoc;
 	return array;
 }
 
-void displayBoard(const int_fast64_t yGameSize, const int_fast64_t xGameSize, const int_fast64_t * array){
-	const char bomb = 157; // Ø
-	const char flag = 80; // P
 
-	const char arrowL = 60; // <
-	const char arrowR = 62; // >
-	const char arrowT = 118; // v
-	const char arrowB = 94; // ^
+
+void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** array, int_fast64_t bombCount){
+//	const char bomb = 157; // Ø
+//	const char flag = 80; // P
+
+//	const char arrowL = 60; // <
+//	const char arrowR = 62; // >
+//	const char arrowT = 118; // v
+//	const char arrowB = 94; // ^
 
 
 	const char cornerDTL = 201; // ╔
 	const char cornerDTR = 189; // ╗
-	const char cornerDBL = 200; // ╚
-	const char cornerDBR = 188; // ╝
-	const char cornerSTL = 218; // ┌
-	const char cornerSBL = 192; // └
-	const char cornerSTR = 191; // ┐
-	const char cornerSBR = 217; // ┘
+//	const char cornerDBL = 200; // ╚
+//	const char cornerDBR = 188; // ╝
+//	const char cornerSTL = 218; // ┌
+//	const char cornerSBL = 192; // └
+//	const char cornerSTR = 191; // ┐
+//	const char cornerSBR = 217; // ┘
 
-	const char wallSV = 179; // │
-	const char wallSH = 196; // ─
+//	const char wallSV = 179; // │
+//	const char wallSH = 196; // ─
 	const char wallDV = 186; // ║
 	const char wallDH = 205; // ═
 
 
-	const char wallTSD = 194; // ┬
-	const char wallTSL = 180; // ┤
-	const char wallTSR = 195; // ├
-	const char wallTSU = 193; // ┴
-	const char wallTDD = 203; // ╦
-	const char wallTDL = 189; // ╣
-	const char wallTDR = 204; // ╠
-	const char wallTDU = 202; // ╩
+//	const char wallTSD = 194; // ┬
+//	const char wallTSL = 180; // ┤
+//	const char wallTSR = 195; // ├
+//	const char wallTSU = 193; // ┴
+//	const char wallTDD = 203; // ╦
+//	const char wallTDL = 189; // ╣
+//	const char wallTDR = 204; // ╠
+//	const char wallTDU = 202; // ╩
 
-	const char crossS = 197; // ┼
-	const char crossD = 206; // ╬
+//	const char crossS = 197; // ┼
+//	const char crossD = 206; // ╬
 
-	const char solidS = 219; // █
-	const char solidD = 178; // ▓
-	const char solidN = 177; // ▒
-	const char solidL = 176; // ░
-	const char solidE = 32; // SPACE
+//	const char solidS = 219; // █
+//	const char solidD = 178; // ▓
+//	const char solidN = 177; // ▒
+//	const char solidL = 176; // ░
+//	const char solidE = 32; // SPACE
 
-	const char errorSymbol = 245; // §
+//	const char errorSymbol = 245; // §
 
-	int_fast64_t yBoardSize = yGameSize + 2;
 	int_fast64_t xBoardSize = xGameSize + 2;
-	u32string lineBuffer;
 
-	lineBuffer.clear();
-	lineBuffer += cornerDTL;
-	for (int_fast64_t x = 1; x < xBoardSize - 1; x++) {
-		lineBuffer += wallDH;
+
+
+	cout << cornerDTL;
+	for (int_fast64_t x = 0; x < xBoardSize - 2; x++) {
+		cout << wallDH;
 	}
-	lineBuffer += cornerDTR;
+	cout << cornerDTR << endl;
 
 
-	for(int_fast64_t y = 0; y < yBoardSize; y++){
-		lineBuffer.clear();
-		for (int_fast64_t x = 0; x < xBoardSize; x++) {
+	cout << wallDV;
+	for (int_fast64_t x = 0; x < xBoardSize - 2; x++) {
+		cout << " ";
+	}
+	cout << wallDV << endl;
 
+
+/*
+	cout << wallDV << "   Bombs to find: " << bombCount;
+	for (int_fast64_t i = 0; i < 	numDigits(number) ; i++) {
+
+
+
+	}
+	cout << wallDV << endl;
+*/
+
+
+	cout << wallDV;
+	for (int_fast64_t x = 0; x < xBoardSize - 2; x++) {
+		cout << " ";
+	}
+	cout << wallDV << endl;
+
+//yBoardSize
+//xBoardSize
+	for(int_fast64_t yDisplay = 0; yDisplay < yGameSize; yDisplay++){
+		for (int_fast64_t xDisplay = 0; xDisplay < xGameSize; xDisplay++) {
+			if(array[yDisplay][xDisplay].isBomb == true) {
+				cout << "X";
+			}
+			else{
+				cout << array[yDisplay][xDisplay].numBombNear;
+			}
 		}
+		cout << endl;
 	}
 }
