@@ -81,9 +81,48 @@
 
 //#include <windows.h>
 /*
-	LPCWSTR FOOBARDIRECTERY = L"c:\testdir";
-	CreateDirectory(FOOBARDIRECTERY, NULL)
-	CreateDirectory("output", NULL);
+	Directories:
+		LPCWSTR FOOBARDIRECTERY = L"c:\testdir";
+		CreateDirectory(FOOBARDIRECTERY, NULL);
+		CreateDirectory("output", NULL);
+
+	consoleThings:
+
+		SetConsoleTextAttribute(hConsole, k);
+				HANDLE  hConsole;
+				int k;
+			Sets console colours
+			colorattribute = foreground + background * 16
+				colors are:
+					0: Black
+					1: Navy
+					2: Dark green
+					3: Teal
+					4: Burgundy
+					5: Burgundy, but with 10 blue because why not
+					6: Olive
+					7: Slightly Grey
+					8: Grey
+					9: BSOD Blue
+					10: Lime Green
+					11: Cyan
+					12: Really Red
+					13: Pink
+					14: Yellow
+					15: Nearly White
+	Dialog:
+		https://msdn.microsoft.com/en-us/library/windows/desktop/ms645505(v=vs.85).aspx
+		MessageBox( 0, "Hello World!", "Greetings", 0 );
+		MessageBox( NULL, AcutalBodyMessage, Title, TypeTHingInt );
+
+			int msgboxID = MessageBox(
+				NULL,
+				"Resource not available\nDo you want to try again?",
+				"Account Details",
+				MB_ICONWARNING | MB_CANCELTRYCONTINUE | MB_DEFBUTTON2
+			);
+
+
 */
 
 

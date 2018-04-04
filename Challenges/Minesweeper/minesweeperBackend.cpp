@@ -514,20 +514,12 @@ int_fast64_t nextLocation(int_fast64_t* array, int_fast64_t& numElements, const 
 sweepSquare** generateBoard(const int_fast64_t ySize, const int_fast64_t xSize, const int_fast64_t bombCount){
 	int_fast64_t tempXLoc;
 	int_fast64_t tempYLoc;
-	int_fast64_t tempEncodedLoc;
-	int_fast64_t tempLocationToRemove;
-
-
-
-
-
-	int_fast64_t locationLeftToPlace = bombCount;
 
 	random_device randomSource;
 	int_fast64_t seed = clock();
-	//if(randomSource.entropy() != 0) {
-	//	seed = randomSource();
-	//}
+	if(randomSource.entropy() != 0) {
+		seed = randomSource();
+	}
 	mt19937_64 generator(seed);
 
 
@@ -553,20 +545,6 @@ sweepSquare** generateBoard(const int_fast64_t ySize, const int_fast64_t xSize, 
 
 
 	for (int_fast64_t bNum = 0; bNum < bombCount; bNum++){
-	/*	cout << "bnum" << bNum << endl;
-		tempLocationToRemove = rand() % locationLeftToPlace;
-		cout << "            temp loc to remove" << tempLocationToRemove << endl;
-		tempEncodedLoc = possibleBombLoc[tempLocationToRemove];
-		for(int_fast64_t i = 0; i < locationLeftToPlace; i++){
-			if(i >= tempLocationToRemove){
-				possibleBombLoc[i] = possibleBombLoc[i + 1];
-			}
-		}
-		locationLeftToPlace--;
-
-
-		tempYLoc = tempEncodedLoc % ySize;
-		tempXLoc = tempEncodedLoc / xSize;*/
 		do {
 			tempYLoc = generator() % ySize;
 			tempXLoc = generator() % xSize;
@@ -711,13 +689,13 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 //	const char crossS = 197; // ┼
 //	const char crossD = 206; // ╬
 
-//	const char solidS = 219; // █
+	const char solidS = 219; // █
 //	const char solidD = 178; // ▓
 //	const char solidN = 177; // ▒
 //	const char solidL = 176; // ░
 //	const char solidE = 32; // SPACE
 
-//	const char errorSymbol = 245; // §
+	const char errorSymbol = 245; // §
 
 	int_fast64_t xBoardSize = xGameSize + 2;
 
@@ -758,11 +736,22 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 //xBoardSize
 	for(int_fast64_t yDisplay = 0; yDisplay < yGameSize; yDisplay++){
 		for (int_fast64_t xDisplay = 0; xDisplay < xGameSize; xDisplay++) {
-			if(array[yDisplay][xDisplay].isBomb == true) {
-				cout << "X";
+			if (array[yDisplay][xDisplay].isKnown == true) {
+				if(array[yDisplay][xDisplay].isBomb == true) {
+					cout << "X";
+				}
+				if (array[yDisplay][xDisplay].isBomb == false) {
+					/* code */
+				}
+				else{
+					cout << errorSymbol;
+				}
+			}
+			else if (array[yDisplay][xDisplay].isKnown == false) {
+				cout << solidS;
 			}
 			else{
-				cout << array[yDisplay][xDisplay].numBombNear;
+				cout << errorSymbol;
 			}
 		}
 		cout << endl;
