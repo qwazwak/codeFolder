@@ -673,16 +673,18 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 	const int COLORNEARLYWHITE = 15;
 
 
-	const int defaultColor = COLORNEARLYWHITE + (COLORBLACK * 16);;
-	const int emptyBlock = COLORSLIGHTLYGREY;
-		const int block1 = emptyBlock + (COLORBSODBLUE * 16);
-		const int block2 = emptyBlock + (COLORDARKGREEN * 16);
-		const int block3 = emptyBlock + (COLORREALLYRED * 16);
-		const int block4 = emptyBlock + (COLORBSODBLUE * 16);
-		const int block5 = emptyBlock + (COLORBURGUNDY * 16);
-		const int block6 = emptyBlock + (COLORTEAL * 16);
-		const int block7 = emptyBlock + (COLORBLACK * 16);
-		const int block8 = emptyBlock + (COLORGREY * 16);
+	const int defaultColor = COLORNEARLYWHITE + (COLORBLACK * 16);
+	const int unknown = COLORSLIGHTLYGREY;
+	const int baseBlockColor = COLORGREY;
+		const int block0 = baseBlockColor + (COLORGREY * 16);
+		const int block1 = baseBlockColor + (COLORBSODBLUE * 16);
+		const int block2 = baseBlockColor + (COLORDARKGREEN * 16);
+		const int block3 = baseBlockColor + (COLORREALLYRED * 16);
+		const int block4 = baseBlockColor + (COLORBSODBLUE * 16);
+		const int block5 = baseBlockColor + (COLORBURGUNDY * 16);
+		const int block6 = baseBlockColor + (COLORTEAL * 16);
+		const int block7 = baseBlockColor + (COLORBLACK * 16);
+		const int block8 = baseBlockColor + (COLORGREY * 16);
 	HANDLE  hConsole;
 	SetConsoleTextAttribute(hConsole, defaultColor);
 //	const char bomb = 157; // Ø
@@ -783,31 +785,57 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 		cout << wallSV;
 		for (int_fast64_t xDisplay = 0; xDisplay < xGameSize; xDisplay++) {
 			if (array[yDisplay][xDisplay].isKnown == false) {
+				SetConsoleTextAttribute(hConsole, unknown);
 				cout << solidS;
+				SetConsoleTextAttribute(hConsole, defaultColor);
 			}
 			else if (array[yDisplay][xDisplay].isKnown == true) {
 				if (array[yDisplay][xDisplay].isBomb == false) {
-					switch (/* expression */) {
+					switch (array[yDisplay][xDisplay].numBombNear) {
 						case 0:
-							SetConsoleTextAttribute(hConsole, COLORGREY);
+							SetConsoleTextAttribute(hConsole, block0);
 								cout << solidS;
 							SetConsoleTextAttribute(hConsole, defaultColor);
 						break;
 						case 1:
+							SetConsoleTextAttribute(hConsole, block1);
+								cout << "1";
+							SetConsoleTextAttribute(hConsole, defaultColor);
 						break;
 						case 2:
+							SetConsoleTextAttribute(hConsole, block2);
+								cout << "2";
+							SetConsoleTextAttribute(hConsole, defaultColor);
 						break;
 						case 3:
+							SetConsoleTextAttribute(hConsole, block3);
+								cout << "3";
+							SetConsoleTextAttribute(hConsole, defaultColor);
 						break;
 						case 4:
+							SetConsoleTextAttribute(hConsole, block4);
+								cout << "4";
+							SetConsoleTextAttribute(hConsole, defaultColor);
 						break;
 						case 5:
+							SetConsoleTextAttribute(hConsole, block5);
+								cout << "5";
+							SetConsoleTextAttribute(hConsole, defaultColor);
 						break;
 						case 6:
+							SetConsoleTextAttribute(hConsole, block6);
+								cout << "6";
+							SetConsoleTextAttribute(hConsole, defaultColor);
 						break;
 						case 7:
+							SetConsoleTextAttribute(hConsole, block7);
+								cout << "7";
+							SetConsoleTextAttribute(hConsole, defaultColor);
 						break;
 						case 8:
+							SetConsoleTextAttribute(hConsole, block8);
+								cout << "8";
+							SetConsoleTextAttribute(hConsole, defaultColor);
 						break;
 						default:
 						break;
