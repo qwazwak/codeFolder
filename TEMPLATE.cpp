@@ -92,7 +92,7 @@
 				HANDLE  hConsole;
 				int k;
 			Sets console colours
-			colorattribute = foreground + background * 16
+			colorattribute = foreground + (background * 16)
 				colors are:
 					0: Black
 					1: Navy
