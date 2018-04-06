@@ -8,12 +8,7 @@
 
 
 
-//#include "BigBadLib_Full.h"
-//#include "BigBadLib_CSC.h"
-//#include "EasyBMP.h"
-//#include "EasyBMP_Font.h"
-//#include "EasyBMP_Geometry.h"
-//#include "EasyBMP_SimpleArray.h"
+#include "Win32InputBox.h"
 
 //#include <quadmath.h>
 //Needed for more than just float128
@@ -431,11 +426,6 @@
 using namespace std;
 
 int main (){
-	MessageBox(
-		NULL,
-		"Resource not available\nDo you want to try again?",
-		"Account Details",
-		MB_ICONWARNING | MB_CANCELTRYCONTINUE | MB_DEFBUTTON2
-	);
+	MessageBox(NULL, "Resource not available\nDo you want to try again?", "Account Details", MB_ICONWARNING | MB_CANCELTRYCONTINUE | MB_DEFBUTTON2);
 	return 0;
 }

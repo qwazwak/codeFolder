@@ -8,7 +8,9 @@
 #define __amd64 1 //(also __amd64__)
 
 #include "minesweeperBackend.h"
-#include <algorithm>
+
+
+//#include <algorithm>
 
 
 //#include "BigBadLib_Full.h"
@@ -34,7 +36,7 @@
 
 
 
-#include <vector>
+//#include <vector>
 /*
 		Vectors:
 		ONE DATA TYPE
@@ -72,7 +74,7 @@
 */
 
 
-//#include <windows.h>
+#include <windows.h>
 /*
 	LPCWSTR FOOBARDIRECTERY = L"c:\testdir";
 	CreateDirectory(FOOBARDIRECTERY, NULL)
@@ -80,7 +82,7 @@
 */
 
 
-//#include <ctime>
+#include <ctime>
 /*
 	http://www.cplusplus.com/reference/ctime/
 
@@ -652,6 +654,7 @@ sweepSquare** generateBoard(const int_fast64_t ySize, const int_fast64_t xSize, 
 
 
 
+<<<<<<< HEAD
 void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** array){
 	int_fast64_t bombCount = 0;
 	for (int_fast64_t i = 0; i < yGameSize; i++) {
@@ -661,6 +664,41 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 			}
 		}
 	}
+=======
+void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** array, int_fast64_t bombCount){
+	const int COLORBLACK = 0;
+	const int COLORNAVY = 1;
+	const int COLORDARKGREEN = 2;
+	const int COLORTEAL = 3;
+	const int COLORBURGUNDY = 4;
+	const int COLORBURGUNDYBLUE = 5;
+	const int COLOROLIVE = 6;
+	const int COLORSLIGHTLYGREY = 7;
+	const int COLORGREY = 8;
+	const int COLORBSODBLUE = 9;
+	const int COLORLIMEGREEN = 10;
+	const int COLORCYAN = 11;
+	const int COLORREALLYRED = 12;
+	const int COLORPINK = 13;
+	const int COLORYELLOW = 14;
+	const int COLORNEARLYWHITE = 15;
+
+
+	const int defaultColor = COLORNEARLYWHITE + (COLORBLACK * 16);
+	const int unknown = COLORSLIGHTLYGREY;
+	const int baseBlockColor = COLORGREY;
+		const int block0 = baseBlockColor + (COLORGREY * 16);
+		const int block1 = baseBlockColor + (COLORBSODBLUE * 16);
+		const int block2 = baseBlockColor + (COLORDARKGREEN * 16);
+		const int block3 = baseBlockColor + (COLORREALLYRED * 16);
+		const int block4 = baseBlockColor + (COLORBSODBLUE * 16);
+		const int block5 = baseBlockColor + (COLORBURGUNDY * 16);
+		const int block6 = baseBlockColor + (COLORTEAL * 16);
+		const int block7 = baseBlockColor + (COLORBLACK * 16);
+		const int block8 = baseBlockColor + (COLORGREY * 16);
+	HANDLE  hConsole;
+	SetConsoleTextAttribute(hConsole, defaultColor);
+>>>>>>> b76d55401da5376790b5253f9583cc32891a7752
 //	const char bomb = 157; // Ø
 //	const char flag = 80; // P
 
@@ -671,16 +709,16 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 
 
 	const char cornerDTL = 201; // ╔
-	const char cornerDTR = 189; // ╗
+	const char cornerDTR = 187; // ╗
 //	const char cornerDBL = 200; // ╚
 //	const char cornerDBR = 188; // ╝
 //	const char cornerSTL = 218; // ┌
-//	const char cornerSBL = 192; // └
+	const char cornerSBL = 192; // └
 //	const char cornerSTR = 191; // ┐
-//	const char cornerSBR = 217; // ┘
+	const char cornerSBR = 217; // ┘
 
-//	const char wallSV = 179; // │
-//	const char wallSH = 196; // ─
+	const char wallSV = 179; // │
+	const char wallSH = 196; // ─
 	const char wallDV = 186; // ║
 	const char wallDH = 205; // ═
 
@@ -690,8 +728,8 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 //	const char wallTSR = 195; // ├
 //	const char wallTSU = 193; // ┴
 //	const char wallTDD = 203; // ╦
-//	const char wallTDL = 189; // ╣
-//	const char wallTDR = 204; // ╠
+	const char wallTDL = 185; // ╣
+	const char wallTDR = 204; // ╠
 //	const char wallTDU = 202; // ╩
 
 //	const char crossS = 197; // ┼
@@ -721,6 +759,16 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 		cout << " ";
 	}
 	cout << wallDV << endl;
+	;cout << wallDV;
+	for (int_fast64_t x = 0; x < xBoardSize - 2; x++) {
+		cout << " ";
+	}
+	cout << wallDV << endl;
+	;cout << wallDV;
+	for (int_fast64_t x = 0; x < xBoardSize - 2; x++) {
+		cout << " ";
+	}
+	cout << wallDV << endl;;
 
 
 /*
@@ -734,34 +782,95 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 */
 
 
-	cout << wallDV;
+
+
+	cout << wallTDR;
 	for (int_fast64_t x = 0; x < xBoardSize - 2; x++) {
-		cout << " ";
+		cout << wallDH;
 	}
-	cout << wallDV << endl;
+	cout << wallTDL << endl;
 
 //yBoardSize
 //xBoardSize
+
 	for(int_fast64_t yDisplay = 0; yDisplay < yGameSize; yDisplay++){
+		cout << wallSV;
 		for (int_fast64_t xDisplay = 0; xDisplay < xGameSize; xDisplay++) {
-			if (array[yDisplay][xDisplay].isKnown == true) {
-				if(array[yDisplay][xDisplay].isBomb == true) {
-					cout << "X";
-				}
+			if (array[yDisplay][xDisplay].isKnown == false) {
+				SetConsoleTextAttribute(hConsole, unknown);
+				cout << solidS;
+				SetConsoleTextAttribute(hConsole, defaultColor);
+			}
+			else if (array[yDisplay][xDisplay].isKnown == true) {
 				if (array[yDisplay][xDisplay].isBomb == false) {
-					/* code */
+					switch (array[yDisplay][xDisplay].numBombNear) {
+						case 0:
+							SetConsoleTextAttribute(hConsole, block0);
+								cout << solidS;
+							SetConsoleTextAttribute(hConsole, defaultColor);
+						break;
+						case 1:
+							SetConsoleTextAttribute(hConsole, block1);
+								cout << "1";
+							SetConsoleTextAttribute(hConsole, defaultColor);
+						break;
+						case 2:
+							SetConsoleTextAttribute(hConsole, block2);
+								cout << "2";
+							SetConsoleTextAttribute(hConsole, defaultColor);
+						break;
+						case 3:
+							SetConsoleTextAttribute(hConsole, block3);
+								cout << "3";
+							SetConsoleTextAttribute(hConsole, defaultColor);
+						break;
+						case 4:
+							SetConsoleTextAttribute(hConsole, block4);
+								cout << "4";
+							SetConsoleTextAttribute(hConsole, defaultColor);
+						break;
+						case 5:
+							SetConsoleTextAttribute(hConsole, block5);
+								cout << "5";
+							SetConsoleTextAttribute(hConsole, defaultColor);
+						break;
+						case 6:
+							SetConsoleTextAttribute(hConsole, block6);
+								cout << "6";
+							SetConsoleTextAttribute(hConsole, defaultColor);
+						break;
+						case 7:
+							SetConsoleTextAttribute(hConsole, block7);
+								cout << "7";
+							SetConsoleTextAttribute(hConsole, defaultColor);
+						break;
+						case 8:
+							SetConsoleTextAttribute(hConsole, block8);
+								cout << "8";
+							SetConsoleTextAttribute(hConsole, defaultColor);
+						break;
+						default:
+						break;
+
+					}
+				}
+				else if(array[yDisplay][xDisplay].isBomb == true) {
+					cout << "X";
 				}
 				else{
 					cout << errorSymbol;
 				}
 			}
-			else if (array[yDisplay][xDisplay].isKnown == false) {
-				cout << solidS;
-			}
 			else{
 				cout << errorSymbol;
 			}
 		}
+		cout << wallSV;
 		cout << endl;
 	}
+	cout << cornerSBL;
+	for (int_fast64_t x = 0; x < xBoardSize - 2; x++) {
+		cout << wallSH;
+	}
+	cout << cornerSBR << endl;
 }
