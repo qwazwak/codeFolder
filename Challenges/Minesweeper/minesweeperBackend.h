@@ -16,13 +16,7 @@
 		Pre:
 		Post:
 	*/
-	//void displayBoard();
-	/*
-		Pre:
-		Post:
-	*/
 	sweepSquare** generateBoard(int_fast64_t ySize, int_fast64_t xSize, int_fast64_t bombCount);
-
 
 	/*
 		Pre:
@@ -30,4 +24,5 @@
 	*/
 	void displayBoard(int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** array);
 
+	void knownFlood(int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** array, int_fast64_t ySelectionPosition, int_fast64_t xSelectionPosition);
 #endif

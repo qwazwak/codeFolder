@@ -874,3 +874,87 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 	}
 	cout << cornerDBR << endl;
 }
+
+void knownFlood(int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** array, int_fast64_t ySelectionPosition, int_fast64_t xSelectionPosition){
+	int_fast64_t yTop = ySelectionPosition - 1;
+	int_fast64_t yMid = ySelectionPosition + 0;
+	int_fast64_t yBot = ySelectionPosition + 1;
+	int_fast64_t xLeft = xSelectionPosition - 1;
+	int_fast64_t xMid = xSelectionPosition + 0;
+	int_fast64_t xRight = xSelectionPosition + 1;
+
+	if(array[ySelectionPosition][xSelectionPosition].isEmpty == true) {
+		//top left
+			if((yTop >= 0) && (yTop <= yGameSize - 1)
+			&& (xLeft >= 0) && (xLeft <= xGameSize - 1)
+			&& (array[yTop][xLeft].isEmpty == true)
+			&& (array[yTop][xLeft].isKnown == false)){
+					array[yTop][xLeft].isKnown = true;
+					knownFlood(yGameSize, xGameSize, array, yTop, xLeft);
+			}
+
+		//top center
+			if((yTop >= 0) && (yTop <= yGameSize - 1)
+			&& (xMid >= 0) && (xMid <= xGameSize - 1)
+			&& (array[yTop][xMid].isEmpty == true)
+			&& (array[yTop][xMid].isKnown == false)){
+					array[yTop][xMid].isKnown = true;
+					knownFlood(yGameSize, xGameSize, array, yTop, xMid);
+			}
+
+		//top Right
+			if((yTop >= 0) && (yTop <= yGameSize - 1)
+			&& (xRight >= 0) && (xRight <= xGameSize - 1)
+			&& (array[yTop][xRight].isEmpty == true)
+			&& (array[yTop][xRight].isKnown == false)){
+					array[yTop][xRight].isKnown = true;
+					knownFlood(yGameSize, xGameSize, array, yTop, xRight);
+			}
+
+		//Left center
+			if((yMid >= 0) && (yMid <= yGameSize - 1)
+			&& (xLeft >= 0) && (xLeft <= xGameSize - 1)
+			&& (array[yMid][xLeft].isEmpty == true)
+			&& (array[yMid][xLeft].isKnown == false)){
+					array[yMid][xLeft].isKnown = true;
+					knownFlood(yGameSize, xGameSize, array, yMid, xLeft);
+			}
+
+		//right center
+			if((yMid >= 0) && (yMid <= yGameSize - 1)
+			&& (xRight >= 0) && (xRight <= xGameSize - 1)
+			&& (array[yMid][xRight].isEmpty == true)
+			&& (array[yMid][xRight].isKnown == false)){
+					array[yMid][xRight].isKnown = true;
+					knownFlood(yGameSize, xGameSize, array, yMid, xRight);
+			}
+
+		//bottom left
+			if((yBot >= 0) && (yBot <= yGameSize - 1)
+			&& (xLeft >= 0) && (xLeft <= xGameSize - 1)
+			&& (array[yBot][xLeft].isEmpty == true)
+			&& (array[yBot][xLeft].isKnown == false)){
+					array[yBot][xLeft].isKnown = true;
+					knownFlood(yGameSize, xGameSize, array, yBot, xLeft);
+			}
+
+		//bottom center
+			if((yBot >= 0) && (yBot <= yGameSize - 1)
+			&& (xMid >= 0) && (xMid <= xGameSize - 1)
+			&& (array[yBot][xMid].isEmpty == true)
+			&& (array[yBot][xMid].isKnown == false)){
+					array[yBot][xMid].isKnown = true;
+					knownFlood(yGameSize, xGameSize, array, yBot, xMid);
+			}
+
+		//bottom right
+			if((yBot >= 0) && (yBot <= yGameSize - 1)
+			&& (xRight >= 0) && (xRight <= xGameSize - 1)
+			&& (array[yBot][xRight].isEmpty == true)
+			&& (array[yBot][xRight].isKnown == false)){
+					array[yBot][xRight].isKnown = true;
+					knownFlood(yGameSize, xGameSize, array, yBot, xRight);
+			}
+
+	}
+}

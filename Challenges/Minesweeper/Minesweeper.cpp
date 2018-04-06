@@ -6,7 +6,7 @@
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
 
-#include "backendMinesweeper.h"
+#include "minesweeperBackend.h"
 
 
 //#include "BigBadLib_Full.h"
@@ -547,6 +547,10 @@ int main (int argc, char* argv[]){
 	int_fast64_t userWantBombCount;
 	sweepSquare** dataBoard = NULL;
 
+	int_fast64_t userMoveX;
+	int_fast64_t userMoveY;
+	int_fast64_t userMoveType;
+
 	bool hasLost = false;
 
 	//cout << "█▓▒░┏╋┓┣┫┃┗┳┻━┛◦●◌○!→←↑↓P" << endl;
@@ -583,9 +587,16 @@ int main (int argc, char* argv[]){
 	dataBoard = generateBoard(userWantBoardSizeY, userWantBoardSizeX, userWantBombCount);
 
 	do {
-		displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
-
-
+		do{
+			displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
+			cout << "Enter the 'Y' location: " << endl;
+			cin >> userMoveY;
+		}while(userMoveY >= 1);
+		do{
+			displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
+			cout << "Enter the 'X' location: " << endl;
+			cin >> userMoveX;
+		}while(userMoveX >= 1);
 
 
 
@@ -593,21 +604,6 @@ int main (int argc, char* argv[]){
 
 
 
-/*
-	for(int_fast64_t y = 0; y < userWantBoardSizeY; ++y){
-		for(int_fast64_t x = 0; x < userWantBoardSizeX; ++x){
-
-			if (dataBoard[y][x] == -99) {
-				cout << "X";
-			}
-			else {
-				cout << dataBoard[y][x];
-			}
-			cout << "  ";
-		}
-		cout << endl;
-	}
-*/
 
 
 	for(int_fast64_t i = 0; i < userWantBoardSizeY; ++i){
