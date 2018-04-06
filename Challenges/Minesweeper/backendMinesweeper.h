@@ -28,6 +28,6 @@
 		Pre:
 		Post:
 	*/
-	void displayBoard(int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** array, int_fast64_t bombCount);
+	void displayBoard(int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** array);
 
 #endif
