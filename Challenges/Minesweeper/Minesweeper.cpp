@@ -547,6 +547,8 @@ int main (int argc, char* argv[]){
 	int_fast64_t userWantBombCount;
 	sweepSquare** dataBoard = NULL;
 
+	bool hasLost = false;
+
 	//cout << "█▓▒░┏╋┓┣┫┃┗┳┻━┛◦●◌○!→←↑↓P" << endl;
 
 	do{
@@ -563,6 +565,12 @@ int main (int argc, char* argv[]){
 		cin.clear();
 		cin.ignore();
 	}while(cin.fail() || userWantBoardSizeY < 1);
+	if (userWantBoardSizeX < userWantBoardSizeY) {
+		int_fast64_t swap = userWantBoardSizeX;
+		cout << "The height and width have been swapped" << endl;
+		userWantBoardSizeX = userWantBoardSizeY;
+		userWantBoardSizeY = swap;
+	}
 	do{
 		cout << "Enter the number of bombs on the board: " << endl;
 		cout << "" << endl;
@@ -574,7 +582,16 @@ int main (int argc, char* argv[]){
 
 	dataBoard = generateBoard(userWantBoardSizeY, userWantBoardSizeX, userWantBombCount);
 
-	displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard, userWantBombCount);
+	do {
+		displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
+
+
+
+
+
+	} while(hasLost == false);
+
+
 
 /*
 	for(int_fast64_t y = 0; y < userWantBoardSizeY; ++y){
