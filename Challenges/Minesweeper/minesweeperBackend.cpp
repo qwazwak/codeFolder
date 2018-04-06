@@ -654,7 +654,6 @@ sweepSquare** generateBoard(const int_fast64_t ySize, const int_fast64_t xSize, 
 
 
 
-<<<<<<< HEAD
 void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** array){
 	int_fast64_t bombCount = 0;
 	for (int_fast64_t i = 0; i < yGameSize; i++) {
@@ -664,8 +663,6 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 			}
 		}
 	}
-=======
-void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** array, int_fast64_t bombCount){
 	const int COLORBLACK = 0;
 	const int COLORNAVY = 1;
 	const int COLORDARKGREEN = 2;
@@ -696,9 +693,9 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 		const int block6 = baseBlockColor + (COLORTEAL * 16);
 		const int block7 = baseBlockColor + (COLORBLACK * 16);
 		const int block8 = baseBlockColor + (COLORGREY * 16);
+	const int blockError = baseBlockColor + (COLORREALLYRED * 16);
 	HANDLE  hConsole;
 	SetConsoleTextAttribute(hConsole, defaultColor);
->>>>>>> b76d55401da5376790b5253f9583cc32891a7752
 //	const char bomb = 157; // Ø
 //	const char flag = 80; // P
 
@@ -710,12 +707,12 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 
 	const char cornerDTL = 201; // ╔
 	const char cornerDTR = 187; // ╗
-//	const char cornerDBL = 200; // ╚
-//	const char cornerDBR = 188; // ╝
+	const char cornerDBL = 200; // ╚
+	const char cornerDBR = 188; // ╝
 //	const char cornerSTL = 218; // ┌
-	const char cornerSBL = 192; // └
+//	const char cornerSBL = 192; // └
 //	const char cornerSTR = 191; // ┐
-	const char cornerSBR = 217; // ┘
+//	const char cornerSBR = 217; // ┘
 
 	const char wallSV = 179; // │
 	const char wallSH = 196; // ─
@@ -794,7 +791,7 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 //xBoardSize
 
 	for(int_fast64_t yDisplay = 0; yDisplay < yGameSize; yDisplay++){
-		cout << wallSV;
+		cout << wallDV;
 		for (int_fast64_t xDisplay = 0; xDisplay < xGameSize; xDisplay++) {
 			if (array[yDisplay][xDisplay].isKnown == false) {
 				SetConsoleTextAttribute(hConsole, unknown);
@@ -850,6 +847,9 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 							SetConsoleTextAttribute(hConsole, defaultColor);
 						break;
 						default:
+							SetConsoleTextAttribute(hConsole, blockError);
+								cout << errorSymbol;
+							SetConsoleTextAttribute(hConsole, defaultColor);
 						break;
 
 					}
@@ -865,12 +865,12 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 				cout << errorSymbol;
 			}
 		}
-		cout << wallSV;
+		cout << wallDV;
 		cout << endl;
 	}
-	cout << cornerSBL;
+	cout << cornerDBL;
 	for (int_fast64_t x = 0; x < xBoardSize - 2; x++) {
-		cout << wallSH;
+		cout << wallDH;
 	}
-	cout << cornerSBR << endl;
+	cout << cornerDBR << endl;
 }
