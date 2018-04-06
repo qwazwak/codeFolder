@@ -652,7 +652,15 @@ sweepSquare** generateBoard(const int_fast64_t ySize, const int_fast64_t xSize, 
 
 
 
-void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** array, int_fast64_t bombCount){
+void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** array){
+	int_fast64_t bombCount = 0;
+	for (int_fast64_t i = 0; i < yGameSize; i++) {
+		for (int_fast64_t j = 0; j < xGameSize; j++) {
+			if (array[i][j].isBomb == true) {
+				bombCount++;
+			}
+		}
+	}
 //	const char bomb = 157; // Ø
 //	const char flag = 80; // P
 

@@ -574,7 +574,7 @@ int main (int argc, char* argv[]){
 
 	dataBoard = generateBoard(userWantBoardSizeY, userWantBoardSizeX, userWantBombCount);
 
-	displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard, userWantBombCount);
+	displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
 
 /*
 	for(int_fast64_t y = 0; y < userWantBoardSizeY; ++y){
