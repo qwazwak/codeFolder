@@ -549,6 +549,8 @@ int main (int argc, char* argv[]){
 
 	int_fast64_t userMoveX;
 	int_fast64_t userMoveY;
+	bool hasEnteredX = false;
+	bool hasEnteredY = false;
 	int_fast64_t userMoveType;
 
 	bool hasLost = false;
@@ -588,17 +590,45 @@ int main (int argc, char* argv[]){
 
 	do {
 		do{
-			displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
-			cout << "Enter the 'Y' location: " << endl;
-			cin >> userMoveY;
-		}while(userMoveY >= 1);
-		do{
-			displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
-			cout << "Enter the 'X' location: " << endl;
-			cin >> userMoveX;
-		}while(userMoveX >= 1);
+			hasEnteredX = false;
+			hasEnteredY = false;
+			do{
+				displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
+				cout << "Selected location is ( <entering>, <not-entered>)" << endl;
+				cout << "Enter the 'X' location: " << endl;
+				cin >> userMoveX;
+			}while(userMoveX < 1 || userMoveX > userWantBoardSizeX);
+			hasEnteredX = true;
+			do{
+				displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
+				cout << "Selected location is ( " << userMoveX << ", <entering>)" << endl;
+				cout << "Enter the 'Y' location: " << endl;
+				cin >> userMoveY;
+			}while(userMoveY < 1 || userMoveY > userWantBoardSizeY);
+			hasEnteredY = true;
+			do{
+				displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
+				cout << "Selected location is (" << userMoveX << ", " << userMoveY << ")" << endl;
+				cout << "Select your move:" << endl;
+				cout << "   1: Click Square" << endl;
+				cout << "   2. Flag Square NOT YET HAR" << endl;
+				cout << "   0. Pick a different location" << endl;
+				cin >> userMoveType;
 
-
+				userMoveY--;
+				userMoveX--;
+			}while(userMoveType < 0 || userMoveType > 1);
+		}while(userMoveType == 0 || ((userMoveType == 1 || userMoveType == 2) && dataBoard[userMoveY][userMoveX].isKnown == true));
+		if(dataBoard[userMoveY][userMoveX].isBomb == true && userMoveType == 1) {
+			hasLost = true;
+			break;
+		}
+		if (userMoveType == 1 && dataBoard[userMoveY][userMoveX].isKnown == false && dataBoard[userMoveY][userMoveX].isBomb == false) {
+			dataBoard[userMoveY][userMoveX].isKnown = true;
+			if (dataBoard[userMoveY][userMoveX].isEmpty == true) {
+				knownFlood(userWantBoardSizeY, userWantBoardSizeX, dataBoard, userMoveY, userMoveX);
+			}
+		}
 
 	} while(hasLost == false);
 
@@ -610,7 +640,6 @@ int main (int argc, char* argv[]){
 		delete[] dataBoard[i];
 	}
 	delete [] dataBoard;
-	cout << "Press enter to close program..." << endl;
-	cin.ignore();
+	cout << "The end" << endl;
 	return 0;
 }

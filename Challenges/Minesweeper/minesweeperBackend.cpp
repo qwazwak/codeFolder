@@ -466,25 +466,23 @@
 
 using namespace std;
 
-
+int_fast64_t numDigits(int_fast64_t input){
+	int_fast64_t digits = 0;
+	if(input < 0){
+		digits = 1; // remove this line if '-' counts as a digit
+	}
+	while (input) {
+		input /= 10;
+		digits++;
+	}
+	return digits;
+}
 
 bool isOdd(int_fast64_t input){
 	return input % 2;
 }
 bool isEven(int_fast64_t input){
 	return !(input % 2);
-}
-
-int_fast64_t numDigits(int_fast64_t number){
-	int_fast64_t digits = 0;
-	if(number < 0){
-		digits = 1; // remove this line if '-' counts as a digit
-	}
-	while(number){
-		number /= 10;
-		digits++;
-	}
-	return digits;
 }
 
 
@@ -654,7 +652,7 @@ sweepSquare** generateBoard(const int_fast64_t ySize, const int_fast64_t xSize, 
 
 
 
-void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** array){
+void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** array/*, int_fast64_t userPickingY, int_fast64_t userPickingX*/){
 	int_fast64_t bombCount = 0;
 	for (int_fast64_t i = 0; i < yGameSize; i++) {
 		for (int_fast64_t j = 0; j < xGameSize; j++) {
@@ -663,6 +661,9 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 			}
 		}
 	}
+	int_fast64_t numberWidth = numDigits(yGameSize) + 1;
+
+
 	const int COLORBLACK = 0;
 	const int COLORNAVY = 1;
 	const int COLORDARKGREEN = 2;
@@ -684,16 +685,16 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 	const int defaultColor = COLORNEARLYWHITE + (COLORBLACK * 16);
 	const int unknown = COLORSLIGHTLYGREY;
 	const int baseBlockColor = COLORGREY;
-		const int block0 = baseBlockColor + (COLORGREY * 16);
-		const int block1 = baseBlockColor + (COLORBSODBLUE * 16);
-		const int block2 = baseBlockColor + (COLORDARKGREEN * 16);
-		const int block3 = baseBlockColor + (COLORREALLYRED * 16);
-		const int block4 = baseBlockColor + (COLORBSODBLUE * 16);
-		const int block5 = baseBlockColor + (COLORBURGUNDY * 16);
-		const int block6 = baseBlockColor + (COLORTEAL * 16);
-		const int block7 = baseBlockColor + (COLORBLACK * 16);
-		const int block8 = baseBlockColor + (COLORGREY * 16);
-	const int blockError = baseBlockColor + (COLORREALLYRED * 16);
+		const int block0 = COLORGREY + (COLORGREY * 16);
+		const int block1 = COLORBSODBLUE + (baseBlockColor * 16);
+		const int block2 = COLORDARKGREEN + (baseBlockColor * 16);
+		const int block3 = COLORREALLYRED + (baseBlockColor * 16);
+		const int block4 = COLORBSODBLUE + (baseBlockColor * 16);
+		const int block5 = COLORBURGUNDY + (baseBlockColor * 16);
+		const int block6 = COLORTEAL + (baseBlockColor * 16);
+		const int block7 = COLORBLACK + (baseBlockColor * 16);
+		const int block8 = COLORGREY + (baseBlockColor * 16);
+	const int blockError = COLORREALLYRED + (baseBlockColor * 16);
 	HANDLE  hConsole;
 	SetConsoleTextAttribute(hConsole, defaultColor);
 //	const char bomb = 157; // Ø
@@ -735,7 +736,7 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 	const char solidS = 219; // █
 //	const char solidD = 178; // ▓
 //	const char solidN = 177; // ▒
-//	const char solidL = 176; // ░
+	const char solidL = 176; // ░
 //	const char solidE = 32; // SPACE
 
 	const char errorSymbol = 245; // §
@@ -743,54 +744,18 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 	int_fast64_t xBoardSize = xGameSize + 2;
 
 
-
+	cout << setw(numberWidth) << " " << setw(0);
 	cout << cornerDTL;
 	for (int_fast64_t x = 0; x < xBoardSize - 2; x++) {
 		cout << wallDH;
 	}
 	cout << cornerDTR << endl;
 
-
-	cout << wallDV;
-	for (int_fast64_t x = 0; x < xBoardSize - 2; x++) {
-		cout << " ";
-	}
-	cout << wallDV << endl;
-	;cout << wallDV;
-	for (int_fast64_t x = 0; x < xBoardSize - 2; x++) {
-		cout << " ";
-	}
-	cout << wallDV << endl;
-	;cout << wallDV;
-	for (int_fast64_t x = 0; x < xBoardSize - 2; x++) {
-		cout << " ";
-	}
-	cout << wallDV << endl;;
-
-
-/*
-	cout << wallDV << "   Bombs to find: " << bombCount;
-	for (int_fast64_t i = 0; i < 	numDigits(number) ; i++) {
-
-
-
-	}
-	cout << wallDV << endl;
-*/
-
-
-
-
-	cout << wallTDR;
-	for (int_fast64_t x = 0; x < xBoardSize - 2; x++) {
-		cout << wallDH;
-	}
-	cout << wallTDL << endl;
-
 //yBoardSize
 //xBoardSize
 
 	for(int_fast64_t yDisplay = 0; yDisplay < yGameSize; yDisplay++){
+		cout << setw(numberWidth) << right << yDisplay + 1 << setw(0) << left;
 		cout << wallDV;
 		for (int_fast64_t xDisplay = 0; xDisplay < xGameSize; xDisplay++) {
 			if (array[yDisplay][xDisplay].isKnown == false) {
@@ -799,7 +764,12 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 				SetConsoleTextAttribute(hConsole, defaultColor);
 			}
 			else if (array[yDisplay][xDisplay].isKnown == true) {
-				if (array[yDisplay][xDisplay].isBomb == false) {
+				if (array[yDisplay][xDisplay].isEmpty == true) {
+					SetConsoleTextAttribute(hConsole, block0);
+					cout << solidL;
+					SetConsoleTextAttribute(hConsole, defaultColor);
+				}
+				else if (array[yDisplay][xDisplay].isBomb == false) {
 					switch (array[yDisplay][xDisplay].numBombNear) {
 						case 0:
 							SetConsoleTextAttribute(hConsole, block0);
@@ -868,6 +838,7 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 		cout << wallDV;
 		cout << endl;
 	}
+	cout << setw(numberWidth) << " " << setw(0);
 	cout << cornerDBL;
 	for (int_fast64_t x = 0; x < xBoardSize - 2; x++) {
 		cout << wallDH;
@@ -957,4 +928,6 @@ void knownFlood(int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** ar
 			}
 
 	}
+
+	cout << endl << endl;
 }
