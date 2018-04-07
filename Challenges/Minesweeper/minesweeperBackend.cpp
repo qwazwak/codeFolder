@@ -486,34 +486,40 @@ bool isEven(int_fast64_t input){
 }
 
 
-int_fast64_t* setupBombLocations(int_fast64_t count){
-	int_fast64_t* arrayPointer = new int_fast64_t[count];
-	for(int_fast64_t i = 0; i < count; i++) {
+void removePermutation (int_fast64_t* locationsArr, int_fast64_t& sizeLeft, int_fast64_t location){
+	for(long i = 0; i < sizeLeft; i++){
+		if(i >= location){
+			locationsArr[i] = locationsArr[i + 1];
+		}
+	}
+	sizeLeft = sizeLeft - 1;
+}
+
+
+//Creates a dynamic array of size n, initializes it with the correct values and returns the array to the user
+int_fast64_t* initPermuation (int_fast64_t n){
+	int_fast64_t* arrayPointer = new int_fast64_t[n];
+	for (int_fast64_t i = 0; i < n; i++) {
 		arrayPointer[i] = i + 1;
 	}
 	return arrayPointer;
 }
 
-
-int_fast64_t nextLocation(int_fast64_t* array, int_fast64_t& numElements, const int_fast64_t seed){
-
-	int_fast64_t location = rand() % numElements;
-	int_fast64_t value = array[location];
-	for(int_fast64_t i = 0; i < numElements; i++){
-		if(i >= location){
-			array[i] = array[i + 1];
-		}
-	}
-	numElements = numElements - 1;
+//Receives the currect card array and the size of the array, returns the next "card"
+//Deck size is passed as a reference variable so it can be modified
+int_fast64_t nextPermutation (int_fast64_t* locationsLeft, int_fast64_t& remainingValues){
+	int_fast64_t location = rand() % remainingValues;
+	int_fast64_t value = locationsLeft[location];
+	removePermutation(locationsLeft, remainingValues, location);
 	return value;
 }
-
 
 
 
 sweepSquare** generateBoard(const int_fast64_t ySize, const int_fast64_t xSize, const int_fast64_t bombCount){
 	int_fast64_t tempXLoc;
 	int_fast64_t tempYLoc;
+	int_fast64_t tempEncodedLoc;
 
 	random_device randomSource;
 	int_fast64_t seed = clock();
@@ -521,6 +527,10 @@ sweepSquare** generateBoard(const int_fast64_t ySize, const int_fast64_t xSize, 
 		seed = randomSource();
 	}
 	mt19937_64 generator(seed);
+
+	int_fast64_t* locationsArray = initPermuation(xSize * ySize);
+	int_fast64_t locationsToGenerate = xSize * ySize;
+
 
 
 	sweepSquare** array = new sweepSquare*[ySize];
@@ -531,24 +541,25 @@ sweepSquare** generateBoard(const int_fast64_t ySize, const int_fast64_t xSize, 
 			array[i][j].isBomb = false;
 			array[i][j].isEmpty = true;
 			array[i][j].numBombNear = 0;
+			array[i][j].isFlag = false;
 		}
 	}
 
 
 
-	int_fast64_t* possibleBombLoc = new int_fast64_t[ySize * xSize];
-	for(int_fast64_t i = 0; i < ySize * xSize; i++) {
-		possibleBombLoc[i] = i;
-	}
+
 
 
 
 
 	for (int_fast64_t bNum = 0; bNum < bombCount; bNum++){
-		do {
+		tempEncodedLoc = nextPermutation (locationsArray, locationsToGenerate);
+		/* {
 			tempYLoc = generator() % ySize;
-			tempXLoc = generator() % xSize;
-		} while(array[tempYLoc][tempXLoc].isBomb == true);
+			tempXLoc = generator() / xSize;
+		} while(array[tempYLoc][tempXLoc].isBomb == true);*/
+			tempYLoc = tempEncodedLoc % ySize;
+			tempXLoc = tempEncodedLoc / xSize;
 
 
 		array[tempYLoc][tempXLoc].isBomb = true;
@@ -646,7 +657,7 @@ sweepSquare** generateBoard(const int_fast64_t ySize, const int_fast64_t xSize, 
 
 	}
 
-	delete[] possibleBombLoc;
+	delete[] locationsArray;
 	return array;
 }
 
@@ -682,23 +693,25 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 	const int COLORNEARLYWHITE = 15;
 
 
-	const int defaultColor = COLORNEARLYWHITE + (COLORBLACK * 16);
-	const int unknown = COLORSLIGHTLYGREY;
-	const int baseBlockColor = COLORGREY;
-		const int block0 = COLORGREY + (COLORGREY * 16);
-		const int block1 = COLORBSODBLUE + (baseBlockColor * 16);
-		const int block2 = COLORDARKGREEN + (baseBlockColor * 16);
-		const int block3 = COLORREALLYRED + (baseBlockColor * 16);
-		const int block4 = COLORBSODBLUE + (baseBlockColor * 16);
-		const int block5 = COLORBURGUNDY + (baseBlockColor * 16);
-		const int block6 = COLORTEAL + (baseBlockColor * 16);
-		const int block7 = COLORBLACK + (baseBlockColor * 16);
-		const int block8 = COLORGREY + (baseBlockColor * 16);
-	const int blockError = COLORREALLYRED + (baseBlockColor * 16);
-	HANDLE  hConsole;
+	int defaultColor = COLORNEARLYWHITE + (COLORBLACK * 16);
+	int unknown = COLORSLIGHTLYGREY;
+	int baseBlockColor = COLORSLIGHTLYGREY;
+	int bombBlock = COLORREALLYRED + (COLORPINK * 16);
+	int flagBlock = COLOROLIVE + (baseBlockColor * 16);
+		int block0 = COLORNEARLYWHITE + (baseBlockColor * 16);
+		int block1 = COLORBSODBLUE + (baseBlockColor * 16);
+		int block2 = COLORDARKGREEN + (baseBlockColor * 16);
+		int block3 = COLORREALLYRED + (baseBlockColor * 16);
+		int block4 = COLORBSODBLUE + (baseBlockColor * 16);
+		int block5 = COLORBURGUNDY + (baseBlockColor * 16);
+		int block6 = COLORTEAL + (baseBlockColor * 16);
+		int block7 = COLORBLACK + (baseBlockColor * 16);
+		int block8 = COLORGREY + (baseBlockColor * 16);
+		int blockError = COLORREALLYRED + (baseBlockColor * 16);
+	HANDLE  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(hConsole, defaultColor);
-//	const char bomb = 157; // Ø
-//	const char flag = 80; // P
+	const char bomb = 157; // Ø
+	const char flag = 80; // P
 
 //	const char arrowL = 60; // <
 //	const char arrowR = 62; // >
@@ -758,77 +771,86 @@ void displayBoard (int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare**
 		cout << setw(numberWidth) << right << yDisplay + 1 << setw(0) << left;
 		cout << wallDV;
 		for (int_fast64_t xDisplay = 0; xDisplay < xGameSize; xDisplay++) {
-			if (array[yDisplay][xDisplay].isKnown == false) {
-				SetConsoleTextAttribute(hConsole, unknown);
-				cout << solidS;
+			if (array[yDisplay][xDisplay].isFlag == true) {
+				SetConsoleTextAttribute(hConsole, flagBlock);
+				cout << flag;
 				SetConsoleTextAttribute(hConsole, defaultColor);
 			}
-			else if (array[yDisplay][xDisplay].isKnown == true) {
-				if (array[yDisplay][xDisplay].isEmpty == true) {
-					SetConsoleTextAttribute(hConsole, block0);
-					cout << solidL;
+			else if (array[yDisplay][xDisplay].isFlag == false) {
+				if (array[yDisplay][xDisplay].isKnown == false) {
+					SetConsoleTextAttribute(hConsole, unknown);
+					cout << solidS;
 					SetConsoleTextAttribute(hConsole, defaultColor);
 				}
-				else if (array[yDisplay][xDisplay].isBomb == false) {
-					switch (array[yDisplay][xDisplay].numBombNear) {
-						case 0:
-							SetConsoleTextAttribute(hConsole, block0);
-								cout << solidS;
-							SetConsoleTextAttribute(hConsole, defaultColor);
-						break;
-						case 1:
-							SetConsoleTextAttribute(hConsole, block1);
-								cout << "1";
-							SetConsoleTextAttribute(hConsole, defaultColor);
-						break;
-						case 2:
-							SetConsoleTextAttribute(hConsole, block2);
-								cout << "2";
-							SetConsoleTextAttribute(hConsole, defaultColor);
-						break;
-						case 3:
-							SetConsoleTextAttribute(hConsole, block3);
-								cout << "3";
-							SetConsoleTextAttribute(hConsole, defaultColor);
-						break;
-						case 4:
-							SetConsoleTextAttribute(hConsole, block4);
-								cout << "4";
-							SetConsoleTextAttribute(hConsole, defaultColor);
-						break;
-						case 5:
-							SetConsoleTextAttribute(hConsole, block5);
-								cout << "5";
-							SetConsoleTextAttribute(hConsole, defaultColor);
-						break;
-						case 6:
-							SetConsoleTextAttribute(hConsole, block6);
-								cout << "6";
-							SetConsoleTextAttribute(hConsole, defaultColor);
-						break;
-						case 7:
-							SetConsoleTextAttribute(hConsole, block7);
-								cout << "7";
-							SetConsoleTextAttribute(hConsole, defaultColor);
-						break;
-						case 8:
-							SetConsoleTextAttribute(hConsole, block8);
-								cout << "8";
-							SetConsoleTextAttribute(hConsole, defaultColor);
-						break;
-						default:
-							SetConsoleTextAttribute(hConsole, blockError);
-								cout << errorSymbol;
-							SetConsoleTextAttribute(hConsole, defaultColor);
-						break;
-
+				else if (array[yDisplay][xDisplay].isKnown == true) {
+					if (array[yDisplay][xDisplay].isEmpty == true) {
+						SetConsoleTextAttribute(hConsole, block0);
+						cout << solidL;
+						SetConsoleTextAttribute(hConsole, defaultColor);
 					}
-				}
-				else if(array[yDisplay][xDisplay].isBomb == true) {
-					cout << "X";
-				}
-				else{
-					cout << errorSymbol;
+					else if (array[yDisplay][xDisplay].isBomb == false) {
+						switch (array[yDisplay][xDisplay].numBombNear) {
+							case 0:
+								SetConsoleTextAttribute(hConsole, block0);
+									cout << solidS;
+								SetConsoleTextAttribute(hConsole, defaultColor);
+							break;
+							case 1:
+								SetConsoleTextAttribute(hConsole, block1);
+									cout << "1";
+								SetConsoleTextAttribute(hConsole, defaultColor);
+							break;
+							case 2:
+								SetConsoleTextAttribute(hConsole, block2);
+									cout << "2";
+								SetConsoleTextAttribute(hConsole, defaultColor);
+							break;
+							case 3:
+								SetConsoleTextAttribute(hConsole, block3);
+									cout << "3";
+								SetConsoleTextAttribute(hConsole, defaultColor);
+							break;
+							case 4:
+								SetConsoleTextAttribute(hConsole, block4);
+									cout << "4";
+								SetConsoleTextAttribute(hConsole, defaultColor);
+							break;
+							case 5:
+								SetConsoleTextAttribute(hConsole, block5);
+									cout << "5";
+								SetConsoleTextAttribute(hConsole, defaultColor);
+							break;
+							case 6:
+								SetConsoleTextAttribute(hConsole, block6);
+									cout << "6";
+								SetConsoleTextAttribute(hConsole, defaultColor);
+							break;
+							case 7:
+								SetConsoleTextAttribute(hConsole, block7);
+									cout << "7";
+								SetConsoleTextAttribute(hConsole, defaultColor);
+							break;
+							case 8:
+								SetConsoleTextAttribute(hConsole, block8);
+									cout << "8";
+								SetConsoleTextAttribute(hConsole, defaultColor);
+							break;
+							default:
+								SetConsoleTextAttribute(hConsole, blockError);
+									cout << errorSymbol;
+								SetConsoleTextAttribute(hConsole, defaultColor);
+							break;
+
+						}
+					}
+					else if(array[yDisplay][xDisplay].isBomb == true) {
+						SetConsoleTextAttribute(hConsole, bombBlock);
+						cout << bomb;
+						SetConsoleTextAttribute(hConsole, defaultColor);
+					}
+					else{
+						cout << errorSymbol;
+					}
 				}
 			}
 			else{
@@ -858,73 +880,97 @@ void knownFlood(int_fast64_t yGameSize, int_fast64_t xGameSize, sweepSquare** ar
 		//top left
 			if((yTop >= 0) && (yTop <= yGameSize - 1)
 			&& (xLeft >= 0) && (xLeft <= xGameSize - 1)
-			&& (array[yTop][xLeft].isEmpty == true)
-			&& (array[yTop][xLeft].isKnown == false)){
+			&& (array[yTop][xLeft].isEmpty == true || array[yTop][xLeft].numBombNear >= 1)
+			&& (array[yTop][xLeft].isKnown == false)
+			&& array[yTop][xLeft].isFlag == false){
 					array[yTop][xLeft].isKnown = true;
-					knownFlood(yGameSize, xGameSize, array, yTop, xLeft);
+					if (array[yTop][xLeft].isEmpty == true) {
+						knownFlood(yGameSize, xGameSize, array, yTop, xLeft);
+					}
 			}
 
 		//top center
 			if((yTop >= 0) && (yTop <= yGameSize - 1)
 			&& (xMid >= 0) && (xMid <= xGameSize - 1)
-			&& (array[yTop][xMid].isEmpty == true)
-			&& (array[yTop][xMid].isKnown == false)){
+			&& (array[yTop][xMid].isEmpty == true || array[yTop][xMid].numBombNear >= 1)
+			&& (array[yTop][xMid].isKnown == false)
+			&& array[yTop][xMid].isFlag == false){
 					array[yTop][xMid].isKnown = true;
-					knownFlood(yGameSize, xGameSize, array, yTop, xMid);
+					if (array[yTop][xMid].isEmpty == true) {
+						knownFlood(yGameSize, xGameSize, array, yTop, xMid);
+					}
 			}
 
 		//top Right
 			if((yTop >= 0) && (yTop <= yGameSize - 1)
 			&& (xRight >= 0) && (xRight <= xGameSize - 1)
-			&& (array[yTop][xRight].isEmpty == true)
-			&& (array[yTop][xRight].isKnown == false)){
+			&& (array[yTop][xRight].isEmpty == true || array[yTop][xRight].numBombNear >= 1)
+			&& (array[yTop][xRight].isKnown == false)
+			&& array[yTop][xRight].isFlag == false){
 					array[yTop][xRight].isKnown = true;
-					knownFlood(yGameSize, xGameSize, array, yTop, xRight);
+					if (array[yTop][xRight].isEmpty == true) {
+						knownFlood(yGameSize, xGameSize, array, yTop, xRight);
+					}
 			}
 
 		//Left center
 			if((yMid >= 0) && (yMid <= yGameSize - 1)
 			&& (xLeft >= 0) && (xLeft <= xGameSize - 1)
-			&& (array[yMid][xLeft].isEmpty == true)
-			&& (array[yMid][xLeft].isKnown == false)){
+			&& (array[yMid][xLeft].isEmpty == true || array[yMid][xLeft].numBombNear >= 1)
+			&& (array[yMid][xLeft].isKnown == false)
+			&& array[yMid][xLeft].isFlag == false){
 					array[yMid][xLeft].isKnown = true;
-					knownFlood(yGameSize, xGameSize, array, yMid, xLeft);
+					if (array[yMid][xLeft].isEmpty == true) {
+						knownFlood(yGameSize, xGameSize, array, yMid, xLeft);
+					}
 			}
 
 		//right center
 			if((yMid >= 0) && (yMid <= yGameSize - 1)
 			&& (xRight >= 0) && (xRight <= xGameSize - 1)
-			&& (array[yMid][xRight].isEmpty == true)
-			&& (array[yMid][xRight].isKnown == false)){
+			&& (array[yMid][xRight].isEmpty == true || array[yMid][xRight].numBombNear >= 1)
+			&& (array[yMid][xRight].isKnown == false)
+			&& array[yMid][xRight].isFlag == false){
 					array[yMid][xRight].isKnown = true;
-					knownFlood(yGameSize, xGameSize, array, yMid, xRight);
+					if (array[yMid][xRight].isEmpty == true) {
+						knownFlood(yGameSize, xGameSize, array, yMid, xRight);
+					}
 			}
 
 		//bottom left
 			if((yBot >= 0) && (yBot <= yGameSize - 1)
 			&& (xLeft >= 0) && (xLeft <= xGameSize - 1)
-			&& (array[yBot][xLeft].isEmpty == true)
-			&& (array[yBot][xLeft].isKnown == false)){
+			&& (array[yBot][xLeft].isEmpty == true || array[yBot][xLeft].numBombNear >= 1)
+			&& (array[yBot][xLeft].isKnown == false)
+			&& array[yBot][xLeft].isFlag == false){
 					array[yBot][xLeft].isKnown = true;
-					knownFlood(yGameSize, xGameSize, array, yBot, xLeft);
+					if (array[yBot][xLeft].isEmpty == true) {
+						knownFlood(yGameSize, xGameSize, array, yBot, xLeft);
+					}
 			}
 
 		//bottom center
 			if((yBot >= 0) && (yBot <= yGameSize - 1)
 			&& (xMid >= 0) && (xMid <= xGameSize - 1)
-			&& (array[yBot][xMid].isEmpty == true)
-			&& (array[yBot][xMid].isKnown == false)){
+			&& (array[yBot][xMid].isEmpty == true || array[yBot][xMid].numBombNear >= 1)
+			&& (array[yBot][xMid].isKnown == false)
+			&& array[yBot][xMid].isFlag == false){
 					array[yBot][xMid].isKnown = true;
-					knownFlood(yGameSize, xGameSize, array, yBot, xMid);
+					if (array[yBot][xMid].isEmpty == true) {
+						knownFlood(yGameSize, xGameSize, array, yBot, xMid);
+					}
 			}
 
 		//bottom right
 			if((yBot >= 0) && (yBot <= yGameSize - 1)
 			&& (xRight >= 0) && (xRight <= xGameSize - 1)
-			&& (array[yBot][xRight].isEmpty == true)
-			&& (array[yBot][xRight].isKnown == false)){
+			&& (array[yBot][xRight].isEmpty == true || array[yBot][xRight].numBombNear >= 1)
+			&& (array[yBot][xRight].isKnown == false)
+			&& array[yBot][xRight].isFlag == false){
 					array[yBot][xRight].isKnown = true;
-					knownFlood(yGameSize, xGameSize, array, yBot, xRight);
+					if (array[yBot][xRight].isEmpty == true) {
+						knownFlood(yGameSize, xGameSize, array, yBot, xRight);
+					}
 			}
 
 	}

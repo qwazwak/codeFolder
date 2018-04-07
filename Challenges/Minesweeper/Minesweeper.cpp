@@ -498,8 +498,8 @@ int main (int argc, char* argv[]){
 
 //		const char errorSymbol = 245; // §
 
-//		const char bomb = 157; // Ø
-//		const char flag = 80; // P
+		const char bomb = 207; // ¤
+		const char flag = 80; // P
 
 //		const char arrowL = 60; // <
 //		const char arrowR = 62; // >
@@ -554,6 +554,9 @@ int main (int argc, char* argv[]){
 	int_fast64_t userMoveType;
 
 	bool hasLost = false;
+	bool hasWon = false;
+	bool winCheckerKnowAll = true;
+	bool winCheckerFlagAll = true;
 
 	//cout << "█▓▒░┏╋┓┣┫┃┗┳┻━┛◦●◌○!→←↑↓P" << endl;
 
@@ -571,7 +574,7 @@ int main (int argc, char* argv[]){
 		cin.clear();
 		cin.ignore();
 	}while(cin.fail() || userWantBoardSizeY < 1);
-	if (userWantBoardSizeX < userWantBoardSizeY) {
+	if (userWantBoardSizeX > userWantBoardSizeY) {
 		int_fast64_t swap = userWantBoardSizeX;
 		cout << "The height and width have been swapped" << endl;
 		userWantBoardSizeX = userWantBoardSizeY;
@@ -592,36 +595,37 @@ int main (int argc, char* argv[]){
 		do{
 			hasEnteredX = false;
 			hasEnteredY = false;
+			displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
 			do{
-				displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
-				cout << "Selected location is ( <entering>, <not-entered>)" << endl;
-				cout << "Enter the 'X' location: " << endl;
-				cin >> userMoveX;
-			}while(userMoveX < 1 || userMoveX > userWantBoardSizeX);
-			hasEnteredX = true;
-			do{
-				displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
-				cout << "Selected location is ( " << userMoveX << ", <entering>)" << endl;
+				cout << "Selected location is ( <not entered>,<entering>)" << endl;
 				cout << "Enter the 'Y' location: " << endl;
 				cin >> userMoveY;
 			}while(userMoveY < 1 || userMoveY > userWantBoardSizeY);
 			hasEnteredY = true;
 			do{
-				displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
+				cout << "Selected location is ( <entering>, " << userMoveY << ")" << endl;
+				cout << "Enter the 'X' location: " << endl;
+				cin >> userMoveX;
+			}while(userMoveX < 1 || userMoveX > userWantBoardSizeX);
+			hasEnteredX = true;
+			do{
 				cout << "Selected location is (" << userMoveX << ", " << userMoveY << ")" << endl;
 				cout << "Select your move:" << endl;
 				cout << "   1: Click Square" << endl;
-				cout << "   2. Flag Square NOT YET HAR" << endl;
+				cout << "   2. Flag Square Toggle done?" << endl;
 				cout << "   0. Pick a different location" << endl;
 				cin >> userMoveType;
 
 				userMoveY--;
 				userMoveX--;
-			}while(userMoveType < 0 || userMoveType > 1);
-		}while(userMoveType == 0 || ((userMoveType == 1 || userMoveType == 2) && dataBoard[userMoveY][userMoveX].isKnown == true));
+			}while(userMoveType < 0 || userMoveType > 2);
+		}while(userMoveType == 0 || ((userMoveType == 1) && dataBoard[userMoveY][userMoveX].isFlag == true) || ((userMoveType == 1 || userMoveType == 2) && dataBoard[userMoveY][userMoveX].isKnown == true));
+		if (userMoveType == 2) {
+			dataBoard[userMoveY][userMoveX].isFlag = !dataBoard[userMoveY][userMoveX].isFlag;
+		}
 		if(dataBoard[userMoveY][userMoveX].isBomb == true && userMoveType == 1) {
+			dataBoard[userMoveY][userMoveX].isKnown = true;
 			hasLost = true;
-			break;
 		}
 		if (userMoveType == 1 && dataBoard[userMoveY][userMoveX].isKnown == false && dataBoard[userMoveY][userMoveX].isBomb == false) {
 			dataBoard[userMoveY][userMoveX].isKnown = true;
@@ -630,10 +634,60 @@ int main (int argc, char* argv[]){
 			}
 		}
 
-	} while(hasLost == false);
+		winCheckerKnowAll = true;
+		winCheckerFlagAll = true;
+		for (int_fast64_t y = 0; y < userWantBoardSizeY; y++) {
+			for (int_fast64_t x = 0; x < userWantBoardSizeX; x++) {
+				if(dataBoard[y][x].isKnown == false && dataBoard[y][x].isBomb == false) {
+					winCheckerKnowAll = false;
+					break;
+				}
+				if (dataBoard[y][x].isBomb == true && dataBoard[y][x].isFlag == false) {
+					winCheckerFlagAll = false;
+					break;
+				}
+				if(dataBoard[y][x].isBomb == false && dataBoard[y][x].isFlag == true) {
+					winCheckerFlagAll = false;
+					break;
+				}
+			}
+			if (winCheckerKnowAll == false || winCheckerFlagAll == false) {
+				break;
+			}
+		}
+	} while(hasLost == false && hasWon == false);
 
 
+	for (int_fast64_t y = 0; y < userWantBoardSizeY; y++) {
+		for (int_fast64_t x = 0; x < userWantBoardSizeX; x++) {
+			if (dataBoard[y][x].isBomb == true) {
+				dataBoard[y][x].isKnown = true;
+			}
+		}
+	}
 
+	if (hasWon == true) {
+		cout << "Winner winner" << endl;
+		cout << "Chicken dinner!" << endl;
+	}
+	else if (hasLost == true) {
+		cout << "Ya done did lose" << endl;
+	}
+	else{
+		cout << "How the hell have you broken this?" << endl;
+	}
+	displayBoard(userWantBoardSizeY, userWantBoardSizeX, dataBoard);
+	if (hasWon == true) {
+		cout << "Winner winner" << endl;
+		cout << "Chicken dinner!" << endl;
+	}
+	else if (hasLost == true) {
+		cout << "Ya done did lose" << endl;
+	}
+	else{
+		cout << "How the hell have you broken this?" << endl;
+	}
+	system("pause");
 
 
 	for(int_fast64_t i = 0; i < userWantBoardSizeY; ++i){
