@@ -1,0 +1,38 @@
+//This program tests if an input is a palindrome
+//By Rus hoffman and
+#include <iostream>
+#include <cctype>
+#include <cstring>
+
+using namespace std;
+
+
+/*
+Promps the user to input a string of a size 50 characters or less.
+
+Your program should then determine whether or not the entered string is a palindrome.
+A message should be displayed to the user informing them whether or not their string is a palindrome
+*/
+void removeSpaces(char *str){
+	int count = 0;
+	for (int i = 0; str[i]; i++){
+		if (str[i] != ' '){
+			str[count++] = str[i];
+		}
+	}
+	str[count] = '\0';
+}
+int main(){
+	char* userInput = new char[51];
+	cout << "Enter some text: " << endl;
+	cin.getline(userInput, 51);
+	removeSpaces(userInput);
+	string stringVersion = userInput;
+	if(stringVersion == string(stringVersion.rbegin(), stringVersion.rend()))
+		cout << "Entered text is a palindrome" << endl;
+	else if(stringVersion != string(stringVersion.rbegin(), stringVersion.rend()))
+		cout << "Entered text is not a palindrome" << endl;
+	else
+		cout << "Error" << endl;
+	return 0;
+}
