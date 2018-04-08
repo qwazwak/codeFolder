@@ -426,6 +426,12 @@
 using namespace std;
 
 int main (){
-	MessageBox(NULL, "Resource not available\nDo you want to try again?", "Account Details", MB_ICONWARNING | MB_CANCELTRYCONTINUE | MB_DEFBUTTON2);
+
+
+HANDLE  hConsole;
+int blockError = COLORREALLYRED + (baseBlockColor * 16);
+		cout << "X";
+		SetConsoleTextAttribute(hConsole, blockError);
+		cout << "X";
 	return 0;
 }

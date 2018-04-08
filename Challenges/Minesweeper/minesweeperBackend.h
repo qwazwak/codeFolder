@@ -7,10 +7,11 @@
 	#include <cstdint>
 
 	struct sweepSquare{
-		bool isKnown;
-		bool isBomb;
-		bool isEmpty;
-		int numBombNear;
+		bool isKnown = false;
+		bool isBomb = false;
+		bool isEmpty = true;
+		int numBombNear = 0;
+		bool isFlag = false;
 	};
 	/*
 		Pre:
