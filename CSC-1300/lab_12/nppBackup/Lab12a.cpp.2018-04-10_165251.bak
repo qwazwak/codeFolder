@@ -1,5 +1,5 @@
 //This program tests a password to see if the format is correct
-//By Rus hoffman and Sam O'Heron
+//By Rus hoffman and
 #include <iostream>
 #include <cctype>
 #include <cstring>
