@@ -283,7 +283,7 @@
 */
 
 
-//#include <iostream>
+#include <iostream>
 /*
 	system("pause")
 		Enter any key to continue..
@@ -343,7 +343,7 @@
 */
 
 
-//#include <string>
+#include <string>
 /*
 	real strings
 	cstringvariable = stringVariableName.c_str();
@@ -473,9 +473,65 @@
 using namespace std;
 
 
+void setupValues(studentArrayShell& inputShell){
+	inputShell.testCount = 0;
+	inputShell.testAvg = new long[1];
+	inputShell.studentCountMaxID = 0;
+	//inputShell.studentCapacity = 1;
+	inputShell.students = new student[1];
+}
+
+void expandStudentHolderArray(studentArrayShell& dataShell){
+	student* newArray = new student[dataShell. + 1];
+	for (long i = 0; i < currentSize; i++) {
+		newArray[i].name = input[i].name;
+		for (long j = 0; j < testPerStudent; j++) {
+			newArray[i].grade[j] = input[i].grade[j];
+		}
+	}
+	input = newArray;
+	currentSize++;
+	delete[] newArray;
+}
 
 
+void updateAverage(studentArrayShell& dataShell){
+	long sumHolder[dataShell.testCount];
+	for (long x = 0; x < dataShell.testCount; x++) {
+		sumHolder[x] = 0;
+	}
+	for (long j = 0; j < dataShell.testCount; j++) {
+		for (long i = 0; i < dataShell.studentCountMaxID + 1; i++) {
+			sumHolder[j] = sumHolder[j] + dataShell.students[i].grade[j];
+		}
+	}
 
-void function (){
+	for (long i = 0; i < dataShell.testCount; i++) {
+		dataShell.testAvg[i] = ( static_cast<double>(sumHolder[i]) / static_cast<double>(dataShell.testCount));
+	}
+}
 
+
+void addStudent(studentArrayShell& dataShell, student inputToAdd) {
+	expandStudentHolderArray(dataShell);
+
+	cout << "MARKER_--------------------------" << endl;
+	dataShell.students[dataShell.studentCountMaxID].name = inputToAdd.name;
+	cout << "MARKER_--------------------------" << endl;
+	dataShell.students[dataShell.studentCountMaxID].grade = new long[dataShell.testCount];
+	for (long i = 0; i < dataShell.testCount; i++) {
+		dataShell.students[dataShell.studentCountMaxID].grade[i] = inputToAdd.grade[i];
+	}
+	dataShell.studentCountMaxID++;
+}
+
+
+void applyCurve(studentArrayShell& dataShell, long testID, double curveVal){
+	updateAverage(dataShell);
+	double curveDelta = static_cast<double>(curveVal) - dataShell.testAvg[testID];
+	if(curveDelta > 0.0){
+		for (long i = 0; i <= dataShell.studentCountMaxID; i++) {
+			dataShell.students[i].grade[testID] =dataShell.students[i].grade[testID] + curveDelta;
+		}
+	}
 }

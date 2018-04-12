@@ -1,0 +1,61 @@
+5
+Holly Johnson
+83
+47
+93
+45
+78
+Robert Smith
+83
+72
+55
+66
+58
+Fred Mercury
+47
+57
+59
+94
+51
+Robert Plant
+76
+83
+58
+79
+85
+Cy Curnin
+75
+90
+42
+96
+85
+Paul Westerberg
+96
+73
+58
+93
+70
+Ian Curtis
+81
+56
+47
+87
+97
+Paul Weller
+70
+46
+92
+82
+77
+Roland Gift
+100
+65
+70
+83
+75
+Ian McCulloch
+58
+49
+91
+91
+87

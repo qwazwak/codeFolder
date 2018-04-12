@@ -9,94 +9,24 @@
 	using namespace std;
 	struct student;
 	class studentArrayShell;
+
+	struct studentArrayShell{
+		long testCount;
+		long* testAvg;
+		long studentCountMaxID;
+		//long studentCapacity;
+		student* students = NULL;
+	};
 	struct student {
 		string name;
-		double* grades = NULL;
+		long* grade = NULL;
 	};
 
-
-	class studentArrayShell{
-		long numTests;
-		long numOfStudents;
-		long numOfPossible;
-		student* studentsArr = NULL;
-		double* gradeAvg = NULL;
-
-		void expandArray(){
-			student* newArray = new student[numOfPossible * 2];
-			for (long i = 0; i < numOfPossible; i++) {
-				newArray[i] = studentsArr[i];
-			}
-			studentsArr = newArray;
-			delete[] newArray;
-		}
-		void updateAverage(){
-			delete[] gradeAvg;
-			double sumHolder[numTests];
-			for (long x = 0; x < numTests; x++) {
-				sumHolder[x] = 0;
-			}
-			for (long j = 0; j < numTests; j++) {
-				for (long i = 0; i < numOfStudents; i++) {
-					sumHolder[j] = sumHolder[j] + studentsArr[i].grades[j];
-				}
-			}
-			gradeAvg = new double[numTests];
-			for (long i = 0; i < numTests; i++) {
-				gradeAvg[i] = (sumHolder[i] / static_cast<double>(numTests));
-			}
-		}
-
-		public:
-			long getNumStudents(){
-				return numOfStudents;
-			}
-			double getStudentGrade(long studentNumber, long testID){
-				return studentsArr[studentNumber].grades[testID];
-			}
-			string getStudentName(long studentNumber){
-				return studentsArr[studentNumber].name;
-			}
-			long getTestCount(){
-				return numTests;
-			}
-			void initializeValues(long numOfTests){
-				numTests = numOfTests;
-				numOfStudents = 0;
-				numOfPossible = 1;
-				studentsArr = new student[1];
-			}
-			void addStudentM(string name, double* inputGrades) {
-				if (numOfStudents >= numOfPossible) {
-					expandArray();
-					}
-				studentsArr[numOfStudents].name = name;
-				for (long i = 0; i < numTests; i++) {
-					studentsArr[numOfStudents].grades[i] = inputGrades[i];
-				}
-				numOfStudents++;
-			}
-			void addStudentA(student input) {
-				if (numOfStudents >= numOfPossible) {
-					expandArray();
-					}
-				studentsArr[numOfStudents].name = input.name;
-				for (long i = 0; i < numTests; i++) {
-					studentsArr[numOfStudents].grades[i] = input.grades[i];
-				}
-				numOfStudents++;
-			}
-			void applyCurve(long testID, double curveVal){
-				updateAverage();
-				if((curveVal - gradeAvg[testID]) >= 0){
-					for (long i = 0; i < numOfStudents; i++) {
-						studentsArr[i].grades[testID] = studentsArr[i].grades[testID] + (curveVal - gradeAvg[testID]);
-					}
-				}
-			}
-
-	};
-
+	void setupValues(studentArrayShell& inputShell);
+	void expandStudentHolderArray(studentArrayShell& dataShell);
+	void updateAverage(studentArrayShell& dataShell);
+	void addStudent(studentArrayShell& dataShell, student inputToAdd);
+	void applyCurve(studentArrayShell& dataShell, long testID, double curveVal);
 
 	/*
 		Pre:

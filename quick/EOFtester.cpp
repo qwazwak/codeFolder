@@ -6,19 +6,6 @@
 #define __x86_64 1 //(also __x86_64__)
 #define __amd64 1 //(also __amd64__)
 
-#include "P4Func.hpp"
-
-
-
-//#include "BigBadLib_Full.h"
-//#include "BigBadLib_CSC.h"
-//#include "EasyBMP.h"
-//#include "EasyBMP_Font.h"
-//#include "EasyBMP_Geometry.h"
-//#include "EasyBMP_SimpleArray.h"
-
-//#include <quadmath.h>
-//Needed for more than just float128
 
 
 //#include <boost/multiprecision/cpp_int.hpp>
@@ -383,6 +370,7 @@
 */
 
 
+#include <cstring>
 #include <string>
 /*
 	real strings
@@ -596,118 +584,21 @@ Notes and info:
 	Finally, you will present formatted output showing the students name, their scores (possibly modified by the curve) on each exam followed by their final average in the course showing 2 decimal places.
 */
 
-int main (int argc, char* argv[]){
-	char filename[255];
-	/*if (argc != 2) {
-		cout << "Ivalid argument count" << endl;
-		cout << "To use this program you must specify the grades file and curve value" << endl;
-		cout << "ex: " << argv[0] << " gradesFile.txt 75" << endl;
-		return 0;
-	}
-	{
-		strcpy(filename, argv[1]);
-		char tempHolder;
-		ifstream inputTester;
-		bool isInputGood = false;
-		inputTester.open(filename);
-		inputTester >> tempHolder;
-		if (!inputTester) {
-			inputTester.close();
-			cout << "Error with file" << endl;
-			cout << "File name is invalid" << endl;
-			do {
-				do {
-					cout << "Enter a new file name: " << endl;
-					cin >> filename;
-				} while(cin.fail());
-				inputTester.open(filename);
-				if (!inputTester) {
-					cout << "Error with file" << endl;
-					isInputGood = false;
-				}
-				else{
-					isInputGood = true;
-				}
-				inputTester.close();
-			} while(isInputGood == true);
-		}
-		else{
-			inputTester.close();
-		}
-	}*/
-	//Input is now validated
-	ifstream dataLoader;
-	studentArrayShell studentBase;
-	student tempStud;
-	long localNumTest;
-	long tempNum;
-	string tempName;
-	string tempNametwo;
-
-	studentBase.studentCountMaxID = 0;
-	//studentBase.studentCapacity = 0;
-
-	//Variables are made
-
-
-
-	//dataLoader.open(filename);
-	dataLoader.open("Students.txt");
-
-	dataLoader >> localNumTest;
-	dataLoader.ignore();
-	studentBase.testCount = localNumTest;
-	tempStud.grade = new long[localNumTest];
-	cout << "Test count: " << localNumTest << endl;
+int main (){
+	ifstream readData;
+	bool EOFReached = false;
+	readData.open("numbers.txt");
+	long numHold;
+	string tempWord;
 	do {
-		dataLoader >> tempName;
-		dataLoader.ignore();
-		dataLoader >> tempNametwo;
-		dataLoader.ignore();
-		cout << "TempName: " << tempName + " " + tempNametwo << endl;
-		tempStud.name = tempName + " " + tempNametwo;
-		if (dataLoader.fail()) {
-			cout << "nameERROR" << endl;
-		}
+		readData >> tempWord;
+		cout << tempWord << endl;
+		readData >> numHold;
+		cout << numHold << endl;
 
-		for (long gn = 0; gn < studentBase.testCount; gn++) {
-			dataLoader >> tempNum;
-			dataLoader.ignore();
-			cout << tempNum << endl;
-			tempStud.grade[gn] = tempNum;
-			if (dataLoader.fail()) {
-				cout << "grade ERROR" << endl;
-			}
-
-		}
+	} while(!readData.eof());
 
 
-		addStudent(studentBase, tempStud);
-
-
-		cout << "Count: " << studentBase.studentCountMaxID << endl;
-		//cout << "capacity: " << studentBase.studentCapacity << endl;
-	} while(!dataLoader.eof());
-	dataLoader.close();
-
-
-	for (long i = 0; i <= studentBase.studentCountMaxID; i++) {
-		cout << studentBase.students[i].name << ":  ";
-		for (long j = 0; j < studentBase.testCount; j++) {
-			cout << studentBase.students[i].grade[j];
-			if (j != (studentBase.testCount - 1)) {
-				cout << "  -  ";
-			}
-		}
-		cout << endl;
-	}
-
-
-
-	for (long i = 0; i < studentBase.testCount; i++) {
-		delete[] studentBase.students[i].grade;
-	}
-	delete[] studentBase.students;
 	cout << "Press enter to close program..." << endl;
 	cin.ignore();
 	return 0;
