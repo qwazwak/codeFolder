@@ -8,8 +8,9 @@
 	#include <string>
 	using namespace std;
 	struct student;
+	class studentArrayShell;
 	struct student {
-		string studentName;
+		string name;
 		double* grades = NULL;
 	};
 
@@ -56,7 +57,7 @@
 				if (numOfStudents >= numOfPossible) {
 					expandArray();
 					}
-				studentsArr[numOfStudents].studentName = name;
+				studentsArr[numOfStudents].name = name;
 				for (long i = 0; i < numTests; i++) {
 					studentsArr[numOfStudents].grades[i] = inputGrades[i];
 				}

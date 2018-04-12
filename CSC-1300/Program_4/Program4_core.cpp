@@ -643,21 +643,41 @@ int main (int argc, char* argv[]){
 			inputTester.close();
 		}
 	}
+	//Input is now validated
+	student tempStud;
+	ifstream dataLoader;
+	bool EOFReached;
+
+	long gradesPerStudent;
 
 
+	studentArrayShell studentBase;
+	//Variables are made
+
+	dataLoader.open(filename);
+
+
+
+	dataLoader >> tempStud.name;
+	for (long gn = 0; gn < gradesPerStudent; gn++) {
+		dataLoader >> tempStud.grades[gn];
+	}
 	do {
-		/* code */
-	} while(/* condition */);
+		dataLoader >> tempStud.name;
+		for (long gn = 0; gn < gradesPerStudent; gn++) {
+			dataLoader >> tempStud.grades[gn];
+		}
 
 
-	do{
-		cout << "" << endl;
-		cout << "" << endl;
-		cout << "" << endl;
-		cin >> input;
-		cin.clear();
-		cin.ignore();
-	}while(cin.fail() || input < 4 || input > 6666);
+		if (dataLoader.eof()) {
+			EOFReached = true;
+			break;
+		}
+
+
+	} while(EOFReached == false);
+
+
 
 
 
