@@ -48,18 +48,41 @@
 		}
 
 		public:
-			void initializeValues(){
+			long getNumStudents(){
+				return numOfStudents;
+			}
+			double getStudentGrade(long studentNumber, long testID){
+				return studentsArr[studentNumber].grades[testID];
+			}
+			string getStudentName(long studentNumber){
+				return studentsArr[studentNumber].name;
+			}
+			long getTestCount(){
+				return numTests;
+			}
+			void initializeValues(long numOfTests){
+				numTests = numOfTests;
 				numOfStudents = 0;
 				numOfPossible = 1;
 				studentsArr = new student[1];
 			}
-			void addStudent (string name, double* inputGrades) {
+			void addStudentM(string name, double* inputGrades) {
 				if (numOfStudents >= numOfPossible) {
 					expandArray();
 					}
 				studentsArr[numOfStudents].name = name;
 				for (long i = 0; i < numTests; i++) {
 					studentsArr[numOfStudents].grades[i] = inputGrades[i];
+				}
+				numOfStudents++;
+			}
+			void addStudentA(student input) {
+				if (numOfStudents >= numOfPossible) {
+					expandArray();
+					}
+				studentsArr[numOfStudents].name = input.name;
+				for (long i = 0; i < numTests; i++) {
+					studentsArr[numOfStudents].grades[i] = input.grades[i];
 				}
 				numOfStudents++;
 			}

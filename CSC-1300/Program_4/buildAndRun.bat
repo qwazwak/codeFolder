@@ -1,8 +1,5 @@
-g++ -c file.cpp -std=c++
-g++ -c file.cpp -std=c++
-g++ -c file.cpp -std=c++
-g++ -c file.cpp -std=c++
-g++ -c file.cpp -std=c++
-g++ -o output.exe file.o file.o file.o  -std=c++
-output.exe
+g++ -c Program4_core.cpp -std=c++98
+g++ -c P4Func.cpp -std=c++98
+g++ -o output.exe Program4_core.o P4Func.o -std=c++98
+output.exe Students.txt
 pause

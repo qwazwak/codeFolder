@@ -599,7 +599,7 @@ Notes and info:
 
 int main (int argc, char* argv[]){
 	char filename[255];
-	if (argc != 2) {
+	/*if (argc != 2) {
 		cout << "Ivalid argument count" << endl;
 		cout << "To use this program you must specify the grades file and curve value" << endl;
 		cout << "ex: " << argv[0] << " gradesFile.txt 75" << endl;
@@ -621,63 +621,62 @@ int main (int argc, char* argv[]){
 					cout << "Enter a new file name: " << endl;
 					cin >> filename;
 				} while(cin.fail());
-
-				if (!((filename[strlen(filename)-1] == 't') &&
-					(filename[strlen(filename)-2] == 'x') &&
-					(filename[strlen(filename)-3] == 't') &&
-					(filename[strlen(filename)-4] == '.'))) {
-						cout << "File extention is invalid, try again" << endl;
-						continue;
-				}
 				inputTester.open(filename);
 				if (!inputTester) {
-					inputTester.close();
 					cout << "Error with file" << endl;
-					continue;
+					isInputGood = false;
+				}
+				else{
+					isInputGood = true;
 				}
 				inputTester.close();
-			} while(isInputGood);
-			inputTester.close();
+			} while(isInputGood == true);
 		}
 		else{
 			inputTester.close();
 		}
-	}
+	}*/
 	//Input is now validated
 	student tempStud;
 	ifstream dataLoader;
-	bool EOFReached;
-
+	bool EOFReached = false;
 	long gradesPerStudent;
 
 
 	studentArrayShell studentBase;
 	//Variables are made
 
-	dataLoader.open(filename);
+	//dataLoader.open(filename);
+	dataLoader.open("Students.txt");
 
+	cout << "opened" << endl;
 
-
-	dataLoader >> tempStud.name;
-	for (long gn = 0; gn < gradesPerStudent; gn++) {
-		dataLoader >> tempStud.grades[gn];
-	}
+	dataLoader >> gradesPerStudent;
+	studentBase.initializeValues(gradesPerStudent);
 	do {
+		cout << "loop" << endl;
 		dataLoader >> tempStud.name;
 		for (long gn = 0; gn < gradesPerStudent; gn++) {
 			dataLoader >> tempStud.grades[gn];
 		}
-
-
 		if (dataLoader.eof()) {
 			EOFReached = true;
 			break;
+		}
+		else {
+			studentBase.addStudentA(tempStud);
 		}
 
 
 	} while(EOFReached == false);
 
-
+	for (long i = 0; i < studentBase.getNumStudents(); i++) {
+		cout << studentBase.getStudentName(i) << ":  ";
+		for (long j = 0; j < studentBase.getTestCount(); j++) {
+			cout << studentBase.getStudentGrade(i, j) << "  -  ";
+		}
+		cout << endl << endl;
+	}
 
 
 

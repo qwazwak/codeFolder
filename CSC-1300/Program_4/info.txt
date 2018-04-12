@@ -1,0 +1,59 @@
+Program 4 : Modified Grade Book
+	Objective: Learn to use everything we have covered this semester, Learn to create programs across multiple files, Practice creating your own data types
+	Concepts: Arrays, Pointers, Structs, Command Line Options, Header Files
+	Description
+		Doctor Brown maintains a system to monitor and maintain his grades over the course of the semester. His main problems are:
+		He does not know, semester to semester, how many tests he will give his students
+		He does not know, semester to semester, how many students he will have
+		This means he has been forced to be ...creative... in his grading system. Doc maintains a file and every semester it is configured the same way. The first line of the file contains the number of tests the students took that semester. The second line is the first students name, followed on subsequent lines by the test scores on the appropriate number of tests. This information is followed by the next student, etc.
+		In addition, Doc will sometimes allow a test to be curved if the class average on that test is under some threshold (usually 70% but he does modify that sometimes) so once you have read in the tests you will need to see if any of the tests are eligible for curving, and if Doc says it is ok, apply the curve to all students in for that test.
+		Finally, you will present formatted output showing the students name, their scores (possibly modified by the curve) on each exam followed by their final average in the course showing 2 decimal places.
+	Input
+		The user will provide the name of a student file and the grade the curve goes to as command line arguments at the time the program is executed.
+			If the file does not exist, prompt the user for a new file.
+			If the user provided the wrong number of arguments, indicate the issue and exit the program.
+			The file will be formatted in the manner outlined in the description.
+	Necessary Structs
+		Your file should implement an "Array" struct, "Student" struct and a "Students" struct.
+			The array struct should contain
+				An array of floats
+				The number of values in the array
+				The maximum number of values in the array
+				You array should also contain the information necessary to work with the array. For this array (and only for this array) you can assume you know the size of the array when building it
+			The student should contain
+				A string for the users name
+				An Array that contains the scores this user received on their tests
+				You array should also contain the information necessary to work with the Student
+			The students should contain
+				An array that contains the students in the class
+				The current number of elements in the array
+				The maximum number of elements in the array
+				You array should also contain the information necessary to work with the Student
+				Note: You will NOT know the number of students during execution. Because of this, your array should initially be size 2 and be able to expand as necessary to 2 times the size
+	Output
+		The program should read in the file, storing the information in the necessary structs. It should then present the average on each individual test. If the amount is under the curve value provided by the user, they should be prompted to see if they wish to apply the curve. If they do wish to apply the curve, an amount equal to the curve minus the average score is applied to the individual test scores.
+	Sample Output
+		C:\CSC1300\Programs> Grades.exe Students.txt 70
+		The grades on test 1 average to at 68.3. Do you want to curve? y
+		The grades on test 2 average to a 83.3. There is no need to curve.
+		The grades on test 3 average to a 58.6. Do you want to curve? n
+		The grades on test 4 average to a 71. There is no need to curve.
+		The grades on test 5 average to a 69. Do you want to curve? y
+		With the curves in place the scores are:
+
+Student Test 1 Test 2 Test 3 Test 4 Test 5 Average
+Holly Johnson	83	47	93	45	78	69.74
+...
+
+
+
+	Provided Files
+		Students.txt
+
+
+
+Notes and info:
+
+
+	In addition, Doc will sometimes allow a test to be curved if the class average on that test is under some threshold (usually 70% but he does modify that sometimes) so once you have read in the tests you will need to see if any of the tests are eligible for curving, and if Doc says it is ok, apply the curve to all students in for that test.
+	Finally, you will present formatted output showing the students name, their scores (possibly modified by the curve) on each exam followed by their final average in the course showing 2 decimal places.
