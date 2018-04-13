@@ -7,26 +7,28 @@
 
 	#include <string>
 	using namespace std;
+
 	struct student;
-	class studentArrayShell;
+	struct studentArrayShell;
 
 	struct studentArrayShell{
 		long testCount;
-		long* testAvg;
-		long studentCountMaxID;
-		//long studentCapacity;
+		double* testAvg;
+		long studentCount;
+		long studentCapacity;
 		student* students = NULL;
 	};
 	struct student {
 		string name;
 		long* grade = NULL;
+		double average;
 	};
 
-	void setupValues(studentArrayShell& inputShell);
-	void expandStudentHolderArray(studentArrayShell& dataShell);
-	void updateAverage(studentArrayShell& dataShell);
-	void addStudent(studentArrayShell& dataShell, student inputToAdd);
-	void applyCurve(studentArrayShell& dataShell, long testID, double curveVal);
+	//void setupValues(studentArrayShell& inputShell);
+	void expandStudentArray(studentArrayShell& inputBase);
+	//void updateStats(studentArrayShell& dataShell);
+	//void addStudent(studentArrayShell& dataShell, student inputToAdd);
+	//void applyCurve(studentArrayShell& dataShell, long testID, double curveVal);
 
 	/*
 		Pre:

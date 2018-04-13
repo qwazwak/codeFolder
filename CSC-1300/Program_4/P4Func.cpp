@@ -472,58 +472,54 @@
 
 using namespace std;
 
-
-void setupValues(studentArrayShell& inputShell){
-	inputShell.testCount = 0;
-	inputShell.testAvg = new long[1];
-	inputShell.studentCountMaxID = 0;
-	//inputShell.studentCapacity = 1;
-	inputShell.students = new student[1];
-}
-
-void expandStudentHolderArray(studentArrayShell& dataShell){
-	student* newArray = new student[dataShell. + 1];
-	for (long i = 0; i < currentSize; i++) {
-		newArray[i].name = input[i].name;
-		for (long j = 0; j < testPerStudent; j++) {
-			newArray[i].grade[j] = input[i].grade[j];
+void expandStudentArray(studentArrayShell& inputBase){
+	student* newArray = new student[inputBase.studentCapacity + 1];
+	for (long i = 0; i < inputBase.studentCapacity; i++) {
+		newArray[i].name = inputBase.students[i].name;
+		newArray[i].grade = new long[inputBase.testCount];
+		for (long j = 0; j < inputBase.testCount; j++) {
+			newArray[i].grade[j] = inputBase.students[i].grade[j];
 		}
 	}
-	input = newArray;
-	currentSize++;
-	delete[] newArray;
+	newArray[inputBase.studentCapacity].grade = new long[inputBase.testCount];
+	delete[] inputBase.students;
+	inputBase.students = newArray;
+	inputBase.studentCapacity++;
 }
 
-
-void updateAverage(studentArrayShell& dataShell){
+/*
+void updateStats(studentArrayShell& dataShell){
 	long sumHolder[dataShell.testCount];
+	long singleHold = 0;
 	for (long x = 0; x < dataShell.testCount; x++) {
 		sumHolder[x] = 0;
 	}
-	for (long j = 0; j < dataShell.testCount; j++) {
-		for (long i = 0; i < dataShell.studentCountMaxID + 1; i++) {
-			sumHolder[j] = sumHolder[j] + dataShell.students[i].grade[j];
+	for (long j = 0; j < dataShell.studentCount; j++) {
+		singleHold = 0;
+		for (long i = 0; i < dataShell.testCount; i++) {
+			singleHold = singleHold + dataShell.students[j].grade[i];
+			sumHolder[i] = sumHolder[i] + dataShell.students[j].grade[i];
 		}
+		dataShell.students[j].average = static_cast<double>(singleHold) / static_cast<double>(dataShell.testCount);
 	}
 
 	for (long i = 0; i < dataShell.testCount; i++) {
-		dataShell.testAvg[i] = ( static_cast<double>(sumHolder[i]) / static_cast<double>(dataShell.testCount));
+		dataShell.testAvg[i] = static_cast<double>(sumHolder[i]) / static_cast<double>(dataShell.testCount);
 	}
-}
+}*/
 
-
+/*
 void addStudent(studentArrayShell& dataShell, student inputToAdd) {
 	expandStudentHolderArray(dataShell);
 
 	cout << "MARKER_--------------------------" << endl;
 	dataShell.students[dataShell.studentCountMaxID].name = inputToAdd.name;
-	cout << "MARKER_--------------------------" << endl;
 	dataShell.students[dataShell.studentCountMaxID].grade = new long[dataShell.testCount];
 	for (long i = 0; i < dataShell.testCount; i++) {
 		dataShell.students[dataShell.studentCountMaxID].grade[i] = inputToAdd.grade[i];
 	}
 	dataShell.studentCountMaxID++;
-}
+
 
 
 void applyCurve(studentArrayShell& dataShell, long testID, double curveVal){
@@ -534,4 +530,4 @@ void applyCurve(studentArrayShell& dataShell, long testID, double curveVal){
 			dataShell.students[i].grade[testID] =dataShell.students[i].grade[testID] + curveDelta;
 		}
 	}
-}
+}*/

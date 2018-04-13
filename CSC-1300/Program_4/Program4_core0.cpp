@@ -382,7 +382,7 @@
 	}
 */
 
-#include <cstring>
+
 #include <string>
 /*
 	real strings
@@ -596,32 +596,9 @@ Notes and info:
 	Finally, you will present formatted output showing the students name, their scores (possibly modified by the curve) on each exam followed by their final average in the course showing 2 decimal places.
 */
 
-
-void updateStats(studentArrayShell& dataShell){
-	long sumHolder[dataShell.testCount];
-	long singleHold = 0;
-	for (long x = 0; x < dataShell.testCount; x++) {
-		sumHolder[x] = 0;
-	}
-	for (long j = 0; j < dataShell.studentCount; j++) {
-		singleHold = 0;
-		for (long i = 0; i < dataShell.testCount; i++) {
-			singleHold = singleHold + dataShell.students[j].grade[i];
-			sumHolder[i] = sumHolder[i] + dataShell.students[j].grade[i];
-		}
-		dataShell.students[j].average = static_cast<double>(static_cast<double>(singleHold) / static_cast<double>(dataShell.testCount));
-	}
-
-	for (long i = 0; i < dataShell.testCount; i++) {
-		dataShell.testAvg[i] = static_cast<double>(static_cast<double>(sumHolder[i]) / static_cast<double>(dataShell.testCount));
-	}
-}
-
-
-
 int main (int argc, char* argv[]){
 	char filename[255];
-	if (argc != 3) {
+	/*if (argc != 2) {
 		cout << "Ivalid argument count" << endl;
 		cout << "To use this program you must specify the grades file and curve value" << endl;
 		cout << "ex: " << argv[0] << " gradesFile.txt 75" << endl;
@@ -657,85 +634,81 @@ int main (int argc, char* argv[]){
 		else{
 			inputTester.close();
 		}
-	}
+	}*/
 	//Input is now validated
 	ifstream dataLoader;
 	studentArrayShell studentBase;
-	//student tempStud;
-	//long localNumTest;
-	string tempNameA;
-	string tempNameB;
-	string tempCombo;
-	long curveVal = 99;
-	//atol(argv[2]);
+	student tempStud;
+	long localNumTest;
+	long tempNum;
+	string tempName;
+	string tempNametwo;
 
-	studentBase.studentCapacity = 0;
-	studentBase.studentCount = 0;
+	studentBase.studentCountMaxID = 0;
+	//studentBase.studentCapacity = 0;
+
 	//Variables are made
 
 
 
 	//dataLoader.open(filename);
-	dataLoader.open(filename);
+	dataLoader.open("Students.txt");
 
-	dataLoader >> studentBase.testCount;
+	dataLoader >> localNumTest;
 	dataLoader.ignore();
-	cout << "Test count: " << studentBase.testCount << endl;
+	studentBase.testCount = localNumTest;
+	tempStud.grade = new long[localNumTest];
+	cout << "Test count: " << localNumTest << endl;
 	do {
-		studentBase.studentCount++;
-		if (studentBase.studentCount >= studentBase.studentCapacity) {
-			expandStudentArray(studentBase);
-		}
-
-
-
-		dataLoader >> tempNameA;
-		dataLoader >> tempNameB;
-		tempCombo = "";
-		tempCombo = tempNameA + " " + tempNameB;
-		studentBase.students[studentBase.studentCount - 1].name = tempCombo;
-		cout << "TempName: " << studentBase.students[studentBase.studentCount - 1].name << endl;
+		dataLoader >> tempName;
+		dataLoader.ignore();
+		dataLoader >> tempNametwo;
+		dataLoader.ignore();
+		cout << "TempName: " << tempName + " " + tempNametwo << endl;
+		tempStud.name = tempName + " " + tempNametwo;
 		if (dataLoader.fail()) {
-			cout << "funk" << endl;
+			cout << "nameERROR" << endl;
 		}
+
 		for (long gn = 0; gn < studentBase.testCount; gn++) {
-			dataLoader >> studentBase.students[studentBase.studentCount - 1].grade[gn];
-			cout << "    " << studentBase.students[studentBase.studentCount - 1].grade[gn] << endl;
+			dataLoader >> tempNum;
+			dataLoader.ignore();
+			cout << tempNum << endl;
+			tempStud.grade[gn] = tempNum;
 			if (dataLoader.fail()) {
-				cout << "funk" << endl;
+				cout << "grade ERROR" << endl;
+			}
+
+		}
+
+
+		//addStudent(studentBase, tempStud);
+
+
+		cout << "Count: " << studentBase.studentCountMaxID << endl;
+		//cout << "capacity: " << studentBase.studentCapacity << endl;
+	} while(!dataLoader.eof() == dataLoader.eof());
+	dataLoader.close();
+
+
+	for (long i = 0; i <= studentBase.studentCountMaxID; i++) {
+		cout << studentBase.students[i].name << ":  ";
+		for (long j = 0; j < studentBase.testCount; j++) {
+			cout << studentBase.students[i].grade[j];
+			if (j != (studentBase.testCount - 1)) {
+				cout << "  -  ";
 			}
 		}
-
-
-
-
-		cout << "Count: " << studentBase.studentCount << endl;
-		cout << "capacity: " << studentBase.studentCapacity << endl;
-	} while(!dataLoader.eof());
-	dataLoader.close();
-	updateStats(studentBase);
-	for (long i = 0; i < studentBase.testCount; i++) {
-		cout << studentBase.testAvg[i] << endl;
+		cout << endl;
 	}
-	/*for (long i = 0; i < studentBase.testCount; i++) {
-		if (studentBase.testAvg[i] < static_cast<double>(curveVal)) {
-			cout << "Test #" << i + 1 << " was " << static_cast<double>(curveVal) - studentBase.testAvg[i] << " points below the curve" << endl;
-		}
-	}*/
 
 
-/*
 
-	for (long i = 0; i < studentBase.studentCount; i++) {
-		cout << studentBase.students[i].name << endl;
-		for (long j = 0; j < studentBase.testCount; j++) {
-			cout << "        " << studentBase.students[i].grade[j] << endl;
-		}
-	}*/
-
-	for (long i = 0; i < studentBase.studentCount; i++) {
+	for (long i = 0; i < studentBase.testCount; i++) {
 		delete[] studentBase.students[i].grade;
 	}
 	delete[] studentBase.students;
+	cout << "Press enter to close program..." << endl;
+	cin.ignore();
 	return 0;
 }

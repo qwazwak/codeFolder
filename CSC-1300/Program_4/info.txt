@@ -5,7 +5,10 @@ Program 4 : Modified Grade Book
 		Doctor Brown maintains a system to monitor and maintain his grades over the course of the semester. His main problems are:
 		He does not know, semester to semester, how many tests he will give his students
 		He does not know, semester to semester, how many students he will have
-		This means he has been forced to be ...creative... in his grading system. Doc maintains a file and every semester it is configured the same way. The first line of the file contains the number of tests the students took that semester. The second line is the first students name, followed on subsequent lines by the test scores on the appropriate number of tests. This information is followed by the next student, etc.
+		This means he has been forced to be ...creative... in his grading system. Doc maintains a file and every semester it is configured the same way.
+		The first line of the file contains the number of tests the students took that semester.
+		The second line is the first students name, followed on subsequent lines by the test scores on the appropriate number of tests.
+		This information is followed by the next student, etc.
 		In addition, Doc will sometimes allow a test to be curved if the class average on that test is under some threshold (usually 70% but he does modify that sometimes) so once you have read in the tests you will need to see if any of the tests are eligible for curving, and if Doc says it is ok, apply the curve to all students in for that test.
 		Finally, you will present formatted output showing the students name, their scores (possibly modified by the curve) on each exam followed by their final average in the course showing 2 decimal places.
 	Input
