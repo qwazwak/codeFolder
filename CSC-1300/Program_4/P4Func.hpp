@@ -20,8 +20,24 @@
 	};
 	struct student {
 		string name;
+		char* nameCString;
 		long* grade = NULL;
 		double average;
+	};
+	class studentDatabase {
+		protected:
+			long testCount;
+			double* testAvg;
+			long studentCount;
+			long studentCapacity;
+			student* students = NULL;
+
+
+		public:
+
+
+
+
 	};
 
 	//void setupValues(studentArrayShell& inputShell);

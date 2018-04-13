@@ -694,12 +694,16 @@ int main (int argc, char* argv[]){
 
 
 
-		dataLoader >> tempNameA;
-		dataLoader >> tempNameB;
-		tempCombo = "";
-		tempCombo = tempNameA + " " + tempNameB;
-		studentBase.students[studentBase.studentCount - 1].name = tempCombo;
-		cout << "Name: " << studentBase.students[studentBase.studentCount - 1].name << endl;
+		//dataLoader >> tempNameA;
+		//dataLoader >> tempNameB;
+		//tempCombo = "";
+		//tempCombo = tempNameA + " " + tempNameB;
+		//studentBase.students[studentBase.studentCount - 1].name = tempCombo;
+
+		dataLoader.getline(studentBase.students[studentBase.studentCount - 1].nameCString, '\n');
+		cout << "mark" << endl;
+
+		cout << "Name: " << studentBase.students[studentBase.studentCount - 1].nameCString << endl;
 		if (dataLoader.fail()) {
 			cout << "funk" << endl;
 		}
@@ -719,27 +723,27 @@ int main (int argc, char* argv[]){
 	} while(!dataLoader.eof());
 	dataLoader.close();
 	//updateStats(studentBase);
-
+/*
 
 	//cout << studentBase.students[5].grade[1] << endl;
 	for (long i = 0; i < studentBase.testCount; i++) {
 		for (long stdcnt = 0; stdcnt < studentBase.studentCount; stdcnt++) {
-			/* code */
+			 code
 		}
 		if (studentBase.testAvg[i] < curveVal) {
 			cout << "Test #" << i + 1 << " was " << curveVal - studentBase.testAvg[i] << " points below the curve" << endl;
 		}
 	}
 
+*/
 
-/*
 
 	for (long i = 0; i < studentBase.studentCount; i++) {
-		cout << studentBase.students[i].name << endl;
+		cout << studentBase.students[i].nameCString << endl;
 		for (long j = 0; j < studentBase.testCount; j++) {
 			cout << "        " << studentBase.students[i].grade[j] << endl;
 		}
-	}*/
+	}
 
 	for (long i = 0; i < studentBase.studentCount; i++) {
 		delete[] studentBase.students[i].grade;
