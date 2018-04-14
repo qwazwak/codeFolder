@@ -664,31 +664,39 @@ int main (int argc, char* argv[]){
 	}
 	//Input is now validated
 	ifstream dataLoader;
-	classDatabase studentBase;
+	studentArrayShell studentBase;
 	student loaderStudent;
-	long localNumTest;
+	//long localNumTest;
 	string tempNameA;
 	string tempNameB;
 	string tempCombo;
 	double curveVal = atof(argv[2]);
 
+	studentBase.studentCapacity = 0;
+	studentBase.studentCount = 0;
 	//Variables are made
 
 
 
+	//dataLoader.open(filename);
 	dataLoader.open(filename);
 
-	dataLoader >> localNumTest;
-	studentBase.setupVal(localNumTest);
+	dataLoader >> studentBase.testCount;
 	dataLoader.ignore();
-	cout << "Test count: " << studentBase.getTestCount() << endl;
+	cout << "Test count: " << studentBase.testCount << endl;
 
 	do {
+		studentBase.studentCount++;
+		if (studentBase.studentCount >= studentBase.studentCapacity) {
+			expandStudentArray(studentBase);
+		}
 
 
-		dataLoader.ignore();
-		getline(dataLoader, loaderStudent.name);
 
+		dataLoader >> tempNameA;
+		dataLoader >> tempNameB;
+		tempCombo = "";
+		tempCombo = tempNameA + " " + tempNameB;
 		studentBase.students[studentBase.studentCount - 1].name = tempCombo;
 		cout << "Name: " << studentBase.students[studentBase.studentCount - 1].name << endl;
 		if (dataLoader.fail()) {

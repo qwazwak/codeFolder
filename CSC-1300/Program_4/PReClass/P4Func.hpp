@@ -34,14 +34,11 @@
 			long studentCount;
 			long studentCapacity;
 			student* studentArray = NULL;
-		public:
+		private:
 			void setupVal (long numTests);
 			void updateInternals (void);
 			void addStudent (student inputStudent);
 
-			long getTestCount(void){
-				return testCount;
-			}
 			student getStudent (long studentID);
 			double getTestAverage (long testID);
 
