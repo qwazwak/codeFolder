@@ -1,0 +1,2 @@
+C:/codeFolder/Challenges/Minesweeper/CMakeFiles/edit_cache.dir
+C:/codeFolder/Challenges/Minesweeper/CMakeFiles/rebuild_cache.dir

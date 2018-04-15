@@ -1,6 +1,9 @@
 /*
+	Program 4: Modified Gradebook
+
+	class header file
+
 	Created by Rus Hoffman
-	This should my template, and should change
 */
 #if !defined GRADINGFUNC
 	#define GRADINGFUNC
@@ -8,20 +11,10 @@
 	#include <string>
 	using namespace std;
 
-	struct student;
-	struct studentArrayShell;
-	class classDatabase;
-	struct studentArrayShell{
-		long testCount;
-		double* testAvg;
-		long studentCount;
-		long studentCapacity;
-		student* students = NULL;
-	};
 	struct student {
 		string name;
-		char* nameCString;
-		long* grade = NULL;
+		//char* nameCString;
+		double* grade = NULL;
 		double average;
 	};
 	class classDatabase {
@@ -35,23 +28,29 @@
 			long studentCapacity;
 			student* studentArray = NULL;
 		public:
+			long getLongNameSize (void);
 			void setupVal (long numTests);
 			void updateInternals (void);
 			void addStudent (student inputStudent);
 
-			long getTestCount(void){
-				return testCount;
-			}
+			long getTestCount(void);
+			long getStudentCount(void);
+			void curveGrades (long curveVal, long testID);
+
+
 			student getStudent (long studentID);
-			double getTestAverage (long testID);
+			string getName(long studentID);
+			double getStudentGrade(long studentID, long testID);
+			double getStudentAverage(long studentID);
+			double getClassTestAverage (long testID);
 
 
-			~classDatabase(){
+			~ classDatabase(){
 				delete[] testAverage;
 
-				for (long i = 0; i < testCount; i++) {
+				for (long i = 0; i < studentCount; i++) {
 					delete[] studentArray[i].grade;
-					delete[] studentArray[i].nameCString;
+					//delete[] studentArray[i].nameCString;
 				}
 
 				delete[] studentArray;
@@ -59,16 +58,5 @@
 			}
 	};
 
-	//void setupValues(studentArrayShell& inputShell);
-	void expandStudentArray(studentArrayShell& inputBase);
-	//void updateStats(studentArrayShell& dataShell);
-	//void addStudent(studentArrayShell& dataShell, student inputToAdd);
-	//void applyCurve(studentArrayShell& dataShell, long testID, double curveVal);
-
-	/*
-		Pre:
-		Post:
-	*/
-	void function();
 
 #endif
