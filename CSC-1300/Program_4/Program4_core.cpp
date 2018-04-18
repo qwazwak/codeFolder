@@ -27,35 +27,36 @@ using namespace std;
 int main (int argc, char* argv[]){
 	const long NAMESPACEBUFFER = 3;
 	char filename[255];
-	if (argc != 3) {
-		cout << "Ivalid argument count" << endl;
-		cout << "To use this program you must specify the grades file and curve value" << endl;
-		cout << "ex: " << argv[0] << " gradesFile.txt 75" << endl;
-		return 0;
-	}
-	{
-		strcpy(filename, argv[1]);
-		char tempHolder;
-		ifstream inputTester;
-		inputTester.open(filename);
-		inputTester >> tempHolder;
-		while (inputTester.fail()) {
-			inputTester.close();
-			cout << "Error, File name is invalid" << endl;
-			cout << "Enter a new file name: ";
-			cin >> filename;
-			while(cin.fail()){
-				cin.ignore();
-				cin.clear();
-				cout << "Enter a new file name: ";
-				cin >> filename;
-			}
+	//Verify Input
+		if (argc != 3) {
+			cout << "Ivalid argument count" << endl;
+			cout << "To use this program you must specify the grades file and curve value" << endl;
+			cout << "ex: " << argv[0] << " gradesFile.txt 75" << endl;
+			return 0;
+		}
+		{
+			strcpy(filename, argv[1]);
+			char tempHolder;
+			ifstream inputTester;
 			inputTester.open(filename);
 			inputTester >> tempHolder;
+			while (inputTester.fail()) {
+				inputTester.close();
+				cout << "Error, File name is invalid" << endl;
+				cout << "Enter a new file name: ";
+				cin >> filename;
+				while(cin.fail()){
+				cin.clear();
+					cin.ignore();
+					cout << "Enter a new file name: ";
+					cin >> filename;
+				}
+				inputTester.open(filename);
+				inputTester >> tempHolder;
+				inputTester.close();
+			}
 			inputTester.close();
 		}
-		inputTester.close();
-	}
 	//Input is now validated
 	ifstream dataLoader;
 	classDatabase studentBase;
@@ -95,12 +96,11 @@ int main (int argc, char* argv[]){
 		} while(!dataLoader.eof());
 	dataLoader.close();
 	studentBase.updateInternals();
+	//Data is now laoded, and the internals of the classDatabase are updated
 
 
-
-
+	//See if user wants to curve any grades
 	for (long testID = 0; testID < studentBase.getTestCount(); testID++) {
-
 		cout << "The average grade on test " << testID+1 << " is " << studentBase.getClassTestAverage(testID);
 		if (studentBase.getClassTestAverage(testID) < curveVal) {
 			cout << "      Do you want to curve? Enter Y or N: ";
@@ -130,11 +130,7 @@ int main (int argc, char* argv[]){
 			cout << "funk" << endl;
 		}
 	}
-
-
-
-
-
+	//Update internals and display grades
 	studentBase.updateInternals();
 	nameWidth = studentBase.getLongNameSize() + NAMESPACEBUFFER;
 	cout << left << setw(static_cast<long>(floor(static_cast<double>(nameWidth)))) << "   Name:   ";
@@ -162,6 +158,7 @@ int main (int argc, char* argv[]){
 		cout << setprecision(2) << right << setw(7) << studentBase.getStudentAverage(studID);
 		cout << endl;
 	}
+	//Only the loader student needs manual deallocation. classDatabase has a deconstructor
 	delete[] loaderStudent.grade;
 	return 0;
 }

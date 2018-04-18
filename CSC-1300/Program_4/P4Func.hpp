@@ -13,7 +13,6 @@
 
 	struct student {
 		string name;
-		//char* nameCString;
 		double* grade = NULL;
 		double average;
 	};

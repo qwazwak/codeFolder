@@ -1,0 +1,15 @@
+Person #1
+Income		45000
+Tax Rate	.19
+Person #2
+Income		60000
+Tax Rate	.23
+Person #3
+Income		12000
+Tax Rate	.01
+Person #4
+Income		104000
+Tax Rate	.30
+Person #5
+Income		50000
+Tax Rate	.22
