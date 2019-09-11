@@ -59,7 +59,16 @@ public class Driver {
 	}
 	
 	public static int getScoopsChoice() {
+		int numScoops;
+	
+		numScoops = cin.readInt("How many scoops (1, 2, or 3) would you like?");
 		
+		while(numScoops < 1 || numScoops > 3)
+		{
+			System.out.println("Invalid input, try again");
+			numScoops = cin.readInt("How many scoops (1, 2, or 3) would you like?");
+		}
+		return numScoops;
 	}
 	
 	public static Cone getConeChoice() {
