@@ -10,7 +10,6 @@ public class Driver {
 		IceCreamCone theFullCone;
 		long numberOfObjectsOrdered = 0;
 		while ((cin.readString("Would you like to order an ice cream cone? (y/n)")).compareTo((String) "y") == 1) {
-			theCone = getConeChoice();
 
 			Flavor theFlavor = getFlavorChoice();
 			int theScoops = getScoopsChoice();
@@ -41,11 +40,20 @@ public class Driver {
 	}
 	
 	public static Cone getConeChoice() {
-		Flavor theFlavor;
-		Topping theTopping;
-		int theNumberOfScoops;
-		
-		return new Cone();
+		int typeOfCone;
+
+		System.out.println("1. Sugar cone  - $0.59");
+		System.out.println("2. Waffle cone - $0.79");
+		System.out.println("3. Cup         - $0.00");
+		typeOfCone = cin.readInt("Enter the number of the cone you would like");
+		while(typeOfCone < 1 || typeOfCone > 3) {
+			System.out.println("1. Sugar cone  - $0.59");
+			System.out.println("2. Waffle cone - $0.79");
+			System.out.println("3. Cup         - $0.00");
+			System.out.println("Invalid input, try again");
+			typeOfCone = cin.readInt("Enter the number of the cone you would like");
+		}
+		return new Cone(typeOfCone);
 	}
 	
 	
