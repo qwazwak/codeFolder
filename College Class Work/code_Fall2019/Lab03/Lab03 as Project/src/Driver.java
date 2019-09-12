@@ -1,6 +1,5 @@
 //Rustan Hoffman and Rebecca Damewood
 
-import java.util.concurrent.TimeUnit;
 
 public class Driver {
 	static Keyboard cin;
@@ -10,8 +9,12 @@ public class Driver {
 		double runningTotal = 0;
 		IceCreamCone theFullCone;
 		long numberOfObjectsOrdered = 0;
-		while ((cin.readString("Would you like to order an ice cream cone? (y/n)")).compareTo((String) "y") == 1) {
-
+		String yes = new String("y");
+		String input;
+		boolean shouldContinue = true;
+		
+		do {
+				
 			Flavor theFlavor = getFlavorChoice();
 			int theScoops = getScoopsChoice();
 			Topping theTopping = getToppingChoice();
@@ -22,7 +25,12 @@ public class Driver {
 			runningTotal += theFullCone.getPrice();
 			++numberOfObjectsOrdered;
 			
-		}
+			input = cin.readString("Would you like to order an ice cream cone? (y/n)");
+			if(yes.compareTo(input) == 0) {
+				shouldContinue = false;
+			}
+
+		}while(shouldContinue);
 		
 		System.out.println("Your total order for " + numberOfObjectsOrdered + " is $" + runningTotal);
 		System.out.println("ending");
@@ -30,6 +38,8 @@ public class Driver {
 	
 	public static Flavor getFlavorChoice() { //look at the methods available in the Flavors class
 		int theFlavorID;
+		
+		
 
 		theRealFalvors.listFlavors();
 		theFlavorID = cin.readInt("Enter the number of the flavor you would like");
