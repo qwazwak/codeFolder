@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 public class Driver {
 	static Keyboard cin;
 	public static Toppings theRealToppings;
+	public static Flavors theRealFalvors;
 	public static void main(String[] args) {
 		double runningTotal = 0;
 		IceCreamCone theFullCone;
@@ -28,6 +29,17 @@ public class Driver {
 	}
 	
 	public static Flavor getFlavorChoice() { //look at the methods available in the Flavors class
+		int theFlavorID;
+
+		theRealFalvors.listFlavors();
+		theFlavorID = cin.readInt("Enter the number of the flavor you would like");
+		while(theFlavorID < 1 || theFlavorID > theRealFalvors.numFlavors()) {
+			theRealFalvors.listFlavors();
+			System.out.println("Invalid input, try again");
+			theFlavorID = cin.readInt("Enter the number of the flavor you would like");
+		}
+		
+		return theRealFalvors.getFlavor(theFlavorID);
 			
 		
 	}
