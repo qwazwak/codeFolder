@@ -1,4 +1,3 @@
-
 //Rustan Hoffman and Rebecca Damewood
 
 import java.util.concurrent.TimeUnit;
@@ -8,18 +7,29 @@ public class Driver {
 	
 	public static void main(String[] args) {
 		double runningTotal = 0;
-		Cone theCone;
+		IceCreamCone theFullCone;
+		long numberOfObjectsOrdered = 0;
 		while ((cin.readString("Would you like to order an ice cream cone? (y/n)")).compareTo((String) "y") == 1) {
 			theCone = getConeChoice();
-			runningTotal 
+
+			Flavor theFlavor = getFlavorChoice();
+			int theScoops = getScoopsChoice();
+			Topping theTopping = getToppingChoice();
+			Cone theCone = getConeChoice();
+			
+			
+			theFullCone = new IceCreamCone(new IceCream(theScoops, theFlavor, theTopping), theCone);
+			runningTotal += theFullCone.getPrice();
+			++numberOfObjectsOrdered;
 			
 		}
 		
+		System.out.println("Your total order for " + numberOfObjectsOrdered + " is $" + runningTotal);
 		System.out.println("ending");
 	}
 	
 	public static Flavor getFlavorChoice() { //look at the methods available in the Flavors class
-		
+			
 		return Flavors.getFlavor(4);
 		
 	}
