@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Driver {
 	static Keyboard cin;
-	
+	public static Toppings theRealToppings;
 	public static void main(String[] args) {
 		double runningTotal = 0;
 		IceCreamCone theFullCone;
@@ -29,14 +29,25 @@ public class Driver {
 	
 	public static Flavor getFlavorChoice() { //look at the methods available in the Flavors class
 			
-		return Flavors.getFlavor(4);
 		
 	}
 	
 	public static Topping getToppingChoice() { //look at the methods available in the Toppings class
+		int theToppingID;
+
+		theRealToppings.listToppings();
+		theToppingID = cin.readInt("Enter the number of the topping you would like");
+		while(theToppingID < 1 || theToppingID > theRealToppings.numToppings()) {
+			theRealToppings.listToppings();
+			System.out.println("Invalid input, try again");
+			theToppingID = cin.readInt("Enter the number of the topping you would like");
+		}
+		
+		return theRealToppings.getTopping(theToppingID);
 	}
 	
 	public static int getScoopsChoice() {
+		
 	}
 	
 	public static Cone getConeChoice() {
