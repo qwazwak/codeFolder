@@ -5,6 +5,7 @@ public class Driver {
 	static Keyboard cin = Keyboard.getKeyboard();
 	static Toppings theRealToppings = Toppings.getToppings();
 	static Flavors theRealFalvors = Flavors.getFlavors();
+	
 	public static void main(String[] args) {
 		double runningTotal = 0;
 		IceCreamCone theFullCone;
@@ -46,7 +47,7 @@ public class Driver {
 
 		}while(shouldContinue);
 		
-		System.out.println("Your total order for " + numberOfObjectsOrdered + "s is $" + runningTotal);
+		System.out.println("Your total order for " + numberOfObjectsOrdered + " orders is $" + runningTotal);
 	}
 	
 
@@ -67,7 +68,7 @@ public class Driver {
 	
 	
 	public static Flavor getFlavorChoice() { //look at the methods available in the Flavors class
-		int theFlavorID = (int)10;
+		int theFlavorID = (int)0;
 		
 		System.out.println(theRealFalvors.listFlavors());
 
