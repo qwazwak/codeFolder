@@ -2,9 +2,9 @@
 
 
 public class Driver {
-	static Keyboard cin;
-	public static Toppings theRealToppings;
-	public static Flavors theRealFalvors;
+	static Keyboard cin = Keyboard.getKeyboard();
+	static Toppings theRealToppings = Toppings.getToppings();
+	static Flavors theRealFalvors = Flavors.getFlavors();
 	public static void main(String[] args) {
 		double runningTotal = 0;
 		IceCreamCone theFullCone;
@@ -14,10 +14,10 @@ public class Driver {
 		boolean shouldContinue = true;
 		
 		do {
-				
+
 			Flavor theFlavor = getFlavorChoice();
-			int theScoops = getScoopsChoice();
 			Topping theTopping = getToppingChoice();
+			int theScoops = getScoopsChoice();
 			Cone theCone = getConeChoice();
 			
 			
@@ -36,28 +36,12 @@ public class Driver {
 		System.out.println("ending");
 	}
 	
-	public static Flavor getFlavorChoice() { //look at the methods available in the Flavors class
-		int theFlavorID;
-		
-		
 
-		theRealFalvors.listFlavors();
-		theFlavorID = cin.readInt("Enter the number of the flavor you would like");
-		while(theFlavorID < 1 || theFlavorID > theRealFalvors.numFlavors()) {
-			theRealFalvors.listFlavors();
-			System.out.println("Invalid input, try again");
-			theFlavorID = cin.readInt("Enter the number of the flavor you would like");
-		}
-		
-		return theRealFalvors.getFlavor(theFlavorID);
-			
-		
-	}
-	
 	public static Topping getToppingChoice() { //look at the methods available in the Toppings class
 		int theToppingID;
 
-		theRealToppings.listToppings();
+		System.out.println(theRealToppings.listToppings());
+
 		theToppingID = cin.readInt("Enter the number of the topping you would like");
 		while(theToppingID < 1 || theToppingID > theRealToppings.numToppings()) {
 			theRealToppings.listToppings();
@@ -66,6 +50,25 @@ public class Driver {
 		}
 		
 		return theRealToppings.getTopping(theToppingID);
+	}
+	
+	
+	public static Flavor getFlavorChoice() { //look at the methods available in the Flavors class
+		int theFlavorID = (int)10;
+		
+		System.out.println(theRealFalvors.listFlavors());
+
+
+		
+		theFlavorID = cin.readInt("Enter the number of the flavor you would like");
+		while(theFlavorID < 1 || theFlavorID > theRealFalvors.numFlavors()) {
+			theRealFalvors.listFlavors();
+			System.out.println("Invalid input, try again");
+			theFlavorID = cin.readInt("Enter the number of the flavor you would like");
+		}
+		
+		return theRealFalvors.getFlavor(theFlavorID);
+		
 	}
 	
 	public static int getScoopsChoice() {

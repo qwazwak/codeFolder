@@ -4,7 +4,7 @@ public class Flavors
    private static Flavors flavors = new Flavors();
    private Flavor[] all_flavors;
 
-   private Flavors()
+   Flavors()
    {
       all_flavors = Flavor.values();
    }

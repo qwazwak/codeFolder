@@ -3,7 +3,9 @@ package qCode;
 import qCode.MemoryTape;
 
 public class BDIDriver {
-	
+	private void BFLoopStack() {
+		
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		MemoryTape theTape = new MemoryTape();
