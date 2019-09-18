@@ -1,3 +1,5 @@
+//Rebecca Damewood and Rustan Hoffman 
+
 import java.util.ArrayList;
 import java.awt.Graphics;
 
@@ -24,16 +26,17 @@ public class BlackJackHand
    {
       //remember to instantiate the ArrayList before adding anything to it
       //add card1 and then card2 at the end of hand
-	  
+	  ArrayList<Card> hand = card1 + card2;
 	  
 	  
 	  
 	  //update soft to be true if one of the cards is an ace (value of 1)
 	  //otherwise, update soft to be false
 
-
-
-
+	  if(card1 == 1 || card2 == 1)
+		  soft = true;
+	  else
+		  soft = false;
 
      doubled = false;
    }
@@ -44,9 +47,11 @@ public class BlackJackHand
       int count = 0;
       //DO THIS write a for-each loop to draw all of the cards in the player's hand
 
-
+	  for(Card Card : hand)
+	  {
          card.draw(g, x, y + (count*35));
          count++;
+	  }
 
    }
 
@@ -56,7 +61,8 @@ public class BlackJackHand
       int count = 0;
       //DO THIS write a for-each loop to draw all of the cards in the dealer's hand
 
-
+	  for(Card Card : hand)
+	  {
          //the first card that the dealer gets is the up card
          //unless the current game is complete, the second card is hidden
          if (count == 0) 
@@ -70,7 +76,7 @@ public class BlackJackHand
          }
 
          count++;
-
+	  }
    }
 
    /**
@@ -90,25 +96,26 @@ public class BlackJackHand
 
       //DO THIS (use a for-each statement and complete some details below
 
-
+	  for(int num : sum)
+	  {
          int faceInt = card.getFaceInt();
          if (faceInt > 10)
          {
             faceInt = 10;
          }
-         sum[0] +=  
+         sum[0] +=  1;
 
          if (faceInt == 1 && !ace) //an ace should be given a value of 11 in this case (faceInt + 10)
          {
-            sum[1] += 
+            sum[1] += 11;
             ace = true;
          }
          else
          {
-            sum[1] +=
+            sum[1] += 0;
          }
 
-
+	  }
 
       return sum;
    }
@@ -135,20 +142,20 @@ public class BlackJackHand
 		 
          if (total[1] == total[0])
          {
-            soft = 
+            soft = false;
          }
 
          else if (total[1] > total[0])
          {
-            soft = 
+            soft = true;
          }
 		 
-		 value = 
+		 value = total[1];
       }
       else //second total is greater than 21
       {
-         value = 
-         soft = 
+         value = total[0];
+         soft = false;
       }
 
       return value;
@@ -162,7 +169,7 @@ public class BlackJackHand
    public void hit(Card card)
    {
       //DO THIS add card to the end of hand
-
+		hand.add(card);
    }
 
    /**
@@ -180,18 +187,18 @@ public class BlackJackHand
 		 int card1 = hand.get(0).getFaceInt();
          if (card1 > 10)
          {
-            card1 = 
+            card1 = 2;
          }
 
          int card2 = hand.get(1).getFaceInt();
          if (card2 > 10)
          {
-            card2 = 
+            card2 = 2;
          }
 
          if (card1 == card2)
          {
-            split = 
+            split = true;
          }
       }
 
@@ -211,10 +218,11 @@ public class BlackJackHand
       if (canSplit())
       {
          //DO THIS
+	
          split = new BlackJackHand[2];
 		 //split hand into two new BlackJackHand objects
-         split[0] = 
-         split[1] = 
+         split[0] = new BlackJackHand();
+         split[1] = new BlackJackHand();
       }
 
       return split;
