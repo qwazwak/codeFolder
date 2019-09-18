@@ -88,7 +88,6 @@ class Matrix extends BasicMatrix implements MatrixOperationsInterface
    private static void substitute(double[][] a, int[] o, int n, double[] b, double[] x)
    {
       double sum;
-      double factor;
 
       for (int i = 2; i <= n; i++)
       {
