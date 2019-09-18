@@ -98,22 +98,22 @@ public class BlackJackStrategy
       {
          if (up_card == 1)
          {
-            col = 
+            col = 9;
          }
          else
          {
-            col = 
+            col = up_card - 2; 
          }
 
          int face = player.handValue()/2;
 
          if (player.isSoft())  //a pair of aces
          {
-            row = 
+            row = 38;
          }
          else
          {
-            row = 
+            row = 27 + face;
          }
 
 		 //adding 1's as the strategy matrix is 1-based
@@ -121,7 +121,7 @@ public class BlackJackStrategy
 		 
          if (move == 4)
          {
-            should_split = 
+            should_split = true;
          }
       }
 
