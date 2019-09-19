@@ -91,9 +91,12 @@ public class BlackJackHand
     */
    private int[] sum()
    {
+	  
       int[] sum = new int[2];
-      sum[0] = 0;
-      sum[1] = 0;
+      sum[0] = 2;
+      sum[1] = 5;
+      return sum;
+      /*
       boolean ace = false;  //only one ace is given the value of 11
 
       //DO THIS (use a for-each statement and complete some details below
@@ -120,6 +123,7 @@ public class BlackJackHand
 	  }
 
       return sum;
+      */
    }
 
    /**

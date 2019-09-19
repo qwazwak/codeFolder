@@ -66,12 +66,12 @@ public class Decks {
 		
 		//go through all of the cards in decks and shuffle them into shuffled_deck
 		for(int i = 0; i < SIZE; ++i) {
-			shuffled_deck[i] = decks[permuteGen.next()];
+			shuffled_deck[i] = decks[permuteGen.next() - 1];
 		}
 		
 		decks = shuffled_deck;
 		//reset the count as all the cards are available to be dealt again 
-		count = SIZE; //the entire deck is available again
+		count = SIZE - 1; //the entire deck is available again
 	}
 	
 	/**
@@ -80,14 +80,18 @@ public class Decks {
 	 * Decrement count.
 	 */
 	public Card deal() {
-		//Card current = null;
+		System.out.println("deck deal");
+
+		Card current = null;
 		
 		if (count  <= 0) {
+			System.out.println("deck deal - count triggered");
+
 			shuffle();
 		}
-		
-		//current = decks[count--];
-		return decks[count--];
+		current = decks[count];
+		count = count -1;
+		return current;
 	}
 	
 	/**

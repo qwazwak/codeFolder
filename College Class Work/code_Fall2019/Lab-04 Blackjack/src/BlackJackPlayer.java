@@ -10,7 +10,7 @@ public class BlackJackPlayer {
 	public BlackJackPlayer(String filename) {
 		hands = new ArrayList<BlackJackHand>();
 		strategy = new BlackJackStrategy(filename);
-		index = 0; //keep track of which hand is being operated on by the game
+		index = 1; //keep track of which hand is being operated on by the game
 		//maybe set me to 1? idk
 	}
 	
@@ -19,9 +19,9 @@ public class BlackJackPlayer {
 		int num_hands = numHands();
 		double offset = (num_hands - 1) / 2.0 * 100.0;
 		int off = width / 2 - (int) offset;
-		
+		System.out.println("Blackjack PLayer Hand Draw");
 		//DO THIS use a for-each loop to draw all of the player hands
-		for (int i = 0; i < count; ++i) {
+		for (int i = 0; i < hands.size(); ++i) {
 			hands.get(i).drawPlayerHands(g, off + (count - 1) * 100 - 50, 300);
 			if (count == index) //indicate the current hand with a yellow dot above the hand
 			{
