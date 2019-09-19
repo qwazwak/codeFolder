@@ -26,14 +26,16 @@ public class BlackJackHand
    {
       //remember to instantiate the ArrayList before adding anything to it
       //add card1 and then card2 at the end of hand
-	  ArrayList<Card> hand = card1 + card2;
+	  ArrayList<Card> hand = new ArrayList<Card>();
+	  hand.add(card1);
+	  hand.add(card2);
 	  
 	  
 	  
 	  //update soft to be true if one of the cards is an ace (value of 1)
 	  //otherwise, update soft to be false
 
-	  if(card1 == 1 || card2 == 1)
+	  if(card1 == new Card(1) || card2 == new Card(1))
 		  soft = true;
 	  else
 		  soft = false;
@@ -47,7 +49,7 @@ public class BlackJackHand
       int count = 0;
       //DO THIS write a for-each loop to draw all of the cards in the player's hand
 
-	  for(Card Card : hand)
+	  for(Card card : hand)
 	  {
          card.draw(g, x, y + (count*35));
          count++;
@@ -61,7 +63,7 @@ public class BlackJackHand
       int count = 0;
       //DO THIS write a for-each loop to draw all of the cards in the dealer's hand
 
-	  for(Card Card : hand)
+	  for(Card card : hand)
 	  {
          //the first card that the dealer gets is the up card
          //unless the current game is complete, the second card is hidden
@@ -221,8 +223,8 @@ public class BlackJackHand
 	
          split = new BlackJackHand[2];
 		 //split hand into two new BlackJackHand objects
-         split[0] = new BlackJackHand();
-         split[1] = new BlackJackHand();
+         split[0] = new BlackJackHand(hand.get(0), card1);
+         split[1] = new BlackJackHand(hand.get(1), card2);
       }
 
       return split;
