@@ -40,20 +40,21 @@ public class BlackJackStrategy
 
 	  if (player.isSoft())
       {
-         row =   //everything but the ace value
+         row = player_value + 7;  //everything but the ace value
       }
       else
       {
-         row = 
+         row = player_value - 2;
       }
 
+		  
       if (up_card == 1)  //dealer is showing an ace
       {
-         col = 
+         col = 9;
       }
       else
       {
-         col =
+         col = up_card - 2;
       }
 
 	  //adding 1's as the strategy matrix is 1-based
@@ -61,15 +62,15 @@ public class BlackJackStrategy
 
       if (move == 3)
       {
-         optimal = 
+         optimal = 'H';
       }
       else if (move == 2)
       {
-         optimal = 
+         optimal = 'D';
       }
       else
       {
-         optimal =  
+         optimal = 'P';
       }
 
       return optimal;

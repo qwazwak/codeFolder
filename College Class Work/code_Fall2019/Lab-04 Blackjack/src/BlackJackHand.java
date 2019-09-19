@@ -100,7 +100,7 @@ public class BlackJackHand
 
 	  for(int num : sum)
 	  {
-         int faceInt = card.getFaceInt();
+         int faceInt = 5;//card.getFaceInt();
          if (faceInt > 10)
          {
             faceInt = 10;
