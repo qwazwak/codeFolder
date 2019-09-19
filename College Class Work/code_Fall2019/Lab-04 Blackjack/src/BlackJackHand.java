@@ -26,7 +26,7 @@ public class BlackJackHand
    {
       //remember to instantiate the ArrayList before adding anything to it
       //add card1 and then card2 at the end of hand
-	  ArrayList<Card> hand = new ArrayList<Card>();
+	   this.hand = new ArrayList<Card>();
 	  hand.add(card1);
 	  hand.add(card2);
 	  
@@ -185,7 +185,7 @@ public class BlackJackHand
     */
    public boolean canSplit()
    {
-      boolean split = false;
+      boolean splitVar = false;
 
       if (hand.size() == 2)
       {
@@ -204,11 +204,11 @@ public class BlackJackHand
 
          if (card1 == card2)
          {
-            split = true;
+        	 splitVar = true;
          }
       }
 
-      return split;
+      return splitVar;
    }
 
    /**
