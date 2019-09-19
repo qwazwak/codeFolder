@@ -10,7 +10,7 @@ public class BlackJackPlayer {
 	public BlackJackPlayer(String filename) {
 		hands = new ArrayList<BlackJackHand>();
 		strategy = new BlackJackStrategy(filename);
-		index = 1; //keep track of which hand is being operated on by the game
+		index = 0; //keep track of which hand is being operated on by the game
 		//maybe set me to 1? idk
 	}
 	
@@ -23,18 +23,18 @@ public class BlackJackPlayer {
 		//DO THIS use a for-each loop to draw all of the player hands
 		for (int i = 0; i < hands.size(); ++i) {
 			hands.get(i).drawPlayerHands(g, off + (count - 1) * 100 - 50, 300);
-			if (count == index) //indicate the current hand with a yellow dot above the hand
-			{
-				g.setColor(Color.black);
-				g.fillOval(off + (count - 1) * 100 - 23, 284, 13, 13);
-				g.setColor(Color.yellow);
-				g.fillOval(off + (count - 1) * 100 - 21, 285, 10, 10);
-				g.setColor(Color.black);
-			}
-			count++;
 		}
 		
-		
+
+		if (count == index) //indicate the current hand with a yellow dot above the hand
+		{
+			g.setColor(Color.black);
+			g.fillOval(off + (count - 1) * 100 - 23, 284, 13, 13);
+			g.setColor(Color.yellow);
+			g.fillOval(off + (count - 1) * 100 - 21, 285, 10, 10);
+			g.setColor(Color.black);
+		}
+		count++;
 		
 		
 	}
