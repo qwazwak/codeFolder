@@ -2,4 +2,4 @@
 cls
 
 javac *.java
-java IceCreamDriver < ice_cream.txt
+java Driver.java < ice_cream.txt
