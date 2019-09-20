@@ -26,11 +26,11 @@ public class Decks {
 		}
 		
 		this.SIZE = this.STANDARD_DECK_SIZE * this.numDecks;
-		this.count = this.SIZE;
-		this.decks = new Card[SIZE];
+		this.count = 0;
+		this.decks = new Card[this.SIZE];
 		
 		//create multiple decks
-		for (int i = 0; i < numDecks; i++) 
+		for (int i = 0; i < this.numDecks; i++) 
 		{
 			//DO THIS (create the cards (using the Card constructor), add to the decks array)
 			//Note from the Card class that integers from 1 to 52 passed to the Card constructor will create the corresponding Card
@@ -80,13 +80,13 @@ public class Decks {
 	 * Decrement count.
 	 */
 	public Card deal() {
-		System.out.println("deck deal");
+		System.out.println("Decks.deal()");
 
 		Card current = null;
 		
-		if (count  <= 0) {
+//		if (count == -1) {
+		if (count < 0) {
 			System.out.println("deck deal - count triggered");
-
 			shuffle();
 		}
 		current = decks[count];
@@ -98,14 +98,14 @@ public class Decks {
 	 * Returns the number of Cards remaining in the Deck.
 	 */
 	public int getCount() {
-		return count;
+		return this.count + 1;
 	}
 	
 	/**
 	 * Returns the number of Decks.
 	 */
 	public int getNumDecks() {
-		return numDecks;
+		return this.numDecks;
 	}
 	
 	/**

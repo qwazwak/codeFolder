@@ -169,7 +169,7 @@ public class BlackJackHand {
 			}
 		}
 		
-		return splitVar;
+		return true;//splitVar;
 	}
 	
 	/**
@@ -179,18 +179,19 @@ public class BlackJackHand {
 	 * You will need to create new BlackJackHands.
 	 */
 	public BlackJackHand[] split(Card card1, Card card2) {
-		BlackJackHand[] split = null;
+		System.out.println("BlackJackHand.split()");
+		BlackJackHand[] splitArr = null;
 		
 		if (canSplit()) {
 			//DO THIS
 			
-			split = new BlackJackHand[2];
+			splitArr = new BlackJackHand[2];
 			//split hand into two new BlackJackHand objects
-			split[0] = new BlackJackHand(hand.get(0), card1);
-			split[1] = new BlackJackHand(hand.get(1), card2);
+			splitArr[0] = new BlackJackHand(hand.get(0), card1);
+			splitArr[1] = new BlackJackHand(hand.get(1), card2);
 		}
 		
-		return split;
+		return splitArr;
 	}
 	
 	
