@@ -47,7 +47,6 @@ public class BlackJackStrategy
          row = player_value - 2;
       }
 
-		  
       if (up_card == 1)  //dealer is showing an ace
       {
          col = 9;
@@ -62,16 +61,18 @@ public class BlackJackStrategy
 
       if (move == 3)
       {
-         optimal = 'H';
+         optimal = 'D';
       }
       else if (move == 2)
       {
-         optimal = 'D';
+         optimal = 'H';
       }
-      else
+      else if(player.canSplit())
       {
-         optimal = 'P';
+         optimal =  'P';
       }
+      
+     
 
       return optimal;
    }
@@ -95,7 +96,10 @@ public class BlackJackStrategy
 
 
 	//DO THIS
-	  if (player.canSplit())
+	  if (player.canSplit() == false){
+		  return false;
+	  }
+	  else
       {
          if (up_card == 1)
          {
@@ -103,66 +107,32 @@ public class BlackJackStrategy
          }
          else
          {
-            col = up_card - 2; 
+            col = up_card - 2;
          }
 
          int face = player.handValue()/2;
-			//a pair of aces
-			if (player.handValue() == 2) {
-				row = 38;
-			} else if (!(player.isSoft())) {
-				if (player.numCards() == 1 && player.handValue() < 21) {
-					row = player.handValue() - 2;
-				}
-				else {
-					switch(player.handValue()) {
-						case 4:
-							row = 29;
-							break;
-						case 6:
-							row = 30;
-							break;
-						case 8:
-							row = 31;
-							break;
-						case 10:
-							row = 32;
-							break;
-						case 12:
-							row = 33;
-							break;
-						case 14:
-							row = 34;
-							break;
-						case 16:
-							row = 35;
-							break;
-						case 18:
-							row = 36;
-							break;
-						case 20:
-							row = 37;
-							break;
-						
-					}
-				}
-			}
-			else {
-				row = player.handValue() + 7;
-			}
-			
-			
-			//adding 1's as the strategy matrix is 1-based
-			int move = (int) strategy.getElement(row + 1, col + 1);
-			
-			if (move == 4) {
-				should_split = true;
-			}
-		}
-		
-		return should_split;
-	}
-	
+
+         if (player.isSoft())  //a pair of aces
+         {
+            row = 38;
+         }
+         else
+         {
+            row = player.handValue() + 27;
+         }
+
+		 //adding 1's as the strategy matrix is 1-based
+         int move = (int) strategy.getElement(row + 1, col + 1);
+		 
+         if (move == 4)
+         {
+            should_split = true;
+         }
+      }
+
+      return should_split;
+   }
+
    /** Reads the strategy in from a file. */
    public BlackJackStrategy(String fileName)
    {
