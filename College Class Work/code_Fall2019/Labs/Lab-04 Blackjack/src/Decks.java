@@ -1,3 +1,4 @@
+//By Rustan Hoffman and Rebecca Damewood
 
 /**
  *  Represents one or more decks of cards.

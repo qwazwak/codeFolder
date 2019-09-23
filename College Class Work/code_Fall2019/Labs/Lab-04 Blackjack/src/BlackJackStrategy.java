@@ -1,3 +1,5 @@
+//By Rustan Hoffman and Rebecca Damewood
+
 import matrix.*;
 
 /**

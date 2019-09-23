@@ -1,3 +1,5 @@
+//By Rustan Hoffman and Rebecca Damewood
+
 import java.util.ArrayList;
 import java.awt.Graphics;
 import java.awt.Color;
