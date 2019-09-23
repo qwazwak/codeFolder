@@ -47,7 +47,6 @@ public class BlackJackStrategy
          row = player_value - 2;
       }
 
-		  
       if (up_card == 1)  //dealer is showing an ace
       {
          col = 9;
@@ -62,16 +61,18 @@ public class BlackJackStrategy
 
       if (move == 3)
       {
-         optimal = 'H';
+         optimal = 'D';
       }
       else if (move == 2)
       {
-         optimal = 'D';
+         optimal = 'H';
       }
-      else
+      else if(player.canSplit())
       {
-         optimal = 'P';
+         optimal =  'P';
       }
+      
+     
 
       return optimal;
    }
@@ -95,7 +96,10 @@ public class BlackJackStrategy
 
 
 	//DO THIS
-	  if (player.canSplit())
+	  if (player.canSplit() == false){
+		  return false;
+	  }
+	  else
       {
          if (up_card == 1)
          {
@@ -103,7 +107,7 @@ public class BlackJackStrategy
          }
          else
          {
-            col = up_card - 2; 
+            col = up_card - 2;
          }
 
          int face = player.handValue()/2;
@@ -114,7 +118,7 @@ public class BlackJackStrategy
          }
          else
          {
-            row = 27 + face;
+            row = player.handValue() + 27;
          }
 
 		 //adding 1's as the strategy matrix is 1-based
