@@ -7,11 +7,11 @@ public class TreeSortDriver
    {
       //DO THIS complete this method using the FileIO class
 	  //create a new FileIO object for reading
-      FileIO file = 
-      String str =             //the artist
+      FileIO file = new FileIO(fileName, FileIO.FOR_READING);
+      String str;             //the artist
       ArrayList<CD> cds = new ArrayList<CD>();
 
-      while (              ) //while we are not at the end of the file
+      while (file.EOF()) //while we are not at the end of the file
       {
 		 //file.readLine() will parse one line of the file at a time
          String title = 
