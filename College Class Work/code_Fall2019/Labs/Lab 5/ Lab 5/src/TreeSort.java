@@ -35,7 +35,7 @@ public class TreeSort
 	  
  
       // fill up the search tree
-	  TreeIterator tree = new TreeIterator();
+	  BinaryTreeIterator tree = new BinaryTreeIterator();
 	  Iterator itr = tree.iterator();
 	  
 	  while(itr.hasNext())
