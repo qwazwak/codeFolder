@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 //need another import
+import ki.KeyedItem;
 
 public class CD extends KeyedItem
 {
@@ -11,10 +12,11 @@ public class CD extends KeyedItem
 
    public CD (String title, String artist, int year, int rating, int tracks)
    {
-      //complete the constructor with respect to extending KeyedItem, passing in year
+	  //complete the constructor with respect to extending KeyedItem, passing in year
 	  //remember to use the integer wrapper class, Integer
-	  Integer a = year;
-
+	  super(year);
+	      
+	   
       this.title = title;
       img = artist + " - " + title + ".jpg";
       numTracks = tracks;
@@ -34,14 +36,14 @@ public class CD extends KeyedItem
    public Song getSong(int index)
    {
       
-	  return songs[index];
+	  return this.songs.get(index);
 	  
    }
 
    //create the song and then add it
    public void addSong(String title, String length)
    {
-      songs.add(title, length);
+      this.songs.add(new Song(title, length));
 	  
    }
 
