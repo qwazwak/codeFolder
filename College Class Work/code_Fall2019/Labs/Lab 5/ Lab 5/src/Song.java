@@ -5,7 +5,7 @@ public final class Song
 {
    private String title;
    private int length;
-   private static String cr = "\r\n";
+  // private static String cr = "\r\n";
    private static DecimalFormat fmt = new DecimalFormat("00");
 
    public Song(String title, String length)

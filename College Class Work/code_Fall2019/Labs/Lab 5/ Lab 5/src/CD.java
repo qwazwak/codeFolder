@@ -7,7 +7,6 @@ public class CD extends KeyedItem
    private String title;
    private String img;
    private ArrayList<Song> songs;
-   private int numTracks;  //used by addSong
    private int rating;
 
    public CD (String title, String artist, int year, int rating, int tracks)
@@ -19,7 +18,6 @@ public class CD extends KeyedItem
 	   
       this.title = title;
       img = artist + " - " + title + ".jpg";
-      numTracks = tracks;
       songs = new ArrayList<Song>();
 
       if (rating > 0 && rating <= 10)
@@ -35,7 +33,6 @@ public class CD extends KeyedItem
    
    public Song getSong(int index)
    {
-      
 	  return this.songs.get(index);
 	  
    }
