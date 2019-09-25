@@ -35,13 +35,17 @@ public class TreeSort
 	  
  
       // fill up the search tree
-	 
+	  TreeIterator tree = new TreeIterator();
+	  Iterator itr = tree.iterator();
 	  
+	  while(itr.hasNext())
+	  {
+		  itr.next();  
+	  }
 
       //use a TreeIterator on your BST to call setInorder
 
-
-	  
+	  tree.setInorder();
 	  
       //pull sorted stuff out of the tree into temp
       
