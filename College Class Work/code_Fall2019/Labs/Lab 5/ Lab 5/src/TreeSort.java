@@ -28,7 +28,7 @@ public class TreeSort
 	  KeyedItem[] treeSort = new KeyedItem[n];
 	   
 	  
-      //need to use the Class class as the actual array type may be a subtype of KeyedItem
+      //need to use the Class class, because the actual array type may be a subtype of KeyedItem
       Class cls = sort.getClass().getComponentType();
       KeyedItem[] temp = (KeyedItem[]) java.lang.reflect.Array.newInstance(cls, n);
 	  
@@ -56,3 +56,4 @@ public class TreeSort
 	  
    }
 }
+

@@ -41,7 +41,6 @@ public class CD extends KeyedItem
    public void addSong(String title, String length)
    {
       this.songs.add(new Song(title, length));
-	  
    }
 
 	//No work below
