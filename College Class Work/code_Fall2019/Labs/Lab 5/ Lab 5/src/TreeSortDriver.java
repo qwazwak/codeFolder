@@ -1,3 +1,6 @@
+//By Rustan Hoffman and Rebecca Damewood
+
+
 import java.util.ArrayList;
 import ki.KeyedItem;
 
@@ -74,13 +77,11 @@ public class TreeSortDriver {
 		//as checked exceptions have been converted to unchecked exceptions, 
 		//you must remember to do this with end user input, the compiler will not help you
 		
-CD[] sorted = null;
-sorted = (CD[]) TreeSort.treeSort(cdArray);
+KeyedItem[] sorted = null;
+sorted = TreeSort.treeSort(cdArray);
 		//once you have the array of CDs back from readMusic, sort them
 		//and print them out to make sure that they are sorted
 		for (int i = 0; i < sorted.length; ++i) {
-
-			
 			System.out.println(sorted[i].toString());
 		}
 	}

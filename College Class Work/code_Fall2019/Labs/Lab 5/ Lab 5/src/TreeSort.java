@@ -1,3 +1,5 @@
+//By Rustan Hoffman and Rebecca Damewood
+
 import java.util.Iterator;
 import bst.*;
 import ki.KeyedItem;
@@ -24,8 +26,6 @@ public class TreeSort
 	  
 	  //create a new Binary Search Tree
       //a balanced tree ensures logn inserts for nlogn sort
-
-	  KeyedItem[] treeSort = new KeyedItem[n];
 	   
 	  
       //need to use the Class class, because the actual array type may be a subtype of KeyedItem
@@ -36,18 +36,21 @@ public class TreeSort
  
       // fill up the search tree
       BinarySearchTree tree = new BinarySearchTree (true, true);
-	  TreeIterator itr = tree.iterator();
+	  for(int i = 0; i < n; ++i) {
+		  tree.insert(sort[i]);
+	  }
 	  
 	  
       //use a TreeIterator on your BST to call setInorder
 
+	  TreeIterator itr = tree.iterator();
 	  itr.setInorder();
-	  
+
       //pull sorted stuff out of the tree into temp
 	  int uglyCounter = 0;
 	  while(itr.hasNext())
 	  {
-		  temp[uglyCounter++] = (KeyedItem) itr.next();  
+		  temp[uglyCounter++] =  (KeyedItem) itr.next();  
 	  }
 	  
 	  
