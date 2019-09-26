@@ -35,21 +35,20 @@ public class TreeSort
 	  
  
       // fill up the search tree
-	  BinaryTreeIterator tree = new BinaryTreeIterator();
-	  Iterator itr = tree.iterator();
+      BinarySearchTree tree = new BinarySearchTree (true, true);
+	  TreeIterator itr = tree.iterator();
 	  
-	  while(itr.hasNext())
-	  {
-		  itr.next();  
-	  }
-
+	  
       //use a TreeIterator on your BST to call setInorder
 
-	  tree.setInorder();
+	  itr.setInorder();
 	  
       //pull sorted stuff out of the tree into temp
-      
-	  
+	  int uglyCounter = 0;
+	  while(itr.hasNext())
+	  {
+		  temp[uglyCounter++] = (KeyedItem) itr.next();  
+	  }
 	  
 	  
 	  return temp;

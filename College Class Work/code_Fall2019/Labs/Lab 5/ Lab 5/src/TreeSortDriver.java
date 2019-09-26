@@ -1,18 +1,21 @@
 import java.util.ArrayList;
+import ki.KeyedItem;
 
 public class TreeSortDriver {
 	
 	static Keyboard cin = Keyboard.getKeyboard();
-	static int numberOfCDs = 0;
 	
 	private static CD[] readMusic(String fileName) {
 		//DO THIS complete this method using the FileIO class
 		//create a new FileIO object for reading
+
 		FileIO file = new FileIO(fileName, FileIO.FOR_READING);
+
 		String str = file.readLine(); //the artist
+
 		ArrayList<CD> cds = new ArrayList<CD>();
 		
-		while (file.EOF()) //while we are not at the end of the file
+		while (false == file.EOF()) //while we are not at the end of the file
 		{
 			
 			//file.readLine() will parse one line of the file at a time
@@ -43,7 +46,6 @@ public class TreeSortDriver {
 		for (int i = 0; i < cds.size(); ++i) {
 			cds_array[i] = cds.get(i);
 		}
-		numberOfCDs = cds.size();
 		
 		
 		
@@ -61,9 +63,6 @@ public class TreeSortDriver {
 				System.out.println("Enter the name of the archive: ");
 				theFilename = cin.readString("");
 				System.out.println("");
-				System.out.print("X");
-				System.out.print(theFilename);
-				System.out.print("X");
 				cdArray = readMusic(theFilename);
 				filenameIsValid = true;
 			} catch (FileIOException e) {
@@ -75,12 +74,14 @@ public class TreeSortDriver {
 		//as checked exceptions have been converted to unchecked exceptions, 
 		//you must remember to do this with end user input, the compiler will not help you
 		
-		//treeSort(cdArray);
-		
+CD[] sorted = null;
+sorted = (CD[]) TreeSort.treeSort(cdArray);
 		//once you have the array of CDs back from readMusic, sort them
 		//and print them out to make sure that they are sorted
-		for (int i = 0; i < numberOfCDs; ++i) {
-			System.out.println(cdArray[i].toString());
+		for (int i = 0; i < sorted.length; ++i) {
+
+			
+			System.out.println(sorted[i].toString());
 		}
 	}
 }
