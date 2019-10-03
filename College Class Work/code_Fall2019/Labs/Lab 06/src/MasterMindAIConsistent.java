@@ -26,8 +26,8 @@ public class MasterMindAIConsistent implements MasterMindAI {
 			//make a random guess and then analyze it
 			
 			while(!good) {
-				trialGuess = this.makeRandomGuess(guess_id);
-				good = this.analyzeGuess(trialGuess);
+				trialGuess = makeRandomGuess(guess_id);
+				good = analyzeGuess(trialGuess);
 				System.out.println("consistent 1st loop");
 			} 
 			
@@ -56,18 +56,18 @@ public class MasterMindAIConsistent implements MasterMindAI {
 		{
 			//previous guess compared to the secret guess (obtain the int array through the game ref)
 			
-		//	int a = this.game.getResult(guesses.get(i - 1))[0];
-		//	int b = this.game.getResult(guesses.get(i - 1))[1];
+		//	int a = game.getResult(guesses.get(i - 1))[0];
+		//	int b = game.getResult(guesses.get(i - 1))[1];
 			Guess pastGuess = guesses.get(i - 1);
-			int[] pastResult = this.game.getResult(pastGuess);
+			int[] pastResult = game.getResult(pastGuess);
 			
 			
 			//next guess is compared to previous guesses, NOT the secret guess
 			
-			int[] compOfNextGuess = this.game.getResult(pastGuess, nextGuess);
+			int[] compOfNextGuess = game.getResult(pastGuess, nextGuess);
 			
-			//int c = this.game.getResult(nextGuess, guesses.get(i - 1))[0];
-			//int d = this.game.getResult(nextGuess, guesses.get(i - 1))[1];
+			//int c = game.getResult(nextGuess, guesses.get(i - 1))[0];
+			//int d = game.getResult(nextGuess, guesses.get(i - 1))[1];
 			
 			
 			//if our previous number of black buttons is not equal to the next number black buttons

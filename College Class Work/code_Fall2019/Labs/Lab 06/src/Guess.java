@@ -49,7 +49,7 @@ public class Guess {
 		//once elements have been removed, break out of the inner loop
 		for (int i = 0; i < secret_guess_ids.size(); i++) {
 			for (int j = 0; j < current_guess_ids.size(); j++) {
-				int secret_guess_id = secret_guess_ids.get(j);
+				int secret_guess_id = secret_guess_ids.get(i);
 				int current_guess_id = current_guess_ids.get(j);
 				//TODO could be wrong
 				
