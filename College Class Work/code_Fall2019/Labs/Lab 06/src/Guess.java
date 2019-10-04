@@ -1,3 +1,6 @@
+//Lab 06, Mastermind, by Rustan Hoffman and Rebecca Damewood
+
+
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,32 +16,22 @@ public class Guess {
 	
 	//DO THIS
 	public int[] reportResult(Guess secret) {
-		int[] result = new int[2];
+		int[] result = { 0, 0 };
 		if (!isFull())
 			return result; //nothing awarded if the guess is not complete
 			
 		List<Integer> secret_guess_ids = secret.getGuessIDs();
 		List<Integer> current_guess_ids = this.getGuessIDs();
 		
-		int black_count = 0; //number of black buttons   
-		int white_count = 0; //number of white buttons
-		
 		//count up the black buttons to be awarded (for loop)
 		//award a black button and remove those elements
 		//make sure to account for the shifting of elements after a removal (decrement your counter)
 		for (int i = 0; i < secret_guess_ids.size(); i++) {
-			int secret_guess_id = secret_guess_ids.get(i);
-			int current_guess_id = current_guess_ids.get(i);
-			//TODO could be wrong
-			if (secret_guess_id == current_guess_id) {
+			if (secret_guess_ids.get(i) == current_guess_ids.get(i)) {
 				//award a black button and remove those elements (from secret and current guesses ids)
-				black_count += 1;
+				result[0] += 1;
 				secret_guess_ids.remove(i);
 				current_guess_ids.remove(i);
-				
-				
-				
-				
 				i--; //accounts for shifting of elements after removal
 			}
 		}
@@ -49,27 +42,19 @@ public class Guess {
 		//once elements have been removed, break out of the inner loop
 		for (int i = 0; i < secret_guess_ids.size(); i++) {
 			for (int j = 0; j < current_guess_ids.size(); j++) {
-				int secret_guess_id = secret_guess_ids.get(i);
-				int current_guess_id = current_guess_ids.get(j);
-				//TODO could be wrong
-				
-				if (secret_guess_id == current_guess_id) {
+				if (secret_guess_ids.get(i) == current_guess_ids.get(j)) {
 					
 					//award a white button and remove those elements (from secret and current guesses ids)
-
-		        	 secret_guess_ids.remove(i);
-		        	 current_guess_ids.remove(j);
 					
-					white_count += 1;
+					secret_guess_ids.remove(i);
+					current_guess_ids.remove(j);
+					
+					result[1] += 1;
 					i--; //accounts for shifting of elements after removal
 					break; //relevant elements have been removed, so inner loop is done
 				}
 			}
 		}
-		
-		
-		result[0] = black_count;
-		result[1] = white_count;
 		
 		return result;
 	}

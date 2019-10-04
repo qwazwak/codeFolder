@@ -1,3 +1,5 @@
+//Lab 06, Mastermind, by Rustan Hoffman and Rebecca Damewood
+
 import java.awt.Graphics;
 
 public class MasterMind implements Drawable {
@@ -8,33 +10,33 @@ public class MasterMind implements Drawable {
 	private MasterMindAI[] ais;
 	private MasterMindAI current_ai;
 	
-	//DO THIS
 	//entry point
 	public static void main(String[] args) {
 		//0 = human player, 1 = random based, 2 = consistent based, and 3 = minimax based
 		int ai_int = 0; //human player is the default
 		
-		//DO THIS
 		//if a command line argument exists, parse it as an integer, store it in ai_int
 		//use try-catch and catch two appropriate exceptions (ArrayIndexOutOfBoundsException and NumberFormatException)
 		//if an exception is caught, default your ai to be a human player (set ai_int = 0)
 		
-			try {
+		try {
+			if (args.length > 0) {
 				ai_int = Integer.parseInt(args[0]);
-				
-				
-				} 
-			catch (ArrayIndexOutOfBoundsException e) {
-				ai_int = 0;
-			} 
-			catch (NumberFormatException e) {
-				ai_int = 0;
+				if (!(ai_int >= 0 && ai_int <= 3)) {
+					ai_int = 0;
+				}
 			}
-			
+		} catch (ArrayIndexOutOfBoundsException e) {
+			ai_int = 0;
+		} catch (NumberFormatException e) {
+			ai_int = 0;
+		}
+		
 		
 		SimpleDialogs sd = SimpleDialogs.getSimpleDialogs();
 		sd.useSystemStyle();
-		MasterMind mm = new MasterMind(ai_int);
+		//MasterMind mm =
+				new MasterMind(ai_int);
 	}
 	
 	//DO THIS
@@ -48,12 +50,10 @@ public class MasterMind implements Drawable {
 		ais[2] = new MasterMindAIMiniMax(this);
 		
 		
-		
 		//set the ai based on the value passed to the constructor
-		System.out.println("A: ai_int: " + ai_int);
-		setAI(ai_int);
+		this.setAI(ai_int);
 		
-		reset();
+		this.reset();
 		
 		//create and show the GUI
 		MasterMindGUI mmgui = new MasterMindGUI(457, 679, this);
@@ -66,15 +66,8 @@ public class MasterMind implements Drawable {
 	//DO THIS
 	//change the ai used based on the value passed to this method
 	public void setAI(int ai_int) {
-		System.out.println("B: ai_int: " + ai_int);
 		//if the argument is valid (1-3) assign that value from the array of ais, if not just give null
-		if(ai_int < 1 || ai_int > 3) {
-			current_ai = null;
-		}
-		else {
-			current_ai = ais[ai_int - 1];
-		}
-		//this.current_ai = ((ai_int < 1 || ai_int > 3) ? (null) : (this.ais[ai_int - 1]));
+		this.current_ai = (ai_int < 1 || ai_int > 3) ? null : this.ais[ai_int - 1];
 	}
 	
 	public void keyPressed(char key) //the ai dynamically changes when the user types a key
@@ -128,10 +121,12 @@ public class MasterMind implements Drawable {
 			}
 			
 			if (guesses.win(secret)) {
-				Win win = new Win(secret);
+				//Win win = 
+						new Win(secret);
 				play = false;
 			} else if (guesses.lose(secret)) {
-				Lose lose = new Lose(secret);
+				//Lose lose =
+						new Lose(secret);
 				play = false;
 			}
 		}

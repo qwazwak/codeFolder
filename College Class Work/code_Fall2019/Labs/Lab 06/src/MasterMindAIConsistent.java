@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+//Lab 06, Mastermind, by Rustan Hoffman and Rebecca Damewood
+
 import java.util.List;
 import java.util.Random;
 
@@ -12,27 +13,17 @@ public class MasterMindAIConsistent implements MasterMindAI {
 	//DO THIS
 	public Guess nextGuess(int guess_id) {
 		List<Guess> guesses = game.getGuesses();
-		int num_guesses = guesses.size();
 		Guess nextGuess = null;
 		
 		if (guesses.size() > 0) {
-					boolean good = false;
-
+			
 			Guess trialGuess = null;
 			
-			//	boolean good = false;
 			//keep obtaining a random guess until you get one that works with all previous results
-			//it is cheating to keep obtaining a random guess until you match the solution
-			//make a random guess and then analyze it
-			
-			while(!good) {
+			//it is cheating to keep obtaining a random guess until you match the solution make a random guess and then analyze it
+			do {
 				trialGuess = makeRandomGuess(guess_id);
-				good = analyzeGuess(trialGuess);
-				System.out.println("consistent 1st loop");
-			} 
-			
-			
-			
+			} while (!analyzeGuess(trialGuess));
 			
 			
 			nextGuess = trialGuess; //found a good one
@@ -49,15 +40,14 @@ public class MasterMindAIConsistent implements MasterMindAI {
 	//don't just check your random guess against the secret guess until you get a good result
 	private boolean analyzeGuess(Guess nextGuess) {
 		List<Guess> guesses = game.getGuesses(); //get all previous guesses from the game
-		int num_guesses = guesses.size();
 		
 		//loop over all previous guesses
-		for (int i = 1; i < guesses.size(); i++) //note that i is starting at 1!
-		{
+		//note that i is starting at 1!
+		for (int i = 1; i < guesses.size(); i++) {
 			//previous guess compared to the secret guess (obtain the int array through the game ref)
 			
-		//	int a = game.getResult(guesses.get(i - 1))[0];
-		//	int b = game.getResult(guesses.get(i - 1))[1];
+			//	int a = game.getResult(guesses.get(i - 1))[0];
+			//	int b = game.getResult(guesses.get(i - 1))[1];
 			Guess pastGuess = guesses.get(i - 1);
 			int[] pastResult = game.getResult(pastGuess);
 			
@@ -87,10 +77,10 @@ public class MasterMindAIConsistent implements MasterMindAI {
 	private static Guess makeRandomGuess(int guess_id) {
 		Guess randomGuess = new Guess(guess_id);
 		Random rand = new Random();
-		randomGuess.addGuess(1 + ( rand.nextInt(7)));
-		randomGuess.addGuess(1 + ( rand.nextInt(7)));
-		randomGuess.addGuess(1 + ( rand.nextInt(7)));
-		randomGuess.addGuess(1 + ( rand.nextInt(7)));
+		randomGuess.addGuess(1 + (rand.nextInt(7)));
+		randomGuess.addGuess(1 + (rand.nextInt(7)));
+		randomGuess.addGuess(1 + (rand.nextInt(7)));
+		randomGuess.addGuess(1 + (rand.nextInt(7)));
 		return randomGuess;
 	}
 }
