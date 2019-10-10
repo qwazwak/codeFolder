@@ -1,0 +1,15 @@
+eclipse.preferences.version=1
+encoding//src/pizza/Crust.java=UTF-8
+encoding//src/pizza/DecoratedPizza.java=UTF-8
+encoding//src/pizza/GreenPeppers.java=UTF-8
+encoding//src/pizza/Mushrooms.java=UTF-8
+encoding//src/pizza/Onions.java=UTF-8
+encoding//src/pizza/Pepperoni.java=UTF-8
+encoding//src/pizza/Pizza.java=UTF-8
+encoding//src/pizza/PizzaBuilder.java=UTF-8
+encoding//src/pizza/PizzaTopping.java=UTF-8
+encoding//src/pizza/PizzaToppingFactory.java=UTF-8
+encoding//src/pizza/Pizza_Speacial_Hawaiian.java=UTF-8
+encoding//src/pizza/Pizza_Speacial_MeatLovers.java=UTF-8
+encoding//src/pizza/Pizza_Speacial_VeggieLover.java=UTF-8
+encoding//src/pizza/Sausage.java=UTF-8
