@@ -10,12 +10,15 @@ public class PizzaBuilder {
 		crust_size = 'S';
 		crust_type = "THIN";
 		crust = new Crust(crust_type, crust_size);
+		System.out.println(crust);
 		topLink = new Pizza(crust);
+		System.out.println(topLink);
 	}
 	
 	public boolean setSize(char size) {
 		if (size == 'S' || size == 's' || size == 'M' || size == 'm' || size == 'L' || size == 'l') {
 			crust_size = size;
+			buildPizza();
 			return true;
 		}
 		return false;
@@ -27,43 +30,49 @@ public class PizzaBuilder {
 	}
 	
 	public boolean setCrust(String theCrust) {
-		switch (theCrust) {
-			case "THIN":
-			case "HAND":
-			case "PAN":
-				crust_type = theCrust;
-				return true;
-			default:
-				return false;
+		if (theCrust.toUpperCase().equals("THIN") || theCrust.toUpperCase().equals("PAN") || theCrust.toUpperCase().equals("HAND")) {
+			crust_type = theCrust;
+			buildPizza();
+			return true;
+		} else {
+			return false;
 		}
 		
 	}
 	
 	public void addTopping(char topChar) {
-		if (!(topLink instanceof Pizza || topLink instanceof PizzaTopping))
+		if (!(topLink instanceof Pizza || topLink instanceof PizzaTopping)) {
 			return;
+		}
+		System.out.println (topLink);
 		switch (topChar) {
 			case 'P':
-				PizzaToppingFactory.addPepperoni(topLink);
+				topLink = PizzaToppingFactory.addPepperoni(topLink);
 				break;
 			case 'S':
-				PizzaToppingFactory.addSausage(topLink);
+				topLink = PizzaToppingFactory.addSausage(topLink);
 				break;
 			case 'O':
-				PizzaToppingFactory.addOnions(topLink);
+				topLink = PizzaToppingFactory.addOnions(topLink);
 				break;
 			case 'G':
-				PizzaToppingFactory.addGreenpeppers(topLink);
+				topLink = PizzaToppingFactory.addGreenpeppers(topLink);
 				break;
 			case 'M':
-				PizzaToppingFactory.addMushrooms(topLink);
+				topLink = PizzaToppingFactory.addMushrooms(topLink);
+				break;
+			case 'H':
+				topLink = PizzaToppingFactory.addHam(topLink);
+				break;
+			case 'A':
+				topLink = PizzaToppingFactory.addPineapple(topLink);
 				break;
 		}
 	}
 	
 	
 	public void addDiscount(String message, double amount) {
-		if(!(topLink instanceof Pizza ||topLink instanceof PizzaTopping ||topLink instanceof PizzaDiscount))
+		if (!(topLink instanceof Pizza || topLink instanceof PizzaTopping || topLink instanceof PizzaDiscount))
 			return;
 		topLink = new PizzaDiscount(topLink, message, amount);
 	}

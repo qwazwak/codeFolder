@@ -9,10 +9,9 @@ public class Mushrooms extends DecoratedPizza {
 		return super.pizzaCost() + 0.79;
 	}
 	public String toString() {
-		return " Mushrooms" + super.toString();
+		return super.toString() + " Mushrooms";
 	}
 	public String getImage () {
-		String buffer = new String();
-		return buffer + "FIX ME";
+		return super.getImage() + "M";
 	}
 }

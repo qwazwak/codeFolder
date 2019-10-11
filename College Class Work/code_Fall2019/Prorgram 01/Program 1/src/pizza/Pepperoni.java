@@ -9,10 +9,9 @@ public class Pepperoni extends DecoratedPizza {
 		return super.pizzaCost() + 0.99;
 	}
 	public String toString() {
-		return " Pepperoni" + super.toString();
+		return super.toString() + " Pepperoni";
 	}
 	public String getImage () {
-		String buffer = new String();
-		return buffer + "FIX ME";
+		return super.getImage() + "P";
 	}
 }

@@ -1,15 +1,14 @@
 package pizza;
 
-public class Pizza_Speacial_VeggieLover extends PizzaBuilder {
+public class Pizza_Special_VeggieLover extends PizzaBuilder {
 	
-	Pizza_Speacial_VeggieLover(){
+	Pizza_Special_VeggieLover(){
 		super();
 	}
 
 	
 	public void buildPizza() {
 		super.buildPizza();
-		super.setCrust("THIN");
 		super.addTopping('O');
 		super.addTopping('G');
 		super.addTopping('M');

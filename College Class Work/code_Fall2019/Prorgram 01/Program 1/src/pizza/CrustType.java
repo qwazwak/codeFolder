@@ -1,5 +1,5 @@
 package pizza;
-public enum CrustType {
+enum CrustType {
 	THIN(0.00), HAND(0.50), PAN(1.00);
 	private double price;
 	
@@ -8,6 +8,6 @@ public enum CrustType {
 	}
 	
 	public double cost() {
-		return this.price;
+		return price;
 	}
 };

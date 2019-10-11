@@ -9,10 +9,9 @@ public class Sausage extends DecoratedPizza {
 		return super.pizzaCost() + 0.99;
 	}
 	public String toString() {
-		return " Sausage" + super.toString();
+		return super.toString() + " Sausage";
 	}
 	public String getImage () {
-		String buffer = new String();
-		return buffer + "FIX ME";
+		return super.getImage() + "S";
 	}
 }

@@ -1,6 +1,6 @@
 package pizza;
 
-public class PizzaToppingFactory extends DecoratedPizza {
+public class PizzaToppingFactory {
 	
 	public static DecoratedPizza addPepperoni(DecoratedPizza dec_pizza) {
 		return new PizzaTopping(dec_pizza, "pepperoni\n", "P", 0.99);

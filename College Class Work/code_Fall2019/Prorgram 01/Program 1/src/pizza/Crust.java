@@ -49,9 +49,13 @@ public class Crust {
 		return type;
 	}
 	
-	
+
 	public String toString() {
 		return new String("Size: " + size + "\n" + "Crust: " + type + "\n");
+	}
+	
+	public String getImage() {
+		return type;
 	}
 	
 }

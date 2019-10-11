@@ -6,17 +6,17 @@ public class Pizza extends DecoratedPizza {
 	Pizza(Crust newCrustObj){
 		super();
 		crustObj = newCrustObj;
+		System.out.println(crustObj);
 	}
 	
 	public double pizzaCost() {
-		return crustObj.crustCost() + super.pizzaCost();
+		return crustObj.crustCost();
 	}
 	public String toString() {
-		return crustObj.toString() + super.toString();
+		return crustObj.toString();
 	}
 	public String getImage () {
-		String buffer = new String();
-		return buffer + crustObj.getSize() + super.getImage();
+		return crustObj.getImage();
 	}
 	
 	

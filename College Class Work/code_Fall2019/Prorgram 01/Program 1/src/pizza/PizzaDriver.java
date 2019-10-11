@@ -9,7 +9,6 @@ import java.text.DecimalFormat;
 public class PizzaDriver {
 	static Keyboard keyboardInput = Keyboard.getKeyboard();
 	static PizzaBuilder pizzaBuilderObj;
-	static DecoratedPizza decPizza;
 	final double seniorDiscount = 0.10;
 	
 	private static int menu() {
@@ -29,8 +28,7 @@ public class PizzaDriver {
 		char pizzaSize;
 		while (true) {
 			pizzaSize = keyboardInput.readString("\nWhat size pizza (S, M, or L): ").toUpperCase().charAt(0);
-			if (pizzaSize == 'S' || pizzaSize == 'M' || pizzaSize == 'L') {
-				builderObj.setSize(pizzaSize);
+			if (builderObj.setSize(pizzaSize)) {
 				return;
 			}
 		}
@@ -40,8 +38,7 @@ public class PizzaDriver {
 		String crustSelection;
 		do {
 			crustSelection = keyboardInput.readString("\nWhat type of crust (THIN, HAND, or PAN): ").toUpperCase();
-			if (crustSelection.equals("THIN") || crustSelection.equals("HAND") || crustSelection.equals("PAN")) {
-				pizza_builder.setCrust(crustSelection);
+			if (pizza_builder.setCrust(crustSelection)) {
 				return;
 			}
 		} while (true);
@@ -75,10 +72,10 @@ public class PizzaDriver {
 	
 	public static void main(String[] args) {
 		String inputBuffer = "";
+		DecoratedPizza decPizza;
 		double totalCost = 0.00;
 		long numPizza = 0;
 		DecimalFormat doubleF = new DecimalFormat(" #0.00");
-		
 		
 		inputBuffer = keyboardInput.readString("Would you like to order a pizza(y/n)?: ");
 		while (inputBuffer.toUpperCase().charAt(0) == ('Y')) {
@@ -86,41 +83,78 @@ public class PizzaDriver {
 			
 			
 			pizzaBuilderObj = new PizzaBuilder();
-			pizzaBuilderObj.buildPizza();
-
-			requestSize(pizzaBuilderObj);
-			requestCrust(pizzaBuilderObj);
+			
 			
 			switch (choice) {
 				case 1: {
-					pizzaBuilderObj = new Pizza_Speacial_MeatLovers();			
+					pizzaBuilderObj = new Pizza_Special_MeatLovers();
+					requestSize(pizzaBuilderObj);
+					requestCrust(pizzaBuilderObj);
 					break;
 				}
 				case 2: {
-					pizzaBuilderObj = new Pizza_Speacial_VeggieLover();	
+					pizzaBuilderObj = new Pizza_Special_VeggieLover();
+					requestSize(pizzaBuilderObj);
+					requestCrust(pizzaBuilderObj);
 					break;
 				}
 				case 3: {
-					pizzaBuilderObj = new Pizza_Speacial_Hawaiian();	
+					pizzaBuilderObj = new Pizza_Special_Hawaiian();
+					requestSize(pizzaBuilderObj);
+					requestCrust(pizzaBuilderObj);
 					break;
 				}
 				case 4: {
 					pizzaBuilderObj = new PizzaBuilder();
+					requestSize(pizzaBuilderObj);
+					requestCrust(pizzaBuilderObj);
 					requestToppings(pizzaBuilderObj);
 					break;
 				}
 				
 			}
-/*
- * In PizzaDriver, ask the user if they want delivery. If so, add a $2.50 delivery fee to the order. 
- */
+
+			boolean seniorLoopContinue = true;
+			do {
+				inputBuffer = keyboardInput.readString("Are you eligable for the senior discount? (y/n): ");
+				if (inputBuffer.toUpperCase().charAt(0) == 'Y') {
+					seniorLoopContinue = false;
+					pizzaBuilderObj.addDiscount("senior discount", (double) 0.10);
+				}
+				else if(inputBuffer.toUpperCase().charAt(0) == 'N') {
+					seniorLoopContinue = false;
+				}
+				else {
+					System.out.println("Invalid input, try again");
+					seniorLoopContinue = true;
+				}
+			} while (seniorLoopContinue);
+			
 			
 			//ask about senior discount, 
+			boolean deliverLoopContinue = true;
+			do {
+				inputBuffer = keyboardInput.readString("Would you like the pizza delivered for $2.50? (y/n): ");
+				if (inputBuffer.toUpperCase().charAt(0) == 'Y') {
+					deliverLoopContinue = false;
+					pizzaBuilderObj.addFee("Delivery", (double) 2.50);
+				}
+				else if(inputBuffer.toUpperCase().charAt(0) == 'N') {
+					deliverLoopContinue = false;
+				}
+				else {
+					System.out.println("Invalid input, try again");
+					deliverLoopContinue = true;
+				}
+			} while (deliverLoopContinue);
+
 			decPizza = pizzaBuilderObj.pizzaDone();
+			System.out.println(decPizza);
 			showOrder(decPizza);
 			totalCost += decPizza.pizzaCost();
 			System.out.println("Cost of the pizza: $" + doubleF.format(decPizza.pizzaCost()));
 			System.out.println("Your total so far is : $" + doubleF.format(totalCost));
+
 			inputBuffer = keyboardInput.readString("Would you like to order another pizza (y/n): ");
 		}
 		

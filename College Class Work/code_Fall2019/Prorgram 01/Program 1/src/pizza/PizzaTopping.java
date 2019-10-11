@@ -9,7 +9,7 @@ public class PizzaTopping extends DecoratedPizza {
 	PizzaTopping(DecoratedPizza obj, String strAlpha, String strBeta, double cost) {
 		super(obj);
 		topping = strAlpha;
-		letter = strBeta;
+		letter = strBeta.toUpperCase().substring(0, 0);
 		this.cost = cost;
 	}
 	
@@ -19,7 +19,7 @@ public class PizzaTopping extends DecoratedPizza {
 	}
 	
 	public String toString() {
-		return topping + super.toString();
+		return " " + topping + super.toString();
 	}
 	
 	public String getImage() {

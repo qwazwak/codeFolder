@@ -9,10 +9,9 @@ public class GreenPeppers extends DecoratedPizza {
 		return super.pizzaCost() + 0.69;
 	}
 	public String toString() {
-		return " GreenPeppers" + super.toString();
+		return  super.toString() + " GreenPeppers";
 	}
 	public String getImage () {
-		String buffer = new String();
-		return buffer + "FIX ME";
+		return super.getImage() + "G";
 	}
 }

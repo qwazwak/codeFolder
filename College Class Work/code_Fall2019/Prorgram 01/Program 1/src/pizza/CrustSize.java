@@ -1,6 +1,6 @@
 package pizza;
 
-public enum CrustSize {
+enum CrustSize {
 	S(5.99), M(7.99), L(9.99);
 	private double price;
 	
@@ -9,6 +9,6 @@ public enum CrustSize {
 	}
 	
 	public double cost() {
-		return this.price;
+		return price;
 	}
-}
+};
