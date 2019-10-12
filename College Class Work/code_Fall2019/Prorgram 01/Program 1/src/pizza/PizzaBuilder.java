@@ -1,3 +1,6 @@
+//CSC2310 Object Oriented Programming
+//Project 01 Rustan Hoffman
+
 package pizza;
 
 public class PizzaBuilder {
@@ -10,9 +13,7 @@ public class PizzaBuilder {
 		crust_size = 'S';
 		crust_type = "THIN";
 		crust = new Crust(crust_type, crust_size);
-		System.out.println(crust);
 		topLink = new Pizza(crust);
-		System.out.println(topLink);
 	}
 	
 	public boolean setSize(char size) {
@@ -44,7 +45,6 @@ public class PizzaBuilder {
 		if (!(topLink instanceof Pizza || topLink instanceof PizzaTopping)) {
 			return;
 		}
-		System.out.println (topLink);
 		switch (topChar) {
 			case 'P':
 				topLink = PizzaToppingFactory.addPepperoni(topLink);

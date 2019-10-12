@@ -1,18 +1,17 @@
-//Rustan Hoffman
+//CSC2310 Object Oriented Programming
+//Project 01 Rustan Hoffman
 
 package pizza;
 
 import util.Keyboard;
-
 import java.text.DecimalFormat;
 
 public class PizzaDriver {
+	static final DecimalFormat doubleF = new DecimalFormat("#0.00");
 	static Keyboard keyboardInput = Keyboard.getKeyboard();
 	static PizzaBuilder pizzaBuilderObj;
-	final double seniorDiscount = 0.10;
 	
 	private static int menu() {
-		System.out.println("\n");
 		System.out.println("1. Meat Lover's");
 		System.out.println("2. Veggie Lover's");
 		System.out.println("3. Hawaiian");
@@ -26,22 +25,22 @@ public class PizzaDriver {
 	
 	private static void requestSize(PizzaBuilder builderObj) {
 		char pizzaSize;
-		while (true) {
-			pizzaSize = keyboardInput.readString("\nWhat size pizza (S, M, or L): ").toUpperCase().charAt(0);
-			if (builderObj.setSize(pizzaSize)) {
-				return;
+		do {
+			try {
+				pizzaSize = keyboardInput.readString("\nWhat size pizza (S, M, or L): ").toUpperCase().charAt(0);
+			} catch (StringIndexOutOfBoundsException e) {
+				System.out.println("Invalid input, try again");
+				pizzaSize = '0';
 			}
-		}
+			
+		} while (!(builderObj.setSize(pizzaSize)));
 	}
 	
 	private static void requestCrust(PizzaBuilder pizza_builder) {
 		String crustSelection;
 		do {
 			crustSelection = keyboardInput.readString("\nWhat type of crust (THIN, HAND, or PAN): ").toUpperCase();
-			if (pizza_builder.setCrust(crustSelection)) {
-				return;
-			}
-		} while (true);
+		} while (!(pizza_builder.setCrust(crustSelection)));
 	}
 	
 	private static void requestToppings(PizzaBuilder pizza_builder) {
@@ -56,18 +55,21 @@ public class PizzaDriver {
 			System.out.println("\t(H)am");
 			System.out.println("\tPine(A)pple");
 			System.out.println("(D)one");
-			inputBuffer = keyboardInput.readString("Selection: ");
-			char choice = inputBuffer.toUpperCase().charAt(0);
-			if (choice == 'D' || choice == 'd') {
-				return;
+			try {
+				inputBuffer = keyboardInput.readString("Selection: ").toUpperCase();
+				if (inputBuffer.toUpperCase().charAt(0) == 'D') {
+					return;
+				}
+			} catch (StringIndexOutOfBoundsException e) {
+				inputBuffer = "0";
 			}
-			pizza_builder.addTopping(choice);
+			pizza_builder.addTopping(inputBuffer.toUpperCase().charAt(0));
 		} while (true);
 	}
 	
 	private static void showOrder(DecoratedPizza dec_pizza) {
 		System.out.println("Your pizza order is: \n" + dec_pizza.toString() + "\n");
-		System.out.println("The pizza costs: " + dec_pizza.pizzaCost());
+		System.out.println("The pizza costs: " + doubleF.format(dec_pizza.pizzaCost()));
 	}
 	
 	public static void main(String[] args) {
@@ -75,15 +77,36 @@ public class PizzaDriver {
 		DecoratedPizza decPizza;
 		double totalCost = 0.00;
 		long numPizza = 0;
-		DecimalFormat doubleF = new DecimalFormat(" #0.00");
+		boolean mainLoopControl = true;
+		//final double seniorDiscount = 0.10;
+		boolean miniLoopControl = true;
 		
-		inputBuffer = keyboardInput.readString("Would you like to order a pizza(y/n)?: ");
-		while (inputBuffer.toUpperCase().charAt(0) == ('Y')) {
+		miniLoopControl = true;
+		do {
+			try {
+				inputBuffer = keyboardInput.readString("Would you like to order a pizza(y/n)?: ");
+				switch (inputBuffer.toUpperCase().charAt(0)) {
+					case 'Y':
+						miniLoopControl = false;
+						mainLoopControl = true;
+						break;
+					case 'N':
+						miniLoopControl = false;
+						mainLoopControl = false;
+						break;
+					default:
+						System.out.println("Invalid input, try again");
+						miniLoopControl = true;
+						break;
+				}
+			} catch (StringIndexOutOfBoundsException e) {
+				System.out.println("Invalid input, try again");
+				miniLoopControl = true;
+			}
+		} while (miniLoopControl);
+		while (mainLoopControl) {
 			int choice = menu();
-			
-			
-			pizzaBuilderObj = new PizzaBuilder();
-			
+			//pizzaBuilderObj = new PizzaBuilder();
 			
 			switch (choice) {
 				case 1: {
@@ -113,49 +136,101 @@ public class PizzaDriver {
 				}
 				
 			}
-
+			
 			boolean seniorLoopContinue = true;
 			do {
-				inputBuffer = keyboardInput.readString("Are you eligable for the senior discount? (y/n): ");
-				if (inputBuffer.toUpperCase().charAt(0) == 'Y') {
-					seniorLoopContinue = false;
-					pizzaBuilderObj.addDiscount("senior discount", (double) 0.10);
-				}
-				else if(inputBuffer.toUpperCase().charAt(0) == 'N') {
-					seniorLoopContinue = false;
-				}
-				else {
+				try {
+					inputBuffer = keyboardInput.readString("Are you eligable for the senior discount? (y/n): ");
+					switch (inputBuffer.toUpperCase().charAt(0)) {
+						case 'Y':
+							seniorLoopContinue = false;
+							pizzaBuilderObj.addDiscount("Senior-Discount", (double) 0.10);
+							break;
+						case 'N':
+							seniorLoopContinue = false;
+							break;
+						default:
+							System.out.println("Invalid input, try again");
+							seniorLoopContinue = true;
+							break;
+					}
+				} catch (StringIndexOutOfBoundsException e) {
 					System.out.println("Invalid input, try again");
 					seniorLoopContinue = true;
 				}
 			} while (seniorLoopContinue);
 			
 			
-			//ask about senior discount, 
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+
 			boolean deliverLoopContinue = true;
 			do {
-				inputBuffer = keyboardInput.readString("Would you like the pizza delivered for $2.50? (y/n): ");
-				if (inputBuffer.toUpperCase().charAt(0) == 'Y') {
-					deliverLoopContinue = false;
-					pizzaBuilderObj.addFee("Delivery", (double) 2.50);
-				}
-				else if(inputBuffer.toUpperCase().charAt(0) == 'N') {
-					deliverLoopContinue = false;
-				}
-				else {
+				try {
+					inputBuffer = keyboardInput.readString("Would you like the pizza delivered for $2.50? (y/n): ");
+					switch (inputBuffer.toUpperCase().charAt(0)) {
+						case 'Y':
+							deliverLoopContinue = false;
+							pizzaBuilderObj.addFee("Delivery charge", (double) 2.50);
+							break;
+						case 'N':
+							deliverLoopContinue = false;
+							break;
+						default:
+							System.out.println("Invalid input, try again");
+							deliverLoopContinue = true;
+							break;
+					}
+				} catch (StringIndexOutOfBoundsException e) {
 					System.out.println("Invalid input, try again");
 					deliverLoopContinue = true;
 				}
 			} while (deliverLoopContinue);
-
+			
+			System.out.println("Pizza: \n");
 			decPizza = pizzaBuilderObj.pizzaDone();
-			System.out.println(decPizza);
 			showOrder(decPizza);
 			totalCost += decPizza.pizzaCost();
+			++numPizza;
 			System.out.println("Cost of the pizza: $" + doubleF.format(decPizza.pizzaCost()));
 			System.out.println("Your total so far is : $" + doubleF.format(totalCost));
+			
+			
+			
 
-			inputBuffer = keyboardInput.readString("Would you like to order another pizza (y/n): ");
+			
+			miniLoopControl = true;
+			do {
+				try {
+					inputBuffer = keyboardInput.readString("Would you like to order a pizza(y/n)?: ");
+					switch (inputBuffer.toUpperCase().charAt(0)) {
+						case 'Y':
+							miniLoopControl = false;
+							mainLoopControl = true;
+							break;
+						case 'N':
+							miniLoopControl = false;
+							mainLoopControl = false;
+							break;
+						default:
+							System.out.println("Invalid input, try again");
+							miniLoopControl = true;
+							break;
+					}
+				} catch (StringIndexOutOfBoundsException e) {
+					System.out.println("Invalid input, try again");
+					miniLoopControl = true;
+				}
+			} while (miniLoopControl);
 		}
 		
 		System.out.println("You ordered: " + numPizza + " Pizza(s)");

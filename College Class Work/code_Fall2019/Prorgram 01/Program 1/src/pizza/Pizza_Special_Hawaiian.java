@@ -1,3 +1,6 @@
+//CSC2310 Object Oriented Programming
+//Project 01 Rustan Hoffman
+
 package pizza;
 
 public class Pizza_Special_Hawaiian extends PizzaBuilder {

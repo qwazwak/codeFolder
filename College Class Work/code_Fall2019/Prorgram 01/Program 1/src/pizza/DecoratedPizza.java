@@ -1,3 +1,6 @@
+//CSC2310 Object Oriented Programming
+//Project 01 Rustan Hoffman
+
 package pizza;
 
 public abstract class DecoratedPizza {
@@ -7,7 +10,6 @@ public abstract class DecoratedPizza {
 		next_pizza_item = null;
 	}
 	DecoratedPizza(DecoratedPizza nextPizza){
-		System.out.println(nextPizza);
 		next_pizza_item = nextPizza;
 	}
 	
@@ -15,7 +17,6 @@ public abstract class DecoratedPizza {
 		return next_pizza_item.pizzaCost();
 	}
 	public String toString() {
-		System.out.println(next_pizza_item);
 		return next_pizza_item.toString();
 	}
 	public String getImage(){

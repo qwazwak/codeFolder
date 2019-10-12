@@ -1,3 +1,6 @@
+//CSC2310 Object Oriented Programming
+//Project 01 Rustan Hoffman
+
 package pizza;
 
 public class Mushrooms extends DecoratedPizza {

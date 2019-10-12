@@ -1,3 +1,6 @@
+//CSC2310 Object Oriented Programming
+//Project 01 Rustan Hoffman
+
 package pizza;
 
 public class Pizza extends DecoratedPizza {
@@ -6,7 +9,6 @@ public class Pizza extends DecoratedPizza {
 	Pizza(Crust newCrustObj){
 		super();
 		crustObj = newCrustObj;
-		System.out.println(crustObj);
 	}
 	
 	public double pizzaCost() {
