@@ -2,20 +2,20 @@ import queue.*;
 
 class BinaryTreeIterator implements TreeIterator {
 	private TreeNode root;
-	private QueueInterface queue; //global queue      
+	private QueueInterface globalQ; //global queue      
 	
 	public BinaryTreeIterator(TreeNode root) {
 		this.root = root;
-		queue = new QueueLinked();
+		globalQ = new QueueLinked();
 	}
 	
 	public boolean hasNext() {
-		return !queue.isEmpty();
+		return !globalQ.isEmpty();
 	}
 	
 	public Object next() throws TreeException {
 		try {
-			return queue.dequeue();
+			return globalQ.dequeue();
 		} catch (QueueException e) {
 			throw new TreeException("End of tree traversal.");
 		}
@@ -26,23 +26,23 @@ class BinaryTreeIterator implements TreeIterator {
 	}
 	
 	public void setPreorder() {
-		queue.dequeueAll();
+		globalQ.dequeueAll();
 		preorder(root);
 	}
 	
 	public void setInorder() {
-		queue.dequeueAll();
+		globalQ.dequeueAll();
 		inorder(root);
 	}
 	
 	public void setPostorder() {
-		queue.dequeueAll();
+		globalQ.dequeueAll();
 		postorder(root);
 	}
 	
 	private void preorder(TreeNode tNode) {
 		if (tNode != null) {
-			queue.enqueue(tNode.getItem());
+			globalQ.enqueue(tNode.getItem());
 			preorder(tNode.getLeft());
 			preorder(tNode.getRight());
 		}
@@ -51,7 +51,7 @@ class BinaryTreeIterator implements TreeIterator {
 	private void inorder(TreeNode tNode) {
 		if (tNode != null) {
 			inorder(tNode.getLeft());
-			queue.enqueue(tNode.getItem());
+			globalQ.enqueue(tNode.getItem());
 			inorder(tNode.getRight());
 		}
 	}
@@ -60,18 +60,27 @@ class BinaryTreeIterator implements TreeIterator {
 		if (tNode != null) {
 			postorder(tNode.getLeft());
 			postorder(tNode.getRight());
-			queue.enqueue(tNode.getItem());
+			globalQ.enqueue(tNode.getItem());
 		}
 	}
 	
-
+	
 	
 	public void setLevelorder() {
 		if (root != null) {
-			QueueInterface<TreeNode> q = new QueueLinked<TreeNode>(); //local queue
-			q.enqueue(root);
+			QueueInterface<TreeNode> miniQ = new QueueLinked<TreeNode>(); //local queue
+			miniQ.enqueue(root);
+			TreeNode currentNode;
 			
-			while (!q.isEmpty()) {
+			while (!miniQ.isEmpty()) {
+				currentNode = miniQ.dequeue();
+				globalQ.enqueue(currentNode.getItem());
+				if (currentNode.getLeft() != null) {
+					miniQ.enqueue(currentNode.getLeft());
+				}
+				if (currentNode.getRight() != null) {
+					miniQ.enqueue(currentNode.getRight());
+				}
 				
 				
 				

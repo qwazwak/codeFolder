@@ -149,28 +149,24 @@ public class BinarySearchTree extends BinaryTreeBasis implements SearchTreeInter
 		}
 	}
 	
-	protected TreeNode rotateLeft(TreeNode tNode)
-   {
-      TreeNode right = 
-      TreeNode rightleft = 
-
-	  
-	  
-	  
-	  
-	  
-   }
+	protected TreeNode rotateLeft(TreeNode tNode) {
+		TreeNode newRoot = tNode.getRight();
+		
+		tNode.setLeft(tNode.getRight().getLeft());
+		newRoot.setLeft(tNode);
+		return newRoot;
+		
+		
+		
+	}
 	
-	protected TreeNode rotateRight(TreeNode tNode)
-   {
-      TreeNode left = 
-      TreeNode leftright = 
-
-  
-  
-  
-  
-   }
+	protected TreeNode rotateRight(TreeNode tNode) {
+		TreeNode newRoot = tNode.getLeft();
+		
+		tNode.setLeft(tNode.getLeft().getRight());
+		newRoot.setRight(tNode);
+		return newRoot;
+	}
 	
 	
 	
