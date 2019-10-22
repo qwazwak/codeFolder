@@ -35,20 +35,22 @@ public class AdaptableBinarySearchTree extends BinarySearchTree {
 				//this item will be moved up one level each time it is retrieved
 				//the principal of temporal (spatial?) locality of data (retrieved once, likely to be retrieved again)
 				
+				//wtf
 				
 			} else if (comparison < 0) {
 				//search the left subtree
 				//make sure to set your new left subtree
+				tNode = retrieveItemAdapt(tNode.getLeft(), searchKey);
 				
 				
 			} else {
 				//search the right subtree
 				//make sure to set your new right subtree 
-				
+				tNode = retrieveItemAdapt(tNode.getRight(), searchKey);
 				
 			}
 		}
-		
+		//rotates? subtree? what if not found? check root manually in public?
 		return tNode;
 	}
 	
