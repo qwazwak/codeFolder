@@ -14,6 +14,7 @@ public class AdaptableBinarySearchTree extends BinarySearchTree {
 			}
 		}
 		catch(TreeException e) {
+			throw new TreeException("Could not find searchKey in tree");
 			//maybe not trycatch
 		}
 		return returnMe;
