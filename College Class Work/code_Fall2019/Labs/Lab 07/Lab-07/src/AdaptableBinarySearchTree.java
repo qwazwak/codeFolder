@@ -2,14 +2,21 @@
 public class AdaptableBinarySearchTree extends BinarySearchTree {
 	
 	public AdaptableBinarySearchTree() {
-		
+		super();
+		//ask about me
 	}
 	
 	public KeyedItem retrieve(Comparable searchKey) {
-		
-		
-		
-		
+		KeyedItem returnMe = (KeyedItem) (retrieveItemAdapt(super.getRootNode(), searchKey)).getItem();
+		try {
+			if(returnMe == null) {
+				throw new TreeException("Could not find searchKey in tree");
+			}
+		}
+		catch(TreeException e) {
+			//maybe not trycatch
+		}
+		return returnMe;
 		
 	}
 	
@@ -18,8 +25,7 @@ public class AdaptableBinarySearchTree extends BinarySearchTree {
 		TreeNode subtree;
 		
 		if (tNode == null) {
-			
-			
+			throw new TreeException("Could not find searchKey in tree");
 		} else {
 			KeyedItem nodeItem = (KeyedItem) tNode.getItem();
 			int comparison = searchKey.compareTo(nodeItem.getKey());
