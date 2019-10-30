@@ -1,7 +1,33 @@
-//Rustan Hoffman
-
 
 public class BinarySearchTree extends BinaryTreeBasis implements SearchTreeInterface {
+	int size;
+	//will need to add a size instance variable
+	public int size() {
+		assert validateSize() : "BST(" + this.toString() + "has a size error";
+		return size;
+	}
+	
+	private boolean validateSize() {		
+		return recursiveCount(super.getRootNode()) == size;
+	}
+	
+	private int recursiveCount(TreeNode node) {
+		return 1 + (node.getLeft() == null ? 0 : recursiveCount(node.getLeft())) + (node.getRight() == null ? 0 : recursiveCount(node.getRight()));
+	}
+	
+	private boolean validateBSTProperty() {
+		TreeIterator itr = super.iterator();
+		itr.setInorder();
+		KeyedItem prev = (KeyedItem) itr.next();
+		KeyedItem cur;
+		while(itr.hasNext()) {
+			cur = (KeyedItem) itr.next();
+			if(((Comparable) prev).compareTo(cur) > 0) {
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	public BinarySearchTree() {
 		super();
@@ -12,14 +38,24 @@ public class BinarySearchTree extends BinaryTreeBasis implements SearchTreeInter
 	}
 	
 	public void insert(KeyedItem item) throws TreeException {
-		setRootNode(insertItem(getRootNode(), item));
+		try {
+			setRootNode(insertItem(getRootNode(), item));
+			size++;
+		}
+		finally {
+			assert validateSize() && validateBSTProperty() :  "not a binary search tree after insertion of key: " + item.getKey(); ;
+		}
+		//adjust size and use assertions (validateBSTProperty() & validateSize())
 	}
 	
 	public void delete(Comparable searchKey) throws TreeException {
 		setRootNode(deleteItem(getRootNode(), searchKey));
+		//adjust size and use assertions (validateBSTProperty() & validateSize())
 	}
 	
 	protected KeyedItem retrieveItem(TreeNode tNode, Comparable searchKey) {
+		//disallow duplicates so that you always know which object to retrieve (or delete)
+		//you could return a list with all duplicate search keys (but delete is still a problem)
 		KeyedItem treeItem;
 		
 		if (tNode == null) {
@@ -87,10 +123,12 @@ public class BinarySearchTree extends BinaryTreeBasis implements SearchTreeInter
 		}
 		// else search for the item
 		else if (comparison < 0) {
+			//decompose these two lines into one deleteLeft(TreeNode tNode, Comparable sk) method call, and assign the value to tNode
 			// search the left subtree
 			subtree = deleteItem(tNode.getLeft(), searchKey);
 			tNode.setLeft(subtree);
 		} else {
+			//decompose these two lines into one deleteRight(TreeNode tNode, Comparable sk) method call, and assign the value to tNode
 			// search the right subtree
 			subtree = deleteItem(tNode.getRight(), searchKey);
 			tNode.setRight(subtree);
@@ -125,6 +163,7 @@ public class BinarySearchTree extends BinaryTreeBasis implements SearchTreeInter
 		// there are two children:
 		// retrieve and delete the inorder successor
 		else {
+			//decompose these lines into one method call deleteInorderSuccessor(TreeNode tNode)
 			KeyedItem replacementItem = findLeftmost(tNode.getRight());
 			tNode.setItem(replacementItem);
 			TreeNode subtree = deleteLeftmost(tNode.getRight());
@@ -145,6 +184,7 @@ public class BinarySearchTree extends BinaryTreeBasis implements SearchTreeInter
 		if (tNode.getLeft() == null) {
 			return tNode.getRight();
 		} else {
+			//decompose into one method call, returning tNode
 			TreeNode subtree = deleteLeftmost(tNode.getLeft());
 			tNode.setLeft(subtree);
 			return tNode;
@@ -152,29 +192,23 @@ public class BinarySearchTree extends BinaryTreeBasis implements SearchTreeInter
 	}
 	
 	protected TreeNode rotateLeft(TreeNode tNode) {
-		TreeNode newRoot = tNode.getRight();
+		TreeNode right = tNode.getRight();
+		TreeNode rightleft = right.getLeft();
 		
-		if (tNode.getRight() != null) {
-			tNode.setRight(tNode.getRight().getLeft());
-		}
-		newRoot.setLeft(tNode);
-		return newRoot;
+		tNode.setRight(rightleft);
+		right.setLeft(tNode);
 		
-		
-		
+		return right;
 	}
 	
 	protected TreeNode rotateRight(TreeNode tNode) {
-		TreeNode newRoot = tNode.getLeft();
-		if (tNode.getLeft() != null) {
-			tNode.setLeft(tNode.getLeft().getRight());
-		}
-		newRoot.setRight(tNode);
-		return newRoot;
+		TreeNode left = tNode.getLeft();
+		TreeNode leftright = left.getRight();
+		
+		tNode.setLeft(leftright);
+		left.setRight(tNode);
+		
+		return left;
 	}
-	
-	
-	
-	
 	
 }
